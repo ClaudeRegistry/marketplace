@@ -8,10 +8,11 @@ Review the current conversation history and generate a comprehensive HTML assess
 ## Instructions
 
 1. **Analyze the conversation** for assessment results from any of these commands:
-   - `/security-assessment`
-   - `/performance-assessment`
    - `/architecture-assessment`
-   - `/remediation`
+   - `/generic-code-assessment`
+   - `/java-security-assessment`
+   
+   
 
 2. **Generate an HTML report** with this structure:
    - Professional gradient header with project info and timestamp

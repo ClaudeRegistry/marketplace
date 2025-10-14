@@ -4,12 +4,7 @@ A comprehensive codebase assessment plugin for Claude Code that provides securit
 
 ## Purpose
 
-Clauditor helps developers perform thorough codebase assessments through specialized slash commands. Each command provides detailed analysis and actionable insights for different aspects of your codebase:
-
-- **Security Assessment** - Identify vulnerabilities, security risks, and compliance issues
-- **Performance Assessment** - Analyze performance bottlenecks and optimization opportunities
-- **Architecture Assessment** - Evaluate code structure, design patterns, and maintainability
-- **Remediation** - Generate actionable remediation plans based on assessment findings
+Clauditor helps developers perform thorough codebase assessments through specialized slash commands. Each command provides detailed analysis and actionable insights for different aspects of your codebase.
 
 ## Installation
 
@@ -22,12 +17,12 @@ Clauditor helps developers perform thorough codebase assessments through special
 
 2. Install the plugin using Claude Code CLI:
    ```bash
-   claude-code plugins install .
+   claude plugins install .
    ```
 
 3. Verify the plugin is installed:
    ```bash
-   claude-code plugins list
+   claude plugins list
    ```
 
 ### From Git Repository
@@ -35,7 +30,7 @@ Clauditor helps developers perform thorough codebase assessments through special
 If hosting this plugin in a repository:
 
 ```bash
-claude-code plugins install <repository-url>
+claude plugins install <repository-url>
 ```
 
 ## Usage
@@ -127,10 +122,7 @@ clauditor/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin manifest
 ├── commands/                     # Slash commands
-│   ├── security-assessment.md
-│   ├── performance-assessment.md
-│   ├── architecture-assessment.md
-│   ├── remediation.md
+│   ├── *-assessment.md
 │   └── generate-report.md
 ├── reports/                      # Generated HTML reports (created automatically)
 └── README.md                     # This file
@@ -146,13 +138,13 @@ clauditor/
 To update the plugin after making changes:
 
 ```bash
-claude-code plugins update clauditor
+claude plugins update clauditor
 ```
 
 Or reinstall from the directory:
 
 ```bash
-claude-code plugins install . --force
+claude plugins install . --force
 ```
 
 ## Uninstalling
@@ -160,7 +152,7 @@ claude-code plugins install . --force
 To remove the plugin:
 
 ```bash
-claude-code plugins uninstall clauditor
+claude plugins uninstall clauditor
 ```
 
 ## Contributing
@@ -171,9 +163,6 @@ Contributions are welcome! Feel free to submit issues, feature requests, or pull
 
 [Specify your license here]
 
-## Author
-
-williank
 
 ## Version
 
