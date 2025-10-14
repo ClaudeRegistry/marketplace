@@ -1,0 +1,6 @@
+{
+  "name": "clauditor",
+  "description": "A comprehensive codebase assessment plugin providing security, performance, architecture, and remediation analysis commands",
+  "version": "1.0.0",
+  "author": "williank"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "clauderegistry",
+  "owner": {
+    "name": "Claude Registry",
+    "url": "https://clauderegistry.com"
+  },
+  "description": "A comprehensive marketplace for Claude Code plugins focused on code quality, security, and architecture assessment",
+  "plugins": [
+    {
+      "name": "clauditor",
+      "source": "./plugins/clauditor",
+      "description": "Comprehensive code auditing and assessment plugin with security, architecture, and performance analysis capabilities"
+    }
+  ]
+}
