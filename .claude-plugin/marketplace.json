@@ -2,14 +2,42 @@
   "name": "clauderegistry",
   "owner": {
     "name": "Claude Registry",
+    "email": "contact@clauderegistry.com",
     "url": "https://clauderegistry.com"
   },
-  "description": "A comprehensive marketplace for Claude Code plugins focused on code quality, security, and architecture assessment",
+  "metadata": {
+    "description": "Discover plugins that supercharge your Claude Code workflow with advanced security, architecture, and performance insights",
+    "version": "1.0.0"
+  },
   "plugins": [
     {
       "name": "clauditor",
       "source": "./plugins/clauditor",
-      "description": "Comprehensive code auditing and assessment plugin with security, architecture, and performance analysis capabilities"
+      "description": "Comprehensive code auditing and assessment plugin with security, architecture, and performance analysis capabilities",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "license": "MIT",
+      "keywords": [
+        "security",
+        "audit",
+        "code-quality",
+        "architecture",
+        "performance",
+        "assessment",
+        "vulnerability",
+        "compliance",
+        "java",
+        "remediation"
+      ],
+      "strict": false,
+      "commands": [
+        "./plugins/clauditor/commands/generic-assessment.md",
+        "./plugins/clauditor/commands/architecture-assessment.md",
+        "./plugins/clauditor/commands/java-security-assessment.md",
+        "./plugins/clauditor/commands/generate-report.md"
+      ]
     }
   ]
 }
