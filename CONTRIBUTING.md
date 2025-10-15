@@ -61,54 +61,139 @@ cd your-plugin-directory
 # Run your commands and verify they work as expected
 ```
 
-### 3. Fork and Clone
+### 3. Publish Your Plugin Repository
+
+Your plugin should be hosted in a public Git repository (GitHub, GitLab, Bitbucket, etc.):
 
 ```bash
-# Fork the repository on GitHub, then:
+# Create a new repository for your plugin
+# Example: https://github.com/yourusername/your-plugin-name
+
+# Push your plugin code to the repository
+git init
+git add .
+git commit -m "Initial plugin release"
+git remote add origin https://github.com/yourusername/your-plugin-name.git
+git push -u origin main
+```
+
+Ensure your repository is publicly accessible so users can install your plugin.
+
+### 4. Fork and Clone the Marketplace
+
+```bash
+# Fork the marketplace repository on GitHub, then:
 git clone https://github.com/YOUR_USERNAME/marketplace.git
 cd marketplace
 ```
 
-### 4. Add Your Plugin to Submissions
+### 5. Add Your Plugin to marketplace.json
+
+Edit `.claude-plugin/marketplace.json` to add your plugin entry:
 
 ```bash
-# Create the submissions directory if it doesn't exist
-mkdir -p submissions
-
-# Copy your plugin to the submissions directory
-cp -r /path/to/your-plugin submissions/your-plugin-name
-
 # Create a new branch
-git checkout -b plugin/your-plugin-name
+git checkout -b add-your-plugin-name
 
-# Commit your changes
-git add submissions/your-plugin-name
-git commit -m "Add [your-plugin-name] plugin"
-
-# Push to your fork
-git push origin plugin/your-plugin-name
+# Edit the marketplace.json file
 ```
 
-### 5. Create a Pull Request
+Add your plugin to the `plugins` array using the Git URL format:
+
+```json
+{
+  "name": "your-plugin-name",
+  "source": {
+    "source": "url",
+    "url": "https://github.com/yourusername/your-plugin-name.git"
+  },
+  "description": "Clear, concise description of what your plugin does",
+  "version": "1.0.0",
+  "author": {
+    "name": "Your Name",
+    "url": "https://github.com/yourusername"
+  },
+  "repository": "https://github.com/yourusername/your-plugin-name",
+  "license": "MIT",
+  "keywords": [
+    "category",
+    "relevant",
+    "tags"
+  ],
+  "strict": false
+}
+```
+
+**Important**: The `source` field tells Claude Code where to find your plugin. We use the Git URL format which supports any Git hosting service (GitHub, GitLab, Bitbucket, self-hosted, etc.).
+
+#### Source Field Options
+
+While we recommend the Git URL format shown above, the source field supports multiple formats:
+
+1. **Git URL (Recommended)** - Works with any Git hosting:
+```json
+"source": {
+  "source": "url",
+  "url": "https://github.com/yourusername/your-plugin-name.git"
+}
+```
+
+2. **GitHub (Alternative)** - Shorthand for GitHub repositories:
+```json
+"source": {
+  "source": "github",
+  "repo": "yourusername/your-plugin-name"
+}
+```
+
+3. **Relative Path** - Only for plugins hosted in this repository:
+```json
+"source": "./plugins/your-plugin-name"
+```
+
+For external submissions, always use option 1 (Git URL format).
+
+```bash
+# Commit your changes
+git add .claude-plugin/marketplace.json
+git commit -m "Add [your-plugin-name] plugin to marketplace"
+
+# Push to your fork
+git push origin add-your-plugin-name
+```
+
+### 6. Create a Pull Request
 
 1. Go to your fork on GitHub
 2. Click "Pull Request"
 3. Select the "Plugin Submission" template
-4. Fill out all sections of the template
+4. Fill out all sections of the template:
+   - Plugin name and description
+   - Link to your plugin repository
+   - Brief explanation of what it does
+   - Testing steps you've completed
 5. Submit your PR
 
-### 6. Review Process
+### 7. Review Process
 
 After submission:
 
-1. **Automated Checks** - Our GitHub Action will validate your plugin structure
+1. **Automated Checks** - Our GitHub Action will validate your:
+   - Plugin repository accessibility
+   - Plugin structure and metadata
+   - marketplace.json syntax
 2. **Manual Review** - We'll review your plugin for:
    - Code quality and security
    - Functionality and usefulness
    - Documentation completeness
    - Compatibility with Claude Code
-3. **Feedback** - We may request changes or improvements
-4. **Approval** - Once approved, we'll move your plugin from `submissions/` to `marketplace/plugins/` and update the marketplace
+3. **Feedback** - We may request changes or improvements to either:
+   - Your plugin repository
+   - Your marketplace.json entry
+4. **Approval** - Once approved, we'll:
+   - Merge your marketplace.json entry
+   - Your plugin will be available for installation via Claude Code
+   - Users will install directly from your repository
 
 ## Plugin Guidelines
 
@@ -174,16 +259,19 @@ All plugins must use an open source license:
 
 To update an existing plugin:
 
-1. Update your plugin in the `submissions/` directory
-2. Increment the version in `plugin.json`
-3. Submit a new PR with clear changelog
-4. Reference the original PR in your description
+1. Update your plugin code in your repository
+2. Increment the version in `plugin.json` following semantic versioning
+3. Create a Git tag for the new version (optional but recommended)
+4. Update the version in marketplace.json (submit a PR to this repo)
+5. Include a clear changelog in your PR description
+
+Users will automatically get updates when they pull from your plugin repository.
 
 ## Getting Help
 
 - **Questions?** Open a [GitHub Discussion](https://github.com/clauderegistry/marketplace/discussions)
 - **Issues?** Report bugs in [Issues](https://github.com/clauderegistry/marketplace/issues)
-- **Examples?** Check existing plugins in the `plugins/` directory
+- **Examples?** Check the marketplace.json to see existing plugins and their repository URLs
 
 ## Code of Conduct
 

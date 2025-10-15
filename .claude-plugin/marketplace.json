@@ -38,6 +38,41 @@
         "./plugins/clauditor/commands/java-security-assessment.md",
         "./plugins/clauditor/commands/generate-report.md"
       ]
+    },
+    {
+      "name": "documate",
+      "source": "./plugins/documate",
+      "description": "Intelligent documentation automation plugin for generating, maintaining, and syncing code documentation across your entire codebase",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "license": "MIT",
+      "keywords": [
+        "documentation",
+        "docs",
+        "readme",
+        "api-docs",
+        "openapi",
+        "swagger",
+        "code-comments",
+        "jsdoc",
+        "inline-docs",
+        "architecture",
+        "diagrams",
+        "markdown",
+        "automation"
+      ],
+      "strict": false,
+      "commands": [
+        "./plugins/documate/commands/api-docs.md",
+        "./plugins/documate/commands/architecture-diagram.md",
+        "./plugins/documate/commands/doc-generate.md",
+        "./plugins/documate/commands/doc-sync-check.md",
+        "./plugins/documate/commands/doc-update.md",
+        "./plugins/documate/commands/explain-code.md",
+        "./plugins/documate/commands/readme-generate.md"
+      ]
     }
   ]
 }
