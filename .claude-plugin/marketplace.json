@@ -7,23 +7,22 @@
   },
   "metadata": {
     "description": "Discover plugins that supercharge your Claude Code workflow with advanced security, architecture, and performance insights",
-    "version": "1.0.1"
+    "version": "1.0.2"
   },
   "plugins": [
     {
       "name": "clauditor",
       "source": "./plugins/clauditor",
       "description": "Comprehensive code auditing and assessment plugin with security, architecture, and performance analysis capabilities",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
-        "name": "Claude Registry",
-        "url": "https://clauderegistry.com"
+        "name": "Claude Registry Clauditor",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/clauditor"
       },
       "license": "MIT",
       "keywords": [
         "security",
         "audit",
-        "code-quality",
         "architecture",
         "performance",
         "assessment",
@@ -46,8 +45,8 @@
       "description": "Intelligent documentation automation plugin for generating, maintaining, and syncing code documentation across your entire codebase",
       "version": "1.0.1",
       "author": {
-        "name": "Claude Registry",
-        "url": "https://clauderegistry.com"
+        "name": "Claude Registry DocuMate",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/documate"
       },
       "license": "MIT",
       "keywords": [
