@@ -69,6 +69,33 @@
         "./commands/explain-code.md",
         "./commands/readme-generate.md"
       ]
+    },
+    {
+      "name": "logicscope",
+      "source": "./plugins/logicscope",
+      "description": "Extract and understand business logic from legacy codebases without documentation or handover. Perfect for inherited projects and undocumented systems.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry LogicScope",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/logicscope"
+      },
+      "license": "MIT",
+      "keywords": [
+        "business-logic",
+        "legacy-code",
+        "reverse-engineering",
+        "data-flow",
+        "code-understanding"
+      ],
+      "category": "analysis",
+      "strict": false,
+      "commands": [
+        "./commands/business-logic-map.md",
+        "./commands/domain-discovery.md",
+        "./commands/workflow-tracer.md",
+        "./commands/hidden-dependencies.md",
+        "./commands/data-flow-analysis.md"
+      ]
     }
   ]
 }
