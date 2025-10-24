@@ -96,6 +96,36 @@
         "./commands/hidden-dependencies.md",
         "./commands/data-flow-analysis.md"
       ]
+    },
+    {
+      "name": "testforge",
+      "source": "./plugins/testforge",
+      "description": "Comprehensive test generation and analysis plugin that automates test creation, identifies coverage gaps, and improves test quality across your entire codebase",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry TestForge",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/testforge"
+      },
+      "license": "MIT",
+      "keywords": [
+        "testing",
+        "test-generation",
+        "unit-tests",
+        "e2e-tests",
+        "test-coverage",
+        "test-quality",
+        "test-data",
+        "automation"
+      ],
+      "category": "testing",
+      "strict": false,
+      "commands": [
+        "./commands/generate-unit-tests.md",
+        "./commands/generate-e2e-tests.md",
+        "./commands/test-gap-analysis.md",
+        "./commands/test-data-factory.md",
+        "./commands/improve-test-quality.md"
+      ]
     }
   ]
 }
