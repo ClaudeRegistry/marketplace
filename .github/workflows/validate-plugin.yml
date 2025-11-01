@@ -4,6 +4,14 @@ on:
   pull_request:
     paths:
       - 'submissions/**'
+      - 'plugins/**'
+      - '.claude-plugin/**'
+  push:
+    branches:
+      - main
+    paths:
+      - 'plugins/**'
+      - '.claude-plugin/**'
 
 jobs:
   validate:
@@ -14,11 +22,37 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install claudelint
+        run: npm install -g @stbenjam/claudelint
+
+      - name: Run claudelint on marketplace
+        run: |
+          echo "🔍 Running claudelint validation..."
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+          # Run claudelint on the entire marketplace
+          if claudelint .; then
+            echo ""
+            echo "✅ Claudelint validation passed!"
+          else
+            echo ""
+            echo "❌ Claudelint validation failed!"
+            echo "Please fix the errors above and update your PR."
+            exit 1
+          fi
+
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v44
         with:
-          files: submissions/**
+          files: |
+            submissions/**
+            plugins/**
 
       - name: Validate plugin structure
         run: |
@@ -173,7 +207,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '❌ Plugin validation failed. Please check the workflow logs for details and update your submission accordingly.\n\nSee [CONTRIBUTING.md](../blob/master/CONTRIBUTING.md) for guidelines.'
+              body: '❌ Plugin validation failed. Please check the workflow logs for details and update your submission accordingly.\n\n**Validation includes:**\n- [claudelint](https://github.com/stbenjam/claudelint) - Official Claude Code plugin validator\n- Custom marketplace validation checks\n\nSee [CONTRIBUTING.md](../blob/master/CONTRIBUTING.md) for guidelines.'
             })
 
       - name: Comment on PR (Success)
@@ -186,5 +220,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '✅ Plugin validation passed! Your submission looks good.\n\nA maintainer will review your plugin and provide feedback soon. Thank you for your contribution! 🚀'
+              body: '✅ Plugin validation passed! Your submission looks good.\n\n**Validation checks passed:**\n- ✅ claudelint validation\n- ✅ Plugin structure validation\n- ✅ Required files present\n\nA maintainer will review your plugin and provide feedback soon. Thank you for your contribution! 🚀'
             })
