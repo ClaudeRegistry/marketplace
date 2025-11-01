@@ -36,28 +36,23 @@ Traditional documentation tools won't help because there's no documentation to m
 
 ## Installation
 
-### From Claude Registry
+First, add the Claude Registry marketplace (if you haven't already):
 
 ```bash
-claude plugins install clauderegistry/logicscope
+/plugin marketplace add clauderegistry/marketplace
 ```
 
-### From Local Directory
+Then install LogicScope:
 
-1. Navigate to the logicscope plugin directory:
-   ```bash
-   cd /path/to/logicscope
-   ```
+```bash
+/plugin install logicscope
+```
 
-2. Install the plugin using Claude Code CLI:
-   ```bash
-   claude plugins install .
-   ```
+Or use the interactive browser:
 
-3. Verify the plugin is installed:
-   ```bash
-   claude plugins list
-   ```
+```bash
+/plugin
+```
 
 ## Commands
 

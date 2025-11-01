@@ -8,29 +8,22 @@ Clauditor helps developers perform thorough codebase assessments through special
 
 ## Installation
 
-### From Local Directory
-
-1. Navigate to the clauditor plugin directory:
-   ```bash
-   cd /path/to/clauditor
-   ```
-
-2. Install the plugin using Claude Code CLI:
-   ```bash
-   claude plugins install .
-   ```
-
-3. Verify the plugin is installed:
-   ```bash
-   claude plugins list
-   ```
-
-### From Git Repository
-
-If hosting this plugin in a repository:
+First, add the Claude Registry marketplace (if you haven't already):
 
 ```bash
-claude plugins install <repository-url>
+/plugin marketplace add clauderegistry/marketplace
+```
+
+Then install Clauditor:
+
+```bash
+/plugin install clauditor
+```
+
+Or use the interactive browser:
+
+```bash
+/plugin
 ```
 
 ## Usage
@@ -133,26 +126,24 @@ clauditor/
 - Claude Code CLI installed
 - Claude Code version compatible with plugins feature
 
-## Updating the Plugin
+## Managing the Plugin
 
-To update the plugin after making changes:
+To disable the plugin temporarily:
 
 ```bash
-claude plugins update clauditor
+/plugin disable clauditor
 ```
 
-Or reinstall from the directory:
+To enable it again:
 
 ```bash
-claude plugins install . --force
+/plugin enable clauditor
 ```
 
-## Uninstalling
-
-To remove the plugin:
+To uninstall completely:
 
 ```bash
-claude plugins uninstall clauditor
+/plugin uninstall clauditor
 ```
 
 ## Contributing

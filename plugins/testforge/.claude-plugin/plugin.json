@@ -1,0 +1,10 @@
+{
+  "name": "testforge",
+  "version": "1.0.0",
+  "description": "Comprehensive test generation and analysis plugin that automates test creation, identifies coverage gaps, and improves test quality across your entire codebase",
+  "author": {
+    "name": "Claude Registry TestForge",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/testforge"
+  },
+  "license": "MIT"
+}

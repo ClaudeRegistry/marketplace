@@ -18,29 +18,22 @@ DocuMate solves the #1 developer pain point: documentation. Research shows that 
 
 ## Installation
 
-### From Local Directory
-
-1. Navigate to the documate plugin directory:
-   ```bash
-   cd /path/to/documate
-   ```
-
-2. Install the plugin using Claude Code CLI:
-   ```bash
-   claude plugins install .
-   ```
-
-3. Verify the plugin is installed:
-   ```bash
-   claude plugins list
-   ```
-
-### From Git Repository
-
-If hosting this plugin in a repository:
+First, add the Claude Registry marketplace (if you haven't already):
 
 ```bash
-claude plugins install <repository-url>
+/plugin marketplace add clauderegistry/marketplace
+```
+
+Then install DocuMate:
+
+```bash
+/plugin install documate
+```
+
+Or use the interactive browser:
+
+```bash
+/plugin
 ```
 
 ## Commands
@@ -318,26 +311,24 @@ documate/
 5. **Explain the why**: Document business logic and design decisions
 6. **Update README**: Keep README.md current with `/readme-generate`
 
-## Updating the Plugin
+## Managing the Plugin
 
-To update the plugin after making changes:
+To disable the plugin temporarily:
 
 ```bash
-claude plugins update documate
+/plugin disable documate
 ```
 
-Or reinstall from the directory:
+To enable it again:
 
 ```bash
-claude plugins install . --force
+/plugin enable documate
 ```
 
-## Uninstalling
-
-To remove the plugin:
+To uninstall completely:
 
 ```bash
-claude plugins uninstall documate
+/plugin uninstall documate
 ```
 
 ## Use Cases
@@ -371,8 +362,9 @@ claude plugins uninstall documate
 ### Command not found:
 Ensure the plugin is installed:
 ```bash
-claude plugins list
+/plugin
 ```
+Then check if DocuMate appears in your installed plugins list.
 
 ### Documentation not generated:
 Check that the file path is correct and the file is readable.

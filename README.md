@@ -4,10 +4,22 @@ Official Claude Code plugin marketplace. Discover and install community-created 
 
 ## Installation
 
-Install this marketplace in Claude Code:
+First, add this marketplace to Claude Code:
 
 ```bash
-/marketplace install https://github.com/clauderegistry/marketplace
+/plugin marketplace add clauderegistry/marketplace
+```
+
+Then install plugins:
+
+```bash
+/plugin install documate
+```
+
+Or use the interactive browser:
+
+```bash
+/plugin
 ```
 
 ## Available Plugins

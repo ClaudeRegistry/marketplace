@@ -1,0 +1,10 @@
+{
+  "name": "clauditor",
+  "version": "1.0.2",
+  "description": "Comprehensive code auditing and assessment plugin with security, architecture, and performance analysis capabilities",
+  "author": {
+    "name": "Claude Registry Clauditor",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/clauditor"
+  },
+  "license": "MIT"
+}

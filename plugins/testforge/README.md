@@ -18,28 +18,23 @@ TestForge solves the critical testing challenges developers face: writing compre
 
 ## Installation
 
-### From Claude Registry
+First, add the Claude Registry marketplace (if you haven't already):
 
 ```bash
-claude plugins install clauderegistry/testforge
+/plugin marketplace add clauderegistry/marketplace
 ```
 
-### From Local Directory
+Then install TestForge:
 
-1. Navigate to the testforge plugin directory:
-   ```bash
-   cd /path/to/testforge
-   ```
+```bash
+/plugin install testforge
+```
 
-2. Install the plugin using Claude Code CLI:
-   ```bash
-   claude plugins install .
-   ```
+Or use the interactive browser:
 
-3. Verify the plugin is installed:
-   ```bash
-   claude plugins list
-   ```
+```bash
+/plugin
+```
 
 ## Commands
 
