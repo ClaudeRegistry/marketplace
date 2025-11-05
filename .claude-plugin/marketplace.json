@@ -31,7 +31,7 @@
         "remediation"
       ],
       "category": "auditing",
-      "strict": false,
+      "strict": true,
       "commands": [
         "./commands/generic-assessment.md",
         "./commands/architecture-assessment.md",
@@ -59,7 +59,7 @@
         "automation"
       ],
       "category": "documentation",
-      "strict": false,
+      "strict": true,
       "commands": [
         "./commands/api-docs.md",
         "./commands/architecture-diagram.md",
@@ -88,7 +88,7 @@
         "code-understanding"
       ],
       "category": "analysis",
-      "strict": false,
+      "strict": true,
       "commands": [
         "./commands/business-logic-map.md",
         "./commands/domain-discovery.md",
@@ -118,7 +118,7 @@
         "automation"
       ],
       "category": "testing",
-      "strict": false,
+      "strict": true,
       "commands": [
         "./commands/generate-unit-tests.md",
         "./commands/generate-e2e-tests.md",
