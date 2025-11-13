@@ -1,0 +1,10 @@
+{
+  "name": "dataforge",
+  "version": "1.0.0",
+  "description": "Advanced data transformation and processing plugin for JSON, CSV, XML, YAML with powerful querying, filtering, and conversion capabilities",
+  "author": {
+    "name": "Claude Registry DataForge",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/dataforge"
+  },
+  "license": "MIT"
+}
