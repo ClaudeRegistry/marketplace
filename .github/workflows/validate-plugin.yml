@@ -22,183 +22,24 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install claudelint
-        run: npm install -g @stbenjam/claudelint
-
-      - name: Run claudelint on marketplace
+      - name: Install dependencies
         run: |
-          echo "🔍 Running claudelint validation..."
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq jq
 
-          # Run claudelint on the entire marketplace
-          if claudelint .; then
-            echo ""
-            echo "✅ Claudelint validation passed!"
-          else
-            echo ""
-            echo "❌ Claudelint validation failed!"
-            echo "Please fix the errors above and update your PR."
-            exit 1
-          fi
-
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v44
-        with:
-          files: |
-            submissions/**
-            plugins/**
-
-      - name: Validate plugin structure
+      - name: Validate submissions
         run: |
-          echo "🔍 Validating plugin submission..."
+          chmod +x .github/scripts/validate-plugins.sh
+          .github/scripts/validate-plugins.sh submissions
 
-          # Function to validate a plugin directory
-          validate_plugin() {
-            local plugin_dir=$1
-            local plugin_name=$(basename "$plugin_dir")
-            local errors=0
-
-            echo ""
-            echo "📦 Validating plugin: $plugin_name"
-            echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-
-            # Check if .claude-plugin directory exists
-            if [ ! -d "$plugin_dir/.claude-plugin" ]; then
-              echo "❌ Missing .claude-plugin directory"
-              errors=$((errors + 1))
-            else
-              echo "✅ .claude-plugin directory exists"
-            fi
-
-            # Check if plugin.json exists
-            if [ ! -f "$plugin_dir/.claude-plugin/plugin.json" ]; then
-              echo "❌ Missing .claude-plugin/plugin.json"
-              errors=$((errors + 1))
-            else
-              echo "✅ plugin.json exists"
-
-              # Validate JSON syntax
-              if ! jq empty "$plugin_dir/.claude-plugin/plugin.json" 2>/dev/null; then
-                echo "❌ plugin.json is not valid JSON"
-                errors=$((errors + 1))
-              else
-                echo "✅ plugin.json is valid JSON"
-
-                # Check required fields
-                if ! jq -e '.name' "$plugin_dir/.claude-plugin/plugin.json" > /dev/null 2>&1; then
-                  echo "❌ plugin.json missing 'name' field"
-                  errors=$((errors + 1))
-                else
-                  echo "✅ 'name' field present"
-                fi
-
-                if ! jq -e '.version' "$plugin_dir/.claude-plugin/plugin.json" > /dev/null 2>&1; then
-                  echo "❌ plugin.json missing 'version' field"
-                  errors=$((errors + 1))
-                else
-                  echo "✅ 'version' field present"
-                fi
-
-                if ! jq -e '.description' "$plugin_dir/.claude-plugin/plugin.json" > /dev/null 2>&1; then
-                  echo "❌ plugin.json missing 'description' field"
-                  errors=$((errors + 1))
-                else
-                  echo "✅ 'description' field present"
-                fi
-
-                if ! jq -e '.author' "$plugin_dir/.claude-plugin/plugin.json" > /dev/null 2>&1; then
-                  echo "⚠️  Warning: 'author' field recommended"
-                fi
-              fi
-            fi
-
-            # Check if README.md exists
-            if [ ! -f "$plugin_dir/README.md" ]; then
-              echo "❌ Missing README.md"
-              errors=$((errors + 1))
-            else
-              echo "✅ README.md exists"
-
-              # Check README has content
-              if [ ! -s "$plugin_dir/README.md" ]; then
-                echo "⚠️  Warning: README.md is empty"
-              fi
-            fi
-
-            # Check for LICENSE file
-            if [ ! -f "$plugin_dir/LICENSE" ] && [ ! -f "$plugin_dir/LICENSE.md" ] && [ ! -f "$plugin_dir/LICENSE.txt" ]; then
-              echo "⚠️  Warning: No LICENSE file found (recommended)"
-            else
-              echo "✅ LICENSE file exists"
-            fi
-
-            # Check for commands directory if it exists
-            if [ -d "$plugin_dir/commands" ]; then
-              echo "✅ commands directory exists"
-              local cmd_count=$(find "$plugin_dir/commands" -name "*.md" | wc -l)
-              echo "   Found $cmd_count command file(s)"
-            fi
-
-            # Check for hooks directory if it exists
-            if [ -d "$plugin_dir/hooks" ]; then
-              echo "✅ hooks directory exists"
-            fi
-
-            # Check for agents directory if it exists
-            if [ -d "$plugin_dir/agents" ]; then
-              echo "✅ agents directory exists"
-            fi
-
-            echo ""
-            if [ $errors -gt 0 ]; then
-              echo "❌ Validation failed with $errors error(s)"
-              return 1
-            else
-              echo "✅ All validations passed!"
-              return 0
-            fi
-          }
-
-          # Find all plugin directories in submissions/
-          submission_dirs=$(find submissions -mindepth 1 -maxdepth 1 -type d)
-
-          if [ -z "$submission_dirs" ]; then
-            echo "⚠️  No plugin directories found in submissions/"
-            exit 0
-          fi
-
-          total_errors=0
-
-          # Validate each plugin
-          for plugin_dir in $submission_dirs; do
-            if ! validate_plugin "$plugin_dir"; then
-              total_errors=$((total_errors + 1))
-            fi
-          done
-
-          echo ""
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          if [ $total_errors -gt 0 ]; then
-            echo "❌ Validation failed for $total_errors plugin(s)"
-            echo ""
-            echo "Please fix the errors above and update your PR."
-            echo "See CONTRIBUTING.md for detailed guidelines."
-            exit 1
-          else
-            echo "✅ All plugins validated successfully!"
-            echo ""
-            echo "Your plugin submission looks good! 🎉"
-            echo "A maintainer will review your PR soon."
-          fi
+      - name: Validate existing plugins (on push to main)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          chmod +x .github/scripts/validate-plugins.sh
+          .github/scripts/validate-plugins.sh plugins
 
       - name: Comment on PR
-        if: failure()
+        if: failure() && github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -207,11 +48,11 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '❌ Plugin validation failed. Please check the workflow logs for details and update your submission accordingly.\n\n**Validation includes:**\n- [claudelint](https://github.com/stbenjam/claudelint) - Official Claude Code plugin validator\n- Custom marketplace validation checks\n\nSee [CONTRIBUTING.md](../blob/master/CONTRIBUTING.md) for guidelines.'
+              body: '❌ Plugin validation failed. Please check the workflow logs for details and update your submission accordingly.\n\n**Validation checks include:**\n- ✅ Plugin structure (`.claude-plugin/plugin.json`)\n- ✅ Required metadata fields (name, version, description)\n- ✅ Documentation (`README.md`)\n- ✅ Command and skill file validation\n- ✅ Naming conventions\n\nSee [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for detailed guidelines on the required plugin structure.'
             })
 
       - name: Comment on PR (Success)
-        if: success()
+        if: success() && github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -220,5 +61,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '✅ Plugin validation passed! Your submission looks good.\n\n**Validation checks passed:**\n- ✅ claudelint validation\n- ✅ Plugin structure validation\n- ✅ Required files present\n\nA maintainer will review your plugin and provide feedback soon. Thank you for your contribution! 🚀'
+              body: '✅ Plugin validation passed! Your submission looks good.\n\n**Validation checks passed:**\n- ✅ Plugin structure validation\n- ✅ Metadata and manifest validation\n- ✅ Required files present\n- ✅ Naming conventions followed\n\nA maintainer will review your plugin and provide feedback soon. Thank you for your contribution! 🚀'
             })
