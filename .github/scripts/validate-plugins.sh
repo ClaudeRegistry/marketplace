@@ -317,12 +317,101 @@ validate_plugin() {
     fi
 }
 
+# Function to validate marketplace.json
+validate_marketplace_json() {
+    local marketplace_json=".claude-plugin/marketplace.json"
+
+    print_header "Validating marketplace.json"
+
+    if [ ! -f "$marketplace_json" ]; then
+        print_warning "marketplace.json not found at $marketplace_json"
+        return 0  # Optional file
+    fi
+
+    local errors=0
+
+    # Validate JSON syntax
+    if ! validate_json_syntax "$marketplace_json"; then
+        print_error "Invalid JSON syntax in marketplace.json"
+        return 1
+    fi
+    print_success "Valid JSON syntax"
+
+    # Check required fields
+    if ! check_json_field_exists "$marketplace_json" "name"; then
+        print_error "Missing 'name' field"
+        errors=$((errors + 1))
+    else
+        print_success "Field 'name' present"
+    fi
+
+    if ! check_json_field_exists "$marketplace_json" "plugins"; then
+        print_error "Missing 'plugins' array"
+        errors=$((errors + 1))
+    else
+        print_success "Field 'plugins' present"
+    fi
+
+    # Get all plugin names from marketplace.json
+    local marketplace_plugins
+    if [ "$USE_PYTHON_JSON" = true ]; then
+        marketplace_plugins=$(python3 -c "import json; data=json.load(open('$marketplace_json')); print('\n'.join([p['name'] for p in data.get('plugins', [])]))" 2>/dev/null)
+    else
+        marketplace_plugins=$(jq -r '.plugins[].name' "$marketplace_json" 2>/dev/null)
+    fi
+
+    # Get all actual plugin directories
+    local actual_plugins=$(find plugins -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
+
+    # Check if all plugins in marketplace.json exist in plugins/
+    echo ""
+    print_info "Checking plugin registry consistency..."
+    local registry_errors=0
+
+    while IFS= read -r plugin_name; do
+        if [ -n "$plugin_name" ]; then
+            if [ ! -d "plugins/$plugin_name" ]; then
+                print_error "Plugin '$plugin_name' listed in marketplace.json but not found in plugins/"
+                registry_errors=$((registry_errors + 1))
+            fi
+        fi
+    done <<< "$marketplace_plugins"
+
+    # Check if all plugins in plugins/ are listed in marketplace.json
+    while IFS= read -r plugin_dir; do
+        if [ -n "$plugin_dir" ]; then
+            if ! echo "$marketplace_plugins" | grep -q "^${plugin_dir}$"; then
+                print_warning "Plugin '$plugin_dir' exists in plugins/ but not listed in marketplace.json"
+                total_warnings=$((total_warnings + 1))
+            fi
+        fi
+    done <<< "$actual_plugins"
+
+    errors=$((errors + registry_errors))
+
+    echo ""
+    if [ $errors -gt 0 ]; then
+        print_error "marketplace.json validation failed with $errors error(s)"
+        total_errors=$((total_errors + errors))
+        return 1
+    else
+        print_success "marketplace.json validation passed!"
+        return 0
+    fi
+}
+
 # Main execution
 main() {
     local target_dir="${1:-submissions}"
+    local validate_registry="${2:-false}"
 
     print_header "Claude Code Marketplace Plugin Validator"
     print_info "Validating plugins in: $target_dir"
+
+    # Validate marketplace.json if we're validating the plugins directory
+    if [ "$target_dir" = "plugins" ] || [ "$validate_registry" = "true" ]; then
+        validate_marketplace_json
+    fi
 
     # Check if target directory exists
     if [ ! -d "$target_dir" ]; then

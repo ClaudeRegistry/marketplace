@@ -126,6 +126,64 @@
         "./commands/test-data-factory.md",
         "./commands/improve-test-quality.md"
       ]
+    },
+    {
+      "name": "dataforge",
+      "source": "./plugins/dataforge",
+      "description": "Powerful data transformation and processing plugin for converting, validating, and manipulating data across various formats",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry DataForge",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/dataforge"
+      },
+      "license": "MIT",
+      "keywords": [
+        "data-transformation",
+        "json",
+        "csv",
+        "data-validation",
+        "schema-generation",
+        "format-conversion"
+      ],
+      "category": "data",
+      "strict": true,
+      "commands": [
+        "./commands/json-query.md",
+        "./commands/csv-transform.md",
+        "./commands/format-converter.md",
+        "./commands/data-validator.md",
+        "./commands/schema-generator.md"
+      ]
+    },
+    {
+      "name": "codementor",
+      "source": "./plugins/codementor",
+      "description": "AI-powered code learning and mentoring system with interactive teaching, code explanations, practice exercises, and educational code reviews",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry CodeMentor",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/codementor"
+      },
+      "license": "MIT",
+      "keywords": [
+        "learning",
+        "education",
+        "mentoring",
+        "teaching",
+        "code-review",
+        "practice"
+      ],
+      "category": "education",
+      "strict": true,
+      "commands": [
+        "./commands/explain-code.md",
+        "./commands/practice-exercise.md",
+        "./commands/code-review-teach.md",
+        "./commands/concept-deep-dive.md"
+      ],
+      "skills": [
+        "./skills/code-mentor.md"
+      ]
     }
   ]
 }

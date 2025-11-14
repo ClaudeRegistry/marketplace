@@ -48,7 +48,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '❌ Plugin validation failed. Please check the workflow logs for details and update your submission accordingly.\n\n**Validation checks include:**\n- ✅ Plugin structure (`.claude-plugin/plugin.json`)\n- ✅ Required metadata fields (name, version, description)\n- ✅ Documentation (`README.md`)\n- ✅ Command and skill file validation\n- ✅ Naming conventions\n\nSee [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for detailed guidelines on the required plugin structure.'
+              body: '❌ Plugin validation failed. Please check the workflow logs for details and update your submission accordingly.\n\n**Validation checks include:**\n- Plugin structure (`.claude-plugin/plugin.json`)\n- Required metadata fields (name, version, description)\n- Documentation (`README.md`)\n- Command and skill file validation\n- Naming conventions\n- Marketplace registry (`.claude-plugin/marketplace.json`)\n- Registry consistency (all plugins listed)\n\nSee [CONTRIBUTING.md](../blob/main/CONTRIBUTING.md) for detailed guidelines on the required plugin structure.'
             })
 
       - name: Comment on PR (Success)
@@ -61,5 +61,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '✅ Plugin validation passed! Your submission looks good.\n\n**Validation checks passed:**\n- ✅ Plugin structure validation\n- ✅ Metadata and manifest validation\n- ✅ Required files present\n- ✅ Naming conventions followed\n\nA maintainer will review your plugin and provide feedback soon. Thank you for your contribution! 🚀'
+              body: '✅ Plugin validation passed! Your submission looks good.\n\n**Validation checks passed:**\n- ✅ Plugin structure validation\n- ✅ Metadata and manifest validation\n- ✅ Required files present\n- ✅ Naming conventions followed\n- ✅ Marketplace registry consistency\n\nA maintainer will review your plugin and provide feedback soon. Thank you for your contribution! 🚀'
             })
