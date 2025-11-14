@@ -255,13 +255,7 @@ Or use the interactive browser:
 
 ### Using the CodeMentor Skill
 
-Activate the skill for an interactive teaching session:
-
-```bash
-/skill code-mentor
-```
-
-Once activated, you'll have a persistent teaching companion for your session:
+The CodeMentor skill activates automatically when you engage in teaching-oriented conversations. Simply start asking questions or request learning help naturally:
 
 ```
 You: "I want to learn about React hooks"
@@ -329,8 +323,8 @@ Commands work standalone without activating the skill:
 2. /concept-deep-dive [pattern-used]
    → Deep dive into patterns/concepts used
 
-3. /skill code-mentor
-   → Ask follow-up questions interactively
+3. Ask follow-up questions naturally
+   → The CodeMentor skill will activate for interactive teaching
 
 4. /practice-exercise
    → Practice similar patterns
@@ -340,7 +334,7 @@ Commands work standalone without activating the skill:
 ```
 /explain-code src/middleware/auth.js
 /concept-deep-dive middleware-pattern
-/skill code-mentor → "How would I add rate limiting middleware?"
+"How would I add rate limiting middleware?" → CodeMentor skill activates
 /practice-exercise → "Implement custom middleware"
 ```
 
@@ -364,10 +358,10 @@ Commands work standalone without activating the skill:
 ### Workflow 4: Skill Building
 
 ```
-1. /skill code-mentor
-   → "I want to improve at [skill-area]"
+1. Ask: "I want to improve at [skill-area]"
+   → CodeMentor skill activates and suggests learning path
 
-2. CodeMentor suggests learning path
+2. Follow the suggested learning path
 
 3. /practice-exercise (series)
    → Complete progressive exercises
@@ -383,8 +377,8 @@ Commands work standalone without activating the skill:
 ```
 1. Encounter bug or error
 
-2. /skill code-mentor
-   → "I have this error: [error message]"
+2. Ask: "I have this error: [error message]"
+   → CodeMentor skill activates
 
 3. CodeMentor guides debugging process
    → Asks questions, teaches strategy
@@ -407,7 +401,7 @@ Commands work standalone without activating the skill:
 Week 1: Code Exploration
 - Use /explain-code on key modules
 - /concept-deep-dive on main patterns used
-- /skill code-mentor for Q&A sessions
+- Ask questions naturally for interactive Q&A sessions
 
 Week 2: Hands-On Practice
 - /practice-exercise on common tasks
@@ -416,7 +410,7 @@ Week 2: Hands-On Practice
 
 Week 3: Real Work with Support
 - /code-review-teach on actual contributions
-- /skill code-mentor for ongoing questions
+- Continue asking questions as they arise
 - Continuous learning while contributing
 ```
 
@@ -537,8 +531,8 @@ Code review:
 - Learn to explain your thinking
 - Understand trade-offs
 
-Mock interviews with /skill code-mentor:
-- Ask it to interview you
+Mock interviews with CodeMentor:
+- Ask: "Can you interview me on [topic]?"
 - Practice explaining concepts
 - Get feedback on answers
 ```
@@ -710,9 +704,9 @@ After learning something, explain it back to CodeMentor. Teaching reinforces lea
 Start with command for structure:
 /concept-deep-dive promises
 
-Then continue with skill for Q&A:
-/skill code-mentor
-→ "I have questions about promise chaining from that deep dive..."
+Then ask follow-up questions naturally:
+"I have questions about promise chaining from that deep dive..."
+→ CodeMentor skill continues the conversation
 ```
 
 ## Plugin Structure
@@ -874,7 +868,7 @@ Made with care for the Claude Code community 🎓
 ## Getting Help
 
 - **Plugin Issues**: Report at the marketplace GitHub repository
-- **Learning Questions**: Use `/skill code-mentor` - that's what it's for!
+- **Learning Questions**: Just ask naturally - CodeMentor is designed for this!
 - **Feature Requests**: Submit via pull request or issue
 - **Feedback**: We'd love to hear how CodeMentor has helped your learning journey
 
