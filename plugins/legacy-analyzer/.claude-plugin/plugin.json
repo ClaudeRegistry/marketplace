@@ -1,10 +1,10 @@
 {
-  "name": "logicscope",
+  "name": "legacy-analyzer",
   "version": "1.0.0",
   "description": "Extract and understand business logic from legacy codebases without documentation or handover. Perfect for inherited projects and undocumented systems.",
   "author": {
-    "name": "Claude Registry LogicScope",
-    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/logicscope"
+    "name": "Claude Registry Legacy Analyzer",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/legacy-analyzer"
   },
   "license": "MIT"
 }

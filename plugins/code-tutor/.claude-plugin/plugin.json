@@ -1,10 +1,10 @@
 {
-  "name": "codementor",
+  "name": "code-tutor",
   "version": "1.0.0",
   "description": "AI-powered code learning and mentoring system with interactive teaching, code explanations, practice exercises, and educational code reviews",
   "author": {
-    "name": "Claude Registry CodeMentor",
-    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/codementor"
+    "name": "Claude Registry Code Tutor",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/code-tutor"
   },
   "license": "MIT"
 }

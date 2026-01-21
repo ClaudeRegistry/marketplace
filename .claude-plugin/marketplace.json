@@ -11,13 +11,13 @@
   },
   "plugins": [
     {
-      "name": "clauditor",
-      "source": "./plugins/clauditor",
+      "name": "code-auditor",
+      "source": "./plugins/code-auditor",
       "description": "Comprehensive code auditing and assessment plugin with security, architecture, and performance analysis capabilities",
       "version": "1.0.2",
       "author": {
-        "name": "Claude Registry Clauditor",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/clauditor"
+        "name": "Claude Registry Code Auditor",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/code-auditor"
       },
       "license": "MIT",
       "keywords": [
@@ -40,13 +40,13 @@
       ]
     },
     {
-      "name": "documate",
-      "source": "./plugins/documate",
+      "name": "doc-generator",
+      "source": "./plugins/doc-generator",
       "description": "Intelligent documentation automation plugin for generating, maintaining, and syncing code documentation across your entire codebase",
       "version": "1.0.1",
       "author": {
-        "name": "Claude Registry DocuMate",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/documate"
+        "name": "Claude Registry Doc Generator",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/doc-generator"
       },
       "license": "MIT",
       "keywords": [
@@ -71,13 +71,13 @@
       ]
     },
     {
-      "name": "logicscope",
-      "source": "./plugins/logicscope",
+      "name": "legacy-analyzer",
+      "source": "./plugins/legacy-analyzer",
       "description": "Extract and understand business logic from legacy codebases without documentation or handover. Perfect for inherited projects and undocumented systems.",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Registry LogicScope",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/logicscope"
+        "name": "Claude Registry Legacy Analyzer",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/legacy-analyzer"
       },
       "license": "MIT",
       "keywords": [
@@ -98,13 +98,13 @@
       ]
     },
     {
-      "name": "testforge",
-      "source": "./plugins/testforge",
+      "name": "test-generator",
+      "source": "./plugins/test-generator",
       "description": "Comprehensive test generation and analysis plugin that automates test creation, identifies coverage gaps, and improves test quality across your entire codebase",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Registry TestForge",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/testforge"
+        "name": "Claude Registry Test Generator",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/test-generator"
       },
       "license": "MIT",
       "keywords": [
@@ -128,13 +128,13 @@
       ]
     },
     {
-      "name": "dataforge",
-      "source": "./plugins/dataforge",
+      "name": "data-converter",
+      "source": "./plugins/data-converter",
       "description": "Powerful data transformation and processing plugin for converting, validating, and manipulating data across various formats",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Registry DataForge",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/dataforge"
+        "name": "Claude Registry Data Converter",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/data-converter"
       },
       "license": "MIT",
       "keywords": [
@@ -156,13 +156,13 @@
       ]
     },
     {
-      "name": "codementor",
-      "source": "./plugins/codementor",
+      "name": "code-tutor",
+      "source": "./plugins/code-tutor",
       "description": "AI-powered code learning and mentoring system with interactive teaching, code explanations, practice exercises, and educational code reviews",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Registry CodeMentor",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/codementor"
+        "name": "Claude Registry Code Tutor",
+        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/code-tutor"
       },
       "license": "MIT",
       "keywords": [

@@ -1,10 +1,10 @@
 {
-  "name": "documate",
+  "name": "doc-generator",
   "version": "1.0.1",
   "description": "Intelligent documentation automation plugin for generating, maintaining, and syncing code documentation across your entire codebase",
   "author": {
-    "name": "Claude Registry DocuMate",
-    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/documate"
+    "name": "Claude Registry Doc Generator",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/doc-generator"
   },
   "license": "MIT"
 }
