@@ -6,5 +6,12 @@
     "name": "Claude Registry Data Converter",
     "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/data-converter"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "commands": [
+    "./commands/json-query.md",
+    "./commands/csv-transform.md",
+    "./commands/format-converter.md",
+    "./commands/data-validator.md",
+    "./commands/schema-generator.md"
+  ]
 }

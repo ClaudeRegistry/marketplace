@@ -6,5 +6,11 @@
     "name": "Claude Registry Code Auditor",
     "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/code-auditor"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "commands": [
+    "./commands/generic-assessment.md",
+    "./commands/architecture-assessment.md",
+    "./commands/java-security-assessment.md",
+    "./commands/generate-report.md"
+  ]
 }

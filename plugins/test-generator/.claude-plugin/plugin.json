@@ -6,5 +6,12 @@
     "name": "Claude Registry Test Generator",
     "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/test-generator"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "commands": [
+    "./commands/generate-unit-tests.md",
+    "./commands/generate-e2e-tests.md",
+    "./commands/test-gap-analysis.md",
+    "./commands/test-data-factory.md",
+    "./commands/improve-test-quality.md"
+  ]
 }

@@ -6,5 +6,12 @@
     "name": "Claude Registry Legacy Analyzer",
     "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/legacy-analyzer"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "commands": [
+    "./commands/business-logic-map.md",
+    "./commands/domain-discovery.md",
+    "./commands/workflow-tracer.md",
+    "./commands/hidden-dependencies.md",
+    "./commands/data-flow-analysis.md"
+  ]
 }
