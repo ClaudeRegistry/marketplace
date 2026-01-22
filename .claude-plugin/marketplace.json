@@ -1,24 +1,21 @@
 {
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "clauderegistry",
+  "description": "Discover plugins that supercharge your Claude Code workflow with advanced security, architecture, and performance insights",
   "owner": {
-    "name": "Claude Registry",
-    "email": "contact@clauderegistry.com",
-    "url": "https://clauderegistry.com"
-  },
-  "metadata": {
-    "description": "Discover plugins that supercharge your Claude Code workflow with advanced security, architecture, and performance insights",
-    "version": "1.0.2"
+    "name": "Claude Registry"
   },
   "plugins": [
     {
       "name": "code-auditor",
-      "source": "./plugins/code-auditor",
       "description": "Comprehensive code auditing and assessment plugin with security, architecture, and performance analysis capabilities",
       "version": "1.0.2",
       "author": {
-        "name": "Claude Registry Code Auditor",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/code-auditor"
+        "name": "Claude Registry"
       },
+      "source": "./plugins/code-auditor",
+      "category": "auditing",
+      "homepage": "https://clauderegistry.com/plugin/code-auditor",
       "license": "MIT",
       "keywords": [
         "security",
@@ -30,7 +27,6 @@
         "compliance",
         "remediation"
       ],
-      "category": "auditing",
       "strict": true,
       "commands": [
         "./commands/generic-assessment.md",
@@ -41,13 +37,14 @@
     },
     {
       "name": "doc-generator",
-      "source": "./plugins/doc-generator",
       "description": "Intelligent documentation automation plugin for generating, maintaining, and syncing code documentation across your entire codebase",
       "version": "1.0.1",
       "author": {
-        "name": "Claude Registry Doc Generator",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/doc-generator"
+        "name": "Claude Registry"
       },
+      "source": "./plugins/doc-generator",
+      "category": "documentation",
+      "homepage": "https://clauderegistry.com/plugin/doc-generator",
       "license": "MIT",
       "keywords": [
         "documentation",
@@ -58,7 +55,6 @@
         "markdown",
         "automation"
       ],
-      "category": "documentation",
       "strict": true,
       "commands": [
         "./commands/api-docs.md",
@@ -72,13 +68,14 @@
     },
     {
       "name": "legacy-analyzer",
-      "source": "./plugins/legacy-analyzer",
       "description": "Extract and understand business logic from legacy codebases without documentation or handover. Perfect for inherited projects and undocumented systems.",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Registry Legacy Analyzer",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/legacy-analyzer"
+        "name": "Claude Registry"
       },
+      "source": "./plugins/legacy-analyzer",
+      "category": "analysis",
+      "homepage": "https://clauderegistry.com/plugin/legacy-analyzer",
       "license": "MIT",
       "keywords": [
         "business-logic",
@@ -87,7 +84,6 @@
         "data-flow",
         "code-understanding"
       ],
-      "category": "analysis",
       "strict": true,
       "commands": [
         "./commands/business-logic-map.md",
@@ -99,13 +95,14 @@
     },
     {
       "name": "test-generator",
-      "source": "./plugins/test-generator",
       "description": "Comprehensive test generation and analysis plugin that automates test creation, identifies coverage gaps, and improves test quality across your entire codebase",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Registry Test Generator",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/test-generator"
+        "name": "Claude Registry"
       },
+      "source": "./plugins/test-generator",
+      "category": "testing",
+      "homepage": "https://clauderegistry.com/plugin/test-generator",
       "license": "MIT",
       "keywords": [
         "testing",
@@ -117,7 +114,6 @@
         "test-data",
         "automation"
       ],
-      "category": "testing",
       "strict": true,
       "commands": [
         "./commands/generate-unit-tests.md",
@@ -129,13 +125,14 @@
     },
     {
       "name": "data-converter",
-      "source": "./plugins/data-converter",
       "description": "Powerful data transformation and processing plugin for converting, validating, and manipulating data across various formats",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Registry Data Converter",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/data-converter"
+        "name": "Claude Registry"
       },
+      "source": "./plugins/data-converter",
+      "category": "data",
+      "homepage": "https://clauderegistry.com/plugin/data-converter",
       "license": "MIT",
       "keywords": [
         "data-transformation",
@@ -145,7 +142,6 @@
         "schema-generation",
         "format-conversion"
       ],
-      "category": "data",
       "strict": true,
       "commands": [
         "./commands/json-query.md",
@@ -157,13 +153,14 @@
     },
     {
       "name": "code-tutor",
-      "source": "./plugins/code-tutor",
       "description": "AI-powered code learning and mentoring system with interactive teaching, code explanations, practice exercises, and educational code reviews",
       "version": "1.0.0",
       "author": {
-        "name": "Claude Registry Code Tutor",
-        "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/code-tutor"
+        "name": "Claude Registry"
       },
+      "source": "./plugins/code-tutor",
+      "category": "education",
+      "homepage": "https://clauderegistry.com/plugin/code-tutor",
       "license": "MIT",
       "keywords": [
         "learning",
@@ -173,7 +170,6 @@
         "code-review",
         "practice"
       ],
-      "category": "education",
       "strict": true,
       "commands": [
         "./commands/explain-code.md",

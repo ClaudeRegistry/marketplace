@@ -1,10 +1,10 @@
-# LogicScope
+# Legacy Analyzer
 
 Extract and understand business logic from legacy codebases without documentation or handover. Perfect for inherited projects, legacy systems, or undocumented code.
 
 ## Purpose
 
-LogicScope solves the critical problem of understanding legacy code when you have:
+Legacy Analyzer solves the critical problem of understanding legacy code when you have:
 - No developer handover
 - No product owner to explain requirements
 - No documentation
@@ -42,10 +42,10 @@ First, add the Claude Registry marketplace (if you haven't already):
 /plugin marketplace add clauderegistry/marketplace
 ```
 
-Then install LogicScope:
+Then install Legacy Analyzer:
 
 ```bash
-/plugin install logicscope
+/plugin install legacy-analyzer
 ```
 
 Or use the interactive browser:
@@ -328,28 +328,28 @@ If your change affects specific data, understand its complete journey through th
 
 **Result**: New team member gets comprehensive overview of business domains and logic, equivalent to weeks of code reading.
 
-## What Makes LogicScope Different
+## What Makes Legacy Analyzer Different
 
 ### vs. Code Documentation Tools
 - **Documentation tools** maintain existing docs
-- **LogicScope** extracts knowledge from code when no docs exist
+- **Legacy Analyzer** extracts knowledge from code when no docs exist
 
 ### vs. Code Search/Grep
 - **Search tools** find code
-- **LogicScope** explains business logic in plain language
+- **Legacy Analyzer** explains business logic in plain language
 
 ### vs. Architecture Diagrams
 - **Architecture tools** show structure
-- **LogicScope** reveals business rules and workflows
+- **Legacy Analyzer** reveals business rules and workflows
 
 ### vs. Static Analysis
 - **Static analysis** finds bugs
-- **LogicScope** explains what the business logic does and why
+- **Legacy Analyzer** explains what the business logic does and why
 
 ## Plugin Structure
 
 ```
-logicscope/
+legacy-analyzer/
 ├── commands/
 │   ├── business-logic-map.md       # Extract all business logic
 │   ├── domain-discovery.md         # Discover domains and entities
@@ -405,7 +405,7 @@ logicscope/
 ### E-commerce Platform Migration
 **Challenge**: 10-year-old Rails app with zero documentation, original developers gone.
 
-**Solution**: Used LogicScope to map all business logic before migration.
+**Solution**: Used Legacy Analyzer to map all business logic before migration.
 
 **Result**:
 - Discovered 47 business rules not mentioned in requirements
@@ -435,7 +435,7 @@ logicscope/
 ## Troubleshooting
 
 ### "Command takes too long to run"
-LogicScope commands analyze entire codebases, which takes time. Start with smaller scopes:
+Legacy Analyzer commands analyze entire codebases, which takes time. Start with smaller scopes:
 - Use `/workflow-tracer` for specific workflows
 - Use `/data-flow-analysis` for specific entities
 - Run `/domain-discovery` first to identify areas to focus on
@@ -452,7 +452,7 @@ LogicScope commands analyze entire codebases, which takes time. Start with small
 
 ## Contributing
 
-Contributions are welcome! To improve LogicScope:
+Contributions are welcome! To improve Legacy Analyzer:
 
 1. Fork the repository
 2. Create a feature branch
@@ -482,6 +482,6 @@ Built for developers who inherit legacy code without documentation. Inspired by 
 
 ---
 
-**Stop guessing what legacy code does. Use LogicScope to extract the knowledge.**
+**Stop guessing what legacy code does. Use Legacy Analyzer to extract the knowledge.**
 
 Made with understanding for the Claude Code community

@@ -1,12 +1,12 @@
-# DataForge
+# Data Converter
 
 Advanced data transformation and processing plugin for Claude Code that provides powerful querying, filtering, validation, and conversion capabilities for JSON, CSV, XML, YAML, and other data formats.
 
 ## Purpose
 
-DataForge solves the common challenge developers face when working with data files: transforming, validating, converting, and analyzing data across different formats. Inspired by powerful CLI tools like `jq`, `csvkit`, and modern data processing utilities, DataForge brings enterprise-grade data manipulation directly into your Claude Code workflow.
+Data Converter solves the common challenge developers face when working with data files: transforming, validating, converting, and analyzing data across different formats. Inspired by powerful CLI tools like `jq`, `csvkit`, and modern data processing utilities, Data Converter brings enterprise-grade data manipulation directly into your Claude Code workflow.
 
-## Why DataForge?
+## Why Data Converter?
 
 **Common Developer Pain Points:**
 - "I need to extract specific fields from this huge JSON file"
@@ -15,7 +15,7 @@ DataForge solves the common challenge developers face when working with data fil
 - "Can I generate TypeScript types from this API response?"
 - "I need to filter 10,000 rows by multiple conditions"
 
-**DataForge Makes It Easy:**
+**Data Converter Makes It Easy:**
 - Query and transform data with natural language
 - Convert between formats seamlessly
 - Validate data quality and schema compliance
@@ -71,10 +71,10 @@ First, add the Claude Registry marketplace (if you haven't already):
 /plugin marketplace add clauderegistry/marketplace
 ```
 
-Then install DataForge:
+Then install Data Converter:
 
 ```bash
-/plugin install dataforge
+/plugin install data-converter
 ```
 
 Or use the interactive browser:
@@ -419,27 +419,27 @@ Result: Combined dataset with customer info and orders
 → Validate against API schema
 ```
 
-## What Makes DataForge Different
+## What Makes Data Converter Different
 
 ### vs. Manual Processing
 - **Manual**: Write custom scripts for each transformation
-- **DataForge**: Natural language commands, instant results
+- **Data Converter**: Natural language commands, instant results
 
 ### vs. jq/csvkit
 - **CLI Tools**: Requires learning complex syntax
-- **DataForge**: Conversational interface, more accessible
+- **Data Converter**: Conversational interface, more accessible
 
 ### vs. Excel/Google Sheets
 - **Spreadsheets**: Manual point-and-click, limited automation
-- **DataForge**: Scriptable, reproducible, handles larger files
+- **Data Converter**: Scriptable, reproducible, handles larger files
 
 ### vs. Python Pandas
 - **Pandas**: Write code, set up environment, debug
-- **DataForge**: Describe what you want, get results immediately
+- **Data Converter**: Describe what you want, get results immediately
 
 ### vs. Online Converters
 - **Online Tools**: Upload sensitive data, limited features
-- **DataForge**: Local processing, comprehensive capabilities
+- **Data Converter**: Local processing, comprehensive capabilities
 
 ## Performance & Limits
 
@@ -458,7 +458,7 @@ Result: Combined dataset with customer info and orders
 ## Plugin Structure
 
 ```
-dataforge/
+data-converter/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin manifest
 ├── commands/
@@ -543,22 +543,22 @@ Use both in your application
 
 To disable the plugin temporarily:
 ```bash
-/plugin disable dataforge
+/plugin disable data-converter
 ```
 
 To enable it again:
 ```bash
-/plugin enable dataforge
+/plugin enable data-converter
 ```
 
 To uninstall completely:
 ```bash
-/plugin uninstall dataforge
+/plugin uninstall data-converter
 ```
 
 ## Contributing
 
-Contributions are welcome! To improve DataForge:
+Contributions are welcome! To improve Data Converter:
 
 1. Fork the repository
 2. Create a feature branch
@@ -593,6 +593,6 @@ Built for developers who work with data every day and need fast, reliable transf
 
 ---
 
-**Stop wrestling with data formats. Let DataForge handle it.**
+**Stop wrestling with data formats. Let Data Converter handle it.**
 
 Made with precision for the Claude Code community 🔧

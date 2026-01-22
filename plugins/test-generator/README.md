@@ -1,10 +1,10 @@
-# TestForge
+# Test Generator
 
 Comprehensive test generation and analysis plugin for Claude Code that automates test creation, identifies coverage gaps, and improves test quality across your entire codebase.
 
 ## Purpose
 
-TestForge solves the critical testing challenges developers face: writing comprehensive tests is time-consuming, coverage gaps are hard to identify, and test quality varies significantly. Research shows that projects with good test coverage have 40% fewer production bugs and 60% faster debugging cycles. TestForge automates test creation, ensures comprehensive coverage, and maintains high test quality standards.
+Test Generator solves the critical testing challenges developers face: writing comprehensive tests is time-consuming, coverage gaps are hard to identify, and test quality varies significantly. Research shows that projects with good test coverage have 40% fewer production bugs and 60% faster debugging cycles. Test Generator automates test creation, ensures comprehensive coverage, and maintains high test quality standards.
 
 ## Features
 
@@ -24,10 +24,10 @@ First, add the Claude Registry marketplace (if you haven't already):
 /plugin marketplace add clauderegistry/marketplace
 ```
 
-Then install TestForge:
+Then install Test Generator:
 
 ```bash
-/plugin install testforge
+/plugin install test-generator
 ```
 
 Or use the interactive browser:
@@ -296,7 +296,7 @@ This identifies new untested code and provides a prioritized list of test additi
 
 ## Framework Support
 
-TestForge automatically detects and generates tests for:
+Test Generator automatically detects and generates tests for:
 
 ### JavaScript/TypeScript
 - **Jest** - Full support with mocks, spies, and snapshots
@@ -333,7 +333,7 @@ TestForge automatically detects and generates tests for:
 
 ## Testing Best Practices
 
-TestForge follows industry best practices:
+Test Generator follows industry best practices:
 
 - **AAA Pattern**: Arrange, Act, Assert structure
 - **Descriptive Names**: Clear test names that explain what is being tested
@@ -346,7 +346,7 @@ TestForge follows industry best practices:
 ## Plugin Structure
 
 ```
-testforge/
+test-generator/
 ├── commands/
 │   ├── generate-unit-tests.md      # Generate unit tests
 │   ├── generate-e2e-tests.md       # Generate E2E tests
@@ -448,28 +448,28 @@ testforge/
 
 **Result**: Reusable factories that generate realistic test data instantly.
 
-## What Makes TestForge Different
+## What Makes Test Generator Different
 
 ### vs. Manual Testing
 - **Manual**: Hours to write comprehensive tests
-- **TestForge**: Minutes to generate complete test suites
+- **Test Generator**: Minutes to generate complete test suites
 
 ### vs. Code Coverage Tools
 - **Coverage Tools**: Tell you what's not tested
-- **TestForge**: Identifies gaps AND generates the missing tests
+- **Test Generator**: Identifies gaps AND generates the missing tests
 
 ### vs. AI Copilots
 - **Copilots**: Suggest individual tests as you type
-- **TestForge**: Analyzes entire codebase and generates comprehensive test strategies
+- **Test Generator**: Analyzes entire codebase and generates comprehensive test strategies
 
 ### vs. Test Generators
 - **Basic Generators**: Create simple test stubs
-- **TestForge**: Generates complete tests with edge cases, mocks, and realistic data
+- **Test Generator**: Generates complete tests with edge cases, mocks, and realistic data
 
 ## Troubleshooting
 
 ### "Generated tests don't match my testing framework"
-TestForge auto-detects frameworks from package.json, go.mod, requirements.txt, etc. Ensure your testing framework is properly configured in your project.
+Test Generator auto-detects frameworks from package.json, go.mod, requirements.txt, etc. Ensure your testing framework is properly configured in your project.
 
 ### "Tests are too basic"
 Use `/improve-test-quality` to enhance generated tests, or provide specific requirements when generating.
@@ -478,11 +478,11 @@ Use `/improve-test-quality` to enhance generated tests, or provide specific requ
 Review the generated tests and run `/generate-unit-tests` with specific edge cases mentioned.
 
 ### "Test data doesn't match my domain"
-Edit the generated factories to match your domain requirements. TestForge provides a starting point.
+Edit the generated factories to match your domain requirements. Test Generator provides a starting point.
 
 ## Contributing
 
-Contributions are welcome! To improve TestForge:
+Contributions are welcome! To improve Test Generator:
 
 1. Fork the repository
 2. Create a feature branch
@@ -512,6 +512,6 @@ Built for developers who value comprehensive testing but find test writing time-
 
 ---
 
-**Stop writing tests manually. Let TestForge automate it.**
+**Stop writing tests manually. Let Test Generator automate it.**
 
 Made with precision for the Claude Code community

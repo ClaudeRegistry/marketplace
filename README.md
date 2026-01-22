@@ -13,7 +13,7 @@ First, add this marketplace to Claude Code:
 Then install plugins:
 
 ```bash
-/plugin install documate
+/plugin install doc-generator
 ```
 
 Or use the interactive browser:
@@ -24,7 +24,7 @@ Or use the interactive browser:
 
 ## Available Plugins
 
-### Clauditor
+### Code Auditor
 Comprehensive code auditing and assessment plugin with security vulnerability scanning, architecture analysis, performance profiling, and automated remediation planning.
 
 **Features:**
@@ -36,7 +36,7 @@ Comprehensive code auditing and assessment plugin with security vulnerability sc
 
 **Install:**
 ```bash
-/plugin install clauditor
+/plugin install code-auditor
 ```
 
 ## Plugin Structure
@@ -45,7 +45,7 @@ Comprehensive code auditing and assessment plugin with security vulnerability sc
 marketplace/
 ├── marketplace.json           # Marketplace manifest
 ├── plugins/                   # Approved plugins
-│   └── clauditor/
+│   └── code-auditor/
 │       ├── .claude-plugin/
 │       │   └── plugin.json
 │       ├── commands/

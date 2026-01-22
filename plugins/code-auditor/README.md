@@ -1,10 +1,10 @@
-# Clauditor
+# Code Auditor
 
 A comprehensive codebase assessment plugin for Claude Code that provides security, performance, architecture, and remediation analysis commands.
 
 ## Purpose
 
-Clauditor helps developers perform thorough codebase assessments through specialized slash commands. Each command provides detailed analysis and actionable insights for different aspects of your codebase.
+Code Auditor helps developers perform thorough codebase assessments through specialized slash commands. Each command provides detailed analysis and actionable insights for different aspects of your codebase.
 
 ## Installation
 
@@ -14,10 +14,10 @@ First, add the Claude Registry marketplace (if you haven't already):
 /plugin marketplace add clauderegistry/marketplace
 ```
 
-Then install Clauditor:
+Then install Code Auditor:
 
 ```bash
-/plugin install clauditor
+/plugin install code-auditor
 ```
 
 Or use the interactive browser:
@@ -74,7 +74,7 @@ Automatically generates a professional HTML report from all assessment results i
 - Remediation recommendations
 - Professional styling with severity badges and modern design
 
-Reports are saved to `reports/clauditor-report-[timestamp].html` and can be opened in any browser.
+Reports are saved to `reports/code-auditor-report-[timestamp].html` and can be opened in any browser.
 
 ## Command Customization
 
@@ -111,7 +111,7 @@ The `/generate-report` command will automatically collect all assessment results
 ## Plugin Structure
 
 ```
-clauditor/
+code-auditor/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin manifest
 ├── commands/                     # Slash commands
@@ -131,19 +131,19 @@ clauditor/
 To disable the plugin temporarily:
 
 ```bash
-/plugin disable clauditor
+/plugin disable code-auditor
 ```
 
 To enable it again:
 
 ```bash
-/plugin enable clauditor
+/plugin enable code-auditor
 ```
 
 To uninstall completely:
 
 ```bash
-/plugin uninstall clauditor
+/plugin uninstall code-auditor
 ```
 
 ## Contributing
