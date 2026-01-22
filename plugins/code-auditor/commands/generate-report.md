@@ -503,7 +503,7 @@ Review the current conversation history and generate a comprehensive HTML assess
 
         <!-- Footer -->
         <div class="document-footer">
-            <p>Generated with Clauditor Assessment Tool</p>
+            <p>Generated with Code Auditor Assessment Tool</p>
             <p>2025 - Confidential Document</p>
         </div>
     </div>
@@ -539,7 +539,7 @@ Review the current conversation history and generate a comprehensive HTML assess
 </html>
 ```
 
-4. **Save the report** to: `reports/clauditor-report-[YYYY-MM-DD-HHmmss].html`
+4. **Save the report** to: `reports/code-auditor-report-[YYYY-MM-DD-HHmmss].html`
    - Create the `reports/` directory if it doesn't exist
    - Use current timestamp in filename (same format as {{SESSION_ID}})
 

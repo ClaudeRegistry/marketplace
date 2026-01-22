@@ -1,10 +1,10 @@
-# CodeMentor
+# Code Tutor
 
 AI-powered code learning and mentoring system for Claude Code that helps developers learn through interactive teaching, guided practice, and constructive feedback.
 
 ## Purpose
 
-CodeMentor transforms Claude Code into your personal programming teacher, providing:
+Code Tutor transforms Claude Code into your personal programming teacher, providing:
 - **Interactive Learning**: Socratic teaching method that helps you discover solutions
 - **Adaptive Education**: Adjusts to your skill level from beginner to advanced
 - **Contextual Teaching**: Uses examples from your actual codebase
@@ -12,7 +12,7 @@ CodeMentor transforms Claude Code into your personal programming teacher, provid
 - **Constructive Feedback**: Educational code reviews that teach, not criticize
 - **Deep Understanding**: Comprehensive concept explanations with real-world applications
 
-## Why CodeMentor?
+## Why Code Tutor?
 
 **Common Developer Challenges:**
 - "I want to understand this code pattern, not just copy-paste it"
@@ -21,18 +21,18 @@ CodeMentor transforms Claude Code into your personal programming teacher, provid
 - "Code reviews just tell me what's wrong, not why or how to improve"
 - "I learn better through conversation and practice"
 
-**CodeMentor Makes It Easy:**
+**Code Tutor Makes It Easy:**
 - Learn by doing with exercises tailored to your codebase
 - Understand concepts deeply through layered explanations
 - Get constructive feedback that builds confidence
 - Practice new skills in a safe, supportive environment
 - Bridge the gap between tutorials and real-world coding
 
-## What Makes CodeMentor Unique
+## What Makes Code Tutor Unique
 
-### The CodeMentor Skill: Your Persistent Teaching Companion
+### The Code Tutor Skill: Your Persistent Teaching Companion
 
-Unlike commands that give one-off answers, the **CodeMentor skill** provides an ongoing teaching relationship:
+Unlike commands that give one-off answers, the **Code Tutor skill** provides an ongoing teaching relationship:
 
 - **Remembers Context**: Maintains conversation history to build on previous learning
 - **Adapts Teaching Style**: Adjusts complexity based on your responses
@@ -44,7 +44,7 @@ Unlike commands that give one-off answers, the **CodeMentor skill** provides an 
 ```
 You: "I don't understand closures"
 
-CodeMentor: "Great topic! Let me start with a question: Have you worked with
+Code Tutor: "Great topic! Let me start with a question: Have you worked with
 functions that return other functions before? Even if you haven't, that's
 totally fine - we'll build up to it together."
 
@@ -239,10 +239,10 @@ First, add the Claude Registry marketplace (if you haven't already):
 /plugin marketplace add clauderegistry/marketplace
 ```
 
-Then install CodeMentor:
+Then install Code Tutor:
 
 ```bash
-/plugin install codementor
+/plugin install code-tutor
 ```
 
 Or use the interactive browser:
@@ -253,14 +253,14 @@ Or use the interactive browser:
 
 ## Getting Started
 
-### Using the CodeMentor Skill
+### Using the Code Tutor Skill
 
-The CodeMentor skill activates automatically when you engage in teaching-oriented conversations. Simply start asking questions or request learning help naturally:
+The Code Tutor skill activates automatically when you engage in teaching-oriented conversations. Simply start asking questions or request learning help naturally:
 
 ```
 You: "I want to learn about React hooks"
 
-CodeMentor: "Excellent! Hooks are a powerful feature. Before we dive in,
+Code Tutor: "Excellent! Hooks are a powerful feature. Before we dive in,
 tell me: Have you worked with React class components before, or is this
 your first time with React?"
 
@@ -324,7 +324,7 @@ Commands work standalone without activating the skill:
    → Deep dive into patterns/concepts used
 
 3. Ask follow-up questions naturally
-   → The CodeMentor skill will activate for interactive teaching
+   → The Code Tutor skill will activate for interactive teaching
 
 4. /practice-exercise
    → Practice similar patterns
@@ -334,7 +334,7 @@ Commands work standalone without activating the skill:
 ```
 /explain-code src/middleware/auth.js
 /concept-deep-dive middleware-pattern
-"How would I add rate limiting middleware?" → CodeMentor skill activates
+"How would I add rate limiting middleware?" → Code Tutor skill activates
 /practice-exercise → "Implement custom middleware"
 ```
 
@@ -359,7 +359,7 @@ Commands work standalone without activating the skill:
 
 ```
 1. Ask: "I want to improve at [skill-area]"
-   → CodeMentor skill activates and suggests learning path
+   → Code Tutor skill activates and suggests learning path
 
 2. Follow the suggested learning path
 
@@ -378,9 +378,9 @@ Commands work standalone without activating the skill:
 1. Encounter bug or error
 
 2. Ask: "I have this error: [error message]"
-   → CodeMentor skill activates
+   → Code Tutor skill activates
 
-3. CodeMentor guides debugging process
+3. Code Tutor guides debugging process
    → Asks questions, teaches strategy
 
 4. /concept-deep-dive [underlying-concept]
@@ -497,7 +497,7 @@ Weekly:
 1. /concept-deep-dive [topic]
    → Get comprehensive explanation
 
-2. Use CodeMentor's teaching structure as template
+2. Use Code Tutor's teaching structure as template
 
 3. /explain-code on team's codebase examples
    → Ground in familiar context
@@ -505,7 +505,7 @@ Weekly:
 4. /practice-exercise
    → Create exercises for teammates
 
-5. Share CodeMentor plugin with team
+5. Share Code Tutor plugin with team
 ```
 
 **Result**: Better equipped to mentor others, team skill growth.
@@ -531,7 +531,7 @@ Code review:
 - Learn to explain your thinking
 - Understand trade-offs
 
-Mock interviews with CodeMentor:
+Mock interviews with Code Tutor:
 - Ask: "Can you interview me on [topic]?"
 - Practice explaining concepts
 - Get feedback on answers
@@ -541,7 +541,7 @@ Mock interviews with CodeMentor:
 
 ## Teaching Philosophy
 
-CodeMentor is built on proven teaching principles:
+Code Tutor is built on proven teaching principles:
 
 ### 1. Socratic Method
 Guides discovery through questions rather than lecturing. Builds critical thinking and problem-solving skills.
@@ -566,7 +566,7 @@ Helps you think about your thinking. Builds self-awareness of learning process a
 
 ## Skill Level Adaptation
 
-CodeMentor automatically adapts to your level:
+Code Tutor automatically adapts to your level:
 
 ### Beginner Developers
 **Approach**:
@@ -663,17 +663,17 @@ Use `/code-review-teach` on code you've written to learn from your own work.
 Mistakes in exercises and practice are learning opportunities, not failures.
 
 ### 6. Build on Previous Learning
-CodeMentor skill remembers context - reference earlier topics in the conversation.
+Code Tutor skill remembers context - reference earlier topics in the conversation.
 
 ### 7. Connect to Real Work
 Always ask "How does this apply to my current project?"
 
 ### 8. Teach to Learn
-After learning something, explain it back to CodeMentor. Teaching reinforces learning.
+After learning something, explain it back to Code Tutor. Teaching reinforces learning.
 
 ## Commands vs Skill: When to Use Each
 
-### Use the **CodeMentor Skill** when you want:
+### Use the **Code Tutor Skill** when you want:
 - ✅ Ongoing conversation with context
 - ✅ Interactive Q&A and exploration
 - ✅ Adaptive teaching that responds to your answers
@@ -706,13 +706,13 @@ Start with command for structure:
 
 Then ask follow-up questions naturally:
 "I have questions about promise chaining from that deep dive..."
-→ CodeMentor skill continues the conversation
+→ Code Tutor skill continues the conversation
 ```
 
 ## Plugin Structure
 
 ```
-codementor/
+code-tutor/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin manifest
 ├── skills/
@@ -734,24 +734,24 @@ codementor/
 
 To disable the plugin temporarily:
 ```bash
-/plugin disable codementor
+/plugin disable code-tutor
 ```
 
 To enable it again:
 ```bash
-/plugin enable codementor
+/plugin enable code-tutor
 ```
 
 To uninstall completely:
 ```bash
-/plugin uninstall codementor
+/plugin uninstall code-tutor
 ```
 
 ## FAQ
 
 ### "How is this different from just asking Claude Code questions?"
 
-CodeMentor is specifically designed for teaching:
+Code Tutor is specifically designed for teaching:
 - Uses proven pedagogical techniques (Socratic method, progressive learning)
 - Adapts to your skill level automatically
 - Provides structured learning paths
@@ -759,21 +759,21 @@ CodeMentor is specifically designed for teaching:
 - Frames feedback constructively for learning
 - Builds on conversation context in skill mode
 
-Regular Claude Code is great for getting answers. CodeMentor is optimized for building understanding.
+Regular Claude Code is great for getting answers. Code Tutor is optimized for building understanding.
 
 ### "Do I need to use the skill, or can I just use commands?"
 
 Both work! Commands are great for quick, focused learning. The skill provides deeper, interactive teaching. Use what fits your learning style and needs.
 
-### "Can CodeMentor help with languages other than JavaScript?"
+### "Can Code Tutor help with languages other than JavaScript?"
 
-Yes! While examples often use JavaScript, the teaching principles and concepts apply across languages. CodeMentor adapts to whatever language your codebase uses.
+Yes! While examples often use JavaScript, the teaching principles and concepts apply across languages. Code Tutor adapts to whatever language your codebase uses.
 
-### "Is CodeMentor suitable for beginners?"
+### "Is Code Tutor suitable for beginners?"
 
-Absolutely! CodeMentor automatically detects and adapts to your skill level. It provides extra support, simpler explanations, and more encouragement for beginners.
+Absolutely! Code Tutor automatically detects and adapts to your skill level. It provides extra support, simpler explanations, and more encouragement for beginners.
 
-### "How does CodeMentor assess my skill level?"
+### "How does Code Tutor assess my skill level?"
 
 Through conversation and context:
 - Questions you ask
@@ -784,7 +784,7 @@ Through conversation and context:
 
 It adapts dynamically throughout the session.
 
-### "Can I use CodeMentor for interview prep?"
+### "Can I use Code Tutor for interview prep?"
 
 Yes! Use it to:
 - Deep dive into common interview topics
@@ -793,9 +793,9 @@ Yes! Use it to:
 - Understand trade-offs and alternatives
 - Build confidence through practice
 
-### "Will CodeMentor write code for me?"
+### "Will Code Tutor write code for me?"
 
-CodeMentor is a teacher, not a code generator. It will:
+Code Tutor is a teacher, not a code generator. It will:
 - ✅ Explain code and concepts
 - ✅ Guide you to solutions through questions
 - ✅ Provide examples and patterns
@@ -803,7 +803,7 @@ CodeMentor is a teacher, not a code generator. It will:
 
 It won't just give you the answer - it helps you learn to solve problems yourself.
 
-### "How do I get the most out of CodeMentor?"
+### "How do I get the most out of Code Tutor?"
 
 1. Be specific about learning goals
 2. Practice with generated exercises
@@ -815,7 +815,7 @@ It won't just give you the answer - it helps you learn to solve problems yoursel
 
 ## Contributing
 
-Contributions are welcome! To improve CodeMentor:
+Contributions are welcome! To improve Code Tutor:
 
 1. Fork the repository
 2. Create a feature branch
@@ -868,9 +868,9 @@ Made with care for the Claude Code community 🎓
 ## Getting Help
 
 - **Plugin Issues**: Report at the marketplace GitHub repository
-- **Learning Questions**: Just ask naturally - CodeMentor is designed for this!
+- **Learning Questions**: Just ask naturally - Code Tutor is designed for this!
 - **Feature Requests**: Submit via pull request or issue
-- **Feedback**: We'd love to hear how CodeMentor has helped your learning journey
+- **Feedback**: We'd love to hear how Code Tutor has helped your learning journey
 
 ---
 

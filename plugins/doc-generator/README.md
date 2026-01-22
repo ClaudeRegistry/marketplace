@@ -1,10 +1,10 @@
-# DocuMate
+# Doc Generator
 
 Intelligent documentation automation plugin for Claude Code that generates, maintains, and syncs code documentation across your entire codebase.
 
 ## Purpose
 
-DocuMate solves the #1 developer pain point: documentation. Research shows that 60% of developers cite poor documentation as a major productivity barrier, and documentation consumes 11% of work hours. DocuMate automates documentation tasks, keeps docs in sync with code, and ensures your codebase is always well-documented.
+Doc Generator solves the #1 developer pain point: documentation. Research shows that 60% of developers cite poor documentation as a major productivity barrier, and documentation consumes 11% of work hours. Doc Generator automates documentation tasks, keeps docs in sync with code, and ensures your codebase is always well-documented.
 
 ## Features
 
@@ -24,10 +24,10 @@ First, add the Claude Registry marketplace (if you haven't already):
 /plugin marketplace add clauderegistry/marketplace
 ```
 
-Then install DocuMate:
+Then install Doc Generator:
 
 ```bash
-/plugin install documate
+/plugin install doc-generator
 ```
 
 Or use the interactive browser:
@@ -245,7 +245,7 @@ This identifies documentation drift and provides a prioritized list of updates n
 
 ## Language Support
 
-DocuMate works with all major programming languages:
+Doc Generator works with all major programming languages:
 
 - **JavaScript/TypeScript**: JSDoc format
 - **Python**: Google/NumPy/Sphinx docstring styles
@@ -259,7 +259,7 @@ DocuMate works with all major programming languages:
 
 ## Documentation Standards
 
-DocuMate follows industry best practices:
+Doc Generator follows industry best practices:
 
 - **Language-specific formats**: Uses standard doc comment formats for each language
 - **Complete information**: Documents all parameters, return values, and exceptions
@@ -270,7 +270,7 @@ DocuMate follows industry best practices:
 ## Plugin Structure
 
 ```
-documate/
+doc-generator/
 ├── .claude-plugin/
 │   └── plugin.json              # Plugin manifest
 ├── commands/                     # Slash commands
@@ -316,19 +316,19 @@ documate/
 To disable the plugin temporarily:
 
 ```bash
-/plugin disable documate
+/plugin disable doc-generator
 ```
 
 To enable it again:
 
 ```bash
-/plugin enable documate
+/plugin enable doc-generator
 ```
 
 To uninstall completely:
 
 ```bash
-/plugin uninstall documate
+/plugin uninstall doc-generator
 ```
 
 ## Use Cases
@@ -364,20 +364,20 @@ Ensure the plugin is installed:
 ```bash
 /plugin
 ```
-Then check if DocuMate appears in your installed plugins list.
+Then check if Doc Generator appears in your installed plugins list.
 
 ### Documentation not generated:
 Check that the file path is correct and the file is readable.
 
 ### Language not supported:
-DocuMate adapts to most languages. If you encounter issues, the plugin will use generic documentation format.
+Doc Generator adapts to most languages. If you encounter issues, the plugin will use generic documentation format.
 
 ### Documentation style mismatch:
-DocuMate detects and matches the existing documentation style in your project.
+Doc Generator detects and matches the existing documentation style in your project.
 
 ## Contributing
 
-Contributions are welcome! To improve DocuMate:
+Contributions are welcome! To improve Doc Generator:
 
 1. Fork the repository
 2. Create a feature branch
@@ -407,6 +407,6 @@ Built for developers who value clear, comprehensive documentation but hate writi
 
 ---
 
-**Stop writing documentation manually. Let DocuMate automate it.**
+**Stop writing documentation manually. Let Doc Generator automate it.**
 
 Made with ❤️ for the Claude Code community
