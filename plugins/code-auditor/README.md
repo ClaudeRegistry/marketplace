@@ -17,7 +17,7 @@ First, add the Claude Registry marketplace (if you haven't already):
 Then install Code Auditor:
 
 ```bash
-/plugin install code-auditor
+/plugin install code-auditor@clauderegistry
 ```
 
 Or use the interactive browser:

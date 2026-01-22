@@ -45,7 +45,7 @@ First, add the Claude Registry marketplace (if you haven't already):
 Then install Legacy Analyzer:
 
 ```bash
-/plugin install legacy-analyzer
+/plugin install legacy-analyzer@clauderegistry
 ```
 
 Or use the interactive browser:

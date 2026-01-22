@@ -27,7 +27,7 @@ First, add the Claude Registry marketplace (if you haven't already):
 Then install Doc Generator:
 
 ```bash
-/plugin install doc-generator
+/plugin install doc-generator@clauderegistry
 ```
 
 Or use the interactive browser:
