@@ -180,6 +180,37 @@
       "skills": [
         "./skills/code-mentor.md"
       ]
+    },
+    {
+      "name": "seo-optimizer",
+      "description": "Comprehensive SEO optimization plugin for auditing, optimizing, and reviewing website content for improved search engine performance",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "source": "./plugins/seo-optimizer",
+      "category": "optimization",
+      "homepage": "https://clauderegistry.com/plugin/seo-optimizer",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "search-engine-optimization",
+        "meta-tags",
+        "structured-data",
+        "schema-org",
+        "open-graph",
+        "content-optimization",
+        "web-performance"
+      ],
+      "strict": true,
+      "commands": [
+        "./commands/seo-audit.md",
+        "./commands/seo-optimize.md",
+        "./commands/seo-reviewer.md"
+      ],
+      "skills": [
+        "./skills/seo-expert.md"
+      ]
     }
   ]
 }

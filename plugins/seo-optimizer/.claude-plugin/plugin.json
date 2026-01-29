@@ -1,0 +1,10 @@
+{
+  "name": "seo-optimizer",
+  "version": "1.0.0",
+  "description": "Comprehensive SEO optimization plugin for auditing, optimizing, and reviewing website content for search engine performance",
+  "author": {
+    "name": "Claude Registry",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/seo-optimizer"
+  },
+  "license": "MIT"
+}
