@@ -1,70 +1,35 @@
 # Claude Registry Marketplace
 
-Official Claude Code plugin marketplace. Discover and install community-created plugins for security analysis, code quality, architecture assessment, and developer productivity tools.
+Official plugin marketplace for Claude Code. Browse plugins at [clauderegistry.com](https://clauderegistry.com).
 
-## Installation
+## Quick Start
 
-First, add this marketplace to Claude Code:
-
-```bash
+Add marketplace:
+```
 /plugin marketplace add clauderegistry/marketplace
 ```
 
-Then install plugins:
-
-```bash
-/plugin install doc-generator
+Install a plugin:
 ```
-
-Or use the interactive browser:
-
-```bash
-/plugin
+/plugin install code-auditor@clauderegistry
 ```
 
 ## Available Plugins
 
-### Code Auditor
-Comprehensive code auditing and assessment plugin with security vulnerability scanning, architecture analysis, performance profiling, and automated remediation planning.
-
-**Features:**
-- Security vulnerability assessment
-- Architecture analysis and dependency mapping
-- Performance profiling and optimization recommendations
-- Automated remediation planning
-- Comprehensive reporting
-
-**Install:**
-```bash
-/plugin install code-auditor
-```
-
-## Plugin Structure
-
-```
-marketplace/
-├── marketplace.json           # Marketplace manifest
-├── plugins/                   # Approved plugins
-│   └── code-auditor/
-│       ├── .claude-plugin/
-│       │   └── plugin.json
-│       ├── commands/
-│       ├── hooks/
-│       └── README.md
-└── README.md                  # This file
-```
+| Plugin | Description |
+|--------|-------------|
+| [code-auditor](https://clauderegistry.com/plugin/code-auditor) | Security, architecture, and performance analysis |
+| [doc-generator](https://clauderegistry.com/plugin/doc-generator) | Automated documentation generation |
+| [test-generator](https://clauderegistry.com/plugin/test-generator) | Test generation and coverage analysis |
+| [legacy-analyzer](https://clauderegistry.com/plugin/legacy-analyzer) | Business logic extraction from legacy code |
+| [data-converter](https://clauderegistry.com/plugin/data-converter) | Data transformation and format conversion |
+| [code-tutor](https://clauderegistry.com/plugin/code-tutor) | Interactive coding education and mentoring |
 
 ## Contributing
 
-Want to submit your plugin? Check out our [Contributing Guide](CONTRIBUTING.md).
+See [CONTRIBUTING.md](CONTRIBUTING.md) to submit your plugin.
 
-Visit [clauderegistry.com](https://clauderegistry.com) to browse all available plugins.
+## Links
 
-## About
-
-Claude Registry provides high-quality, curated plugins for enhanced Claude Code workflows.
-
-**Links:**
 - Website: [clauderegistry.com](https://clauderegistry.com)
-- Repository: [github.com/clauderegistry/marketplace](https://github.com/clauderegistry/marketplace)
-- Submit a Plugin: [Contributing Guide](CONTRIBUTING.md)
+- Docs: [Claude Code Plugin Docs](https://docs.anthropic.com/en/docs/claude-code/plugins)

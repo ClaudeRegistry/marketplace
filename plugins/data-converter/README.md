@@ -74,7 +74,7 @@ First, add the Claude Registry marketplace (if you haven't already):
 Then install Data Converter:
 
 ```bash
-/plugin install data-converter
+/plugin install data-converter@clauderegistry
 ```
 
 Or use the interactive browser:

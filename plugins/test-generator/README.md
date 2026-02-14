@@ -27,7 +27,7 @@ First, add the Claude Registry marketplace (if you haven't already):
 Then install Test Generator:
 
 ```bash
-/plugin install test-generator
+/plugin install test-generator@clauderegistry
 ```
 
 Or use the interactive browser:

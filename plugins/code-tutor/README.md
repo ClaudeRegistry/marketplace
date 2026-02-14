@@ -242,7 +242,7 @@ First, add the Claude Registry marketplace (if you haven't already):
 Then install Code Tutor:
 
 ```bash
-/plugin install code-tutor
+/plugin install code-tutor@clauderegistry
 ```
 
 Or use the interactive browser:
