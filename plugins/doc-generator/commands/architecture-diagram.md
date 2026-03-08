@@ -558,22 +558,16 @@ Save to: `docs/architecture/README.md`
 - **DO** use consistent naming across all diagrams
 - **DO** color-code different types of components
 
-## Mermaid Diagram Tips:
+## Mermaid Syntax
 
-### Graph Types:
-- `graph TB` - Top to bottom
-- `graph LR` - Left to right
-- `sequenceDiagram` - For interactions
-- `erDiagram` - For database schemas
-- `classDiagram` - For OOP structures
-- `stateDiagram-v2` - For state machines
+Use standard Mermaid syntax for all diagrams. Key diagram types:
+- `graph TB/LR` for architecture and component diagrams
+- `sequenceDiagram` for data flow and API interactions
+- `erDiagram` for database schemas
+- `classDiagram` for OOP structures
+- `stateDiagram-v2` for workflow state machines
 
-### Styling:
-```mermaid
-style NodeId fill:#color
-style NodeId stroke:#color
-style NodeId stroke-width:2px
-```
+Apply color coding by component type for visual clarity.
 
 ## Summary Report:
 
