@@ -1,6 +1,6 @@
 # Doc Generator
 
-Intelligent documentation automation plugin for Claude Code that generates, maintains, and syncs code documentation across your entire codebase.
+Intelligent documentation automation plugin for Claude Code with commands for generating docs, agents for autonomous documentation review, and skills for documentation standards knowledge.
 
 ## Purpose
 
@@ -9,11 +9,12 @@ Doc Generator solves the #1 developer pain point: documentation. Research shows 
 ## Features
 
 - **Smart Documentation Generation**: Auto-generate comprehensive docs for functions, classes, and modules in any language
-- **Documentation Drift Detection**: Identify outdated docs that no longer match code implementation
+- **Autonomous Documentation Review**: The doc-reviewer agent detects drift and fixes outdated docs automatically
 - **OpenAPI/Swagger Generation**: Create professional API documentation from REST endpoints
 - **README Automation**: Generate complete, professional README files
 - **Architecture Diagrams**: Visualize system architecture using Mermaid diagrams
-- **Inline Code Explanations**: Add clear comments to complex code sections
+- **Inline Code Explanations**: The code-explainer agent adds clear comments to complex code sections
+- **Auto-Activating Knowledge**: Documentation standards and Mermaid diagram skills activate whenever relevant
 - **Multi-Language Support**: Works with JavaScript, TypeScript, Python, Java, Go, Rust, and more
 
 ## Installation
@@ -38,7 +39,7 @@ Or use the interactive browser:
 
 ## Commands
 
-Once installed, you can use the following slash commands in any Claude Code session:
+Slash commands for explicit documentation generation tasks:
 
 ### /doc-generate
 
@@ -59,27 +60,6 @@ Generate comprehensive documentation for code files, functions, or classes.
 - New code without documentation
 - Functions/classes needing comprehensive docs
 - Adding examples to existing documentation
-
-### /doc-sync-check
-
-Scan codebase to identify missing, incomplete, or outdated documentation.
-
-```
-/doc-sync-check
-```
-
-**What it does:**
-- Scans all source files in the project
-- Identifies undocumented functions and classes
-- Detects documentation drift (docs that don't match code)
-- Calculates documentation coverage metrics
-- Provides actionable recommendations with priority levels
-
-**Best for:**
-- Auditing documentation quality
-- Finding documentation gaps
-- Identifying outdated docs after refactoring
-- Tracking documentation coverage over time
 
 ### /api-docs
 
@@ -144,48 +124,51 @@ Generate visual architecture diagrams using Mermaid.
 - Architecture reviews
 - Design documentation
 
-### /doc-update
+## Agents
 
-Update existing documentation to match current code implementation.
+Autonomous agents that Claude triggers automatically based on context:
 
-```
-/doc-update src/services/user-service.ts
-```
+### doc-reviewer
 
-**What it does:**
-- Compares documentation with actual code
-- Fixes parameter and return type mismatches
-- Updates documentation for changed behavior
-- Adds missing information (new parameters, side effects)
-- Preserves existing documentation style
+Audits documentation quality and fixes drift autonomously. Combines scanning for issues with updating docs in a single pass.
 
-**Best for:**
-- Fixing documentation drift after refactoring
-- Updating docs after code changes
-- Maintaining documentation accuracy
-- Syncing docs with implementation
-
-### /explain-code
-
-Add clear, inline explanatory comments to complex code.
-
-```
-/explain-code src/algorithms/quicksort.js
-```
+**Triggers when:**
+- A major coding task has been completed and docs may need updating
+- You ask about documentation quality ("Are my docs up to date?")
+- You want to find and fix documentation issues
 
 **What it does:**
-- Identifies complex code sections needing explanation
-- Adds comments explaining "why" not just "what"
-- Documents algorithms, business logic, and edge cases
-- Explains regex patterns and magic numbers
-- Adds performance notes and trade-off discussions
+1. **Discovery** — Scans codebase for all source files
+2. **Audit** — Checks for missing, incomplete, and outdated documentation
+3. **Report** — Presents findings by severity with coverage metrics
+4. **Fix** — Updates outdated docs, adds missing docs, fixes parameter mismatches
 
-**Best for:**
-- Complex algorithms
-- Business logic with domain rules
-- Performance-critical code
-- Code review preparation
-- Knowledge transfer
+### code-explainer
+
+Analyzes complex code and adds clear inline comments explaining the "why" behind code decisions.
+
+**Triggers when:**
+- You're struggling to understand complex code ("What does this function do?")
+- You want code annotated with explanatory comments
+- You're onboarding to a new codebase and need to understand flows
+
+**What it does:**
+- Identifies complex algorithms, business logic, regex, and magic numbers
+- Adds comments explaining reasoning, not just restating code
+- Breaks down complex constructs step-by-step
+- Provides a summary of what was explained
+
+## Skills
+
+Auto-activating knowledge that enhances all documentation work:
+
+### documentation-standards
+
+Provides language-specific documentation format knowledge (JSDoc, Python docstrings, Javadoc, Go doc, Rustdoc, and more) plus quality standards. Activates automatically whenever documentation work is happening — during commands, agents, or general coding.
+
+### mermaid-diagrams
+
+Provides Mermaid diagram creation knowledge including diagram type selection, syntax patterns, color coding conventions, and best practices. Activates automatically when visual diagrams are needed in any context.
 
 ## Typical Workflow
 
@@ -213,35 +196,24 @@ Add clear, inline explanatory comments to complex code.
 
 ### For Existing Projects:
 
-1. **Audit documentation quality**:
+1. **Audit and fix documentation**: The doc-reviewer agent scans your codebase and fixes issues automatically. Ask:
    ```
-   /doc-sync-check
-   ```
-
-2. **Fix high-priority gaps**:
-   ```
-   /doc-generate src/high-priority-file.ts
+   Are my docs up to date?
    ```
 
-3. **Update outdated documentation**:
+2. **Generate docs for new code**:
    ```
-   /doc-update src/changed-file.ts
+   /doc-generate src/new-module.ts
    ```
 
-4. **Add explanations to complex code**:
+3. **Understand complex code**: The code-explainer agent activates when you ask:
    ```
-   /explain-code src/complex-algorithm.py
+   What does this function do? I can't follow the logic.
    ```
 
 ### Regular Maintenance:
 
-Run weekly or after major changes:
-
-```
-/doc-sync-check
-```
-
-This identifies documentation drift and provides a prioritized list of updates needed.
+After major refactors or code changes, the doc-reviewer agent can be triggered by asking about documentation quality. It provides a prioritized list of updates and can fix issues automatically.
 
 ## Language Support
 
@@ -257,31 +229,31 @@ Doc Generator works with all major programming languages:
 - **C#**: XML documentation comments
 - **And more**: Adapts to language conventions
 
-## Documentation Standards
-
-Doc Generator follows industry best practices:
-
-- **Language-specific formats**: Uses standard doc comment formats for each language
-- **Complete information**: Documents all parameters, return values, and exceptions
-- **Practical examples**: Includes working code examples
-- **Context and rationale**: Explains "why" not just "what"
-- **Maintainability**: Keeps documentation in sync with code
-
 ## Plugin Structure
 
 ```
 doc-generator/
 ├── .claude-plugin/
-│   └── plugin.json              # Plugin manifest
-├── commands/                     # Slash commands
-│   ├── doc-generate.md          # Generate documentation
-│   ├── doc-sync-check.md        # Audit documentation quality
-│   ├── api-docs.md              # Generate API documentation
-│   ├── readme-generate.md       # Generate README files
-│   ├── architecture-diagram.md  # Generate architecture diagrams
-│   ├── doc-update.md            # Update existing documentation
-│   └── explain-code.md          # Add inline code explanations
-└── README.md                    # This file
+│   └── plugin.json                  # Plugin manifest
+├── commands/                        # Slash commands (user-initiated)
+│   ├── doc-generate.md              # Generate documentation
+│   ├── api-docs.md                  # Generate API documentation
+│   ├── readme-generate.md           # Generate README files
+│   └── architecture-diagram.md      # Generate architecture diagrams
+├── agents/                          # Autonomous agents (context-triggered)
+│   ├── doc-reviewer.md              # Audit and fix documentation
+│   └── code-explainer.md            # Explain complex code
+├── skills/                          # Auto-activating knowledge
+│   ├── documentation-standards/     # Language formats & quality standards
+│   │   ├── SKILL.md
+│   │   └── references/
+│   │       ├── language-formats.md
+│   │       └── quality-checklist.md
+│   └── mermaid-diagrams/            # Diagram creation knowledge
+│       ├── SKILL.md
+│       └── references/
+│           └── diagram-patterns.md
+└── README.md                        # This file
 ```
 
 ## Requirements
@@ -292,20 +264,20 @@ doc-generator/
 
 ## Best Practices
 
-### When to Use Each Command:
+### When to Use What:
 
-- **Starting a new project**: `/readme-generate` → `/doc-generate`
+- **Starting a new project**: `/readme-generate` then `/doc-generate`
 - **Code without docs**: `/doc-generate`
-- **After refactoring**: `/doc-update` → `/doc-sync-check`
-- **Complex new code**: `/explain-code`
+- **After refactoring**: Ask for a documentation review (triggers doc-reviewer agent)
+- **Complex code**: Ask what the code does (triggers code-explainer agent)
 - **Building APIs**: `/api-docs`
 - **System design**: `/architecture-diagram`
-- **Regular maintenance**: `/doc-sync-check` weekly
+- **Regular maintenance**: Ask "Are my docs up to date?" periodically
 
 ### Documentation Tips:
 
 1. **Document as you code**: Use `/doc-generate` on new functions immediately
-2. **Keep docs in sync**: Run `/doc-sync-check` regularly
+2. **Keep docs in sync**: Ask the doc-reviewer agent to check after major changes
 3. **Focus on public APIs**: Prioritize documentation for exported functions
 4. **Use examples**: Always include usage examples for non-trivial code
 5. **Explain the why**: Document business logic and design decisions
@@ -381,17 +353,17 @@ Contributions are welcome! To improve Doc Generator:
 
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes to command files in `commands/`
+3. Make your changes to files in `commands/`, `agents/`, or `skills/`
 4. Test with various codebases
 5. Submit a pull request
 
-### Command Development:
+### Component Development:
 
-Commands are markdown files with:
-- **Frontmatter**: Metadata (description, arguments)
-- **Instructions**: Detailed prompt for Claude Code to execute
+- **Commands**: Markdown files in `commands/` with YAML frontmatter
+- **Agents**: Markdown files in `agents/` with triggering examples
+- **Skills**: Directories in `skills/` with a `SKILL.md` and optional `references/`
 
-See existing commands for examples.
+See existing components for examples.
 
 ## License
 
@@ -399,7 +371,7 @@ MIT
 
 ## Version
 
-1.0.0
+2.0.0
 
 ## Acknowledgments
 
@@ -409,4 +381,4 @@ Built for developers who value clear, comprehensive documentation but hate writi
 
 **Stop writing documentation manually. Let Doc Generator automate it.**
 
-Made with ❤️ for the Claude Code community
+Made with love for the Claude Code community
