@@ -50,164 +50,27 @@ For each class:
 - **State Management**: How state is maintained and modified
 - **Usage Examples**: How to instantiate and use the class
 
-## Step 3: Generate Documentation
+## Step 3: Generate Language-Appropriate Documentation
 
-Create documentation in the appropriate format for the language:
+Generate documentation using the standard format for the detected language:
+- **JavaScript/TypeScript**: JSDoc format with @param, @returns, @throws, @example tags
+- **Python**: Google-style docstrings with Args, Returns, Raises, Example sections
+- **Java**: Javadoc format with @param, @return, @throws, @since tags
+- **Go**: Doc comments starting with the function name as complete sentences
+- **Other languages**: Adapt to the language's standard documentation conventions
 
-### For JavaScript/TypeScript (JSDoc format):
-```javascript
-/**
- * Brief one-line description of what the function does.
- *
- * More detailed explanation if needed. Describe the algorithm,
- * business logic, or any important implementation details.
- *
- * @param {Type} paramName - Description of the parameter
- * @param {Type} [optionalParam=defaultValue] - Description of optional parameter
- * @returns {ReturnType} Description of what is returned
- * @throws {ErrorType} Description of when this error occurs
- *
- * @example
- * // Example usage:
- * const result = functionName(arg1, arg2);
- * console.log(result); // Expected output
- *
- * @see {@link RelatedFunction} for related functionality
- * @since 1.0.0
- */
-```
+For every documented element, include:
+1. Brief summary (1-2 sentences)
+2. Detailed description where warranted
+3. All parameters with types and descriptions
+4. Return values with types
+5. At least one practical, runnable example
+6. Side effects, exceptions, and performance notes where applicable
 
-### For Python (Google style docstrings):
-```python
-"""Brief one-line description.
+Write in clear, direct language using active voice. Document ALL public APIs.
+Do not skip "obvious" parameters. Include edge cases and special behaviors.
 
-Detailed description of the function, class, or module.
-Explain the purpose, algorithm, and any important details.
-
-Args:
-    param_name (type): Description of the parameter.
-    optional_param (type, optional): Description. Defaults to None.
-
-Returns:
-    return_type: Description of the return value.
-
-Raises:
-    ErrorType: Description of when this error occurs.
-
-Example:
-    >>> result = function_name(arg1, arg2)
-    >>> print(result)
-    expected_output
-
-Note:
-    Additional notes, warnings, or important information.
-
-See Also:
-    related_function: Description of relationship.
-"""
-```
-
-### For Java (Javadoc format):
-```java
-/**
- * Brief one-line description.
- * <p>
- * Detailed description of the method or class.
- * Explain the purpose and important implementation details.
- * </p>
- *
- * @param paramName Description of the parameter
- * @param optionalParam Description of optional parameter
- * @return Description of the return value
- * @throws ExceptionType Description of when this exception occurs
- *
- * @see RelatedClass
- * @since 1.0.0
- * @author Author Name
- *
- * <pre>
- * Example usage:
- * ReturnType result = methodName(arg1, arg2);
- * System.out.println(result);
- * </pre>
- */
-```
-
-### For Go:
-```go
-// FunctionName performs [brief description].
-//
-// Detailed description of what the function does,
-// including algorithm details and important notes.
-//
-// Parameters:
-//   - paramName: Description of the parameter
-//   - optionalParam: Description of optional parameter
-//
-// Returns:
-//   - returnType: Description of what is returned
-//   - error: Description of error conditions
-//
-// Example:
-//   result, err := FunctionName(arg1, arg2)
-//   if err != nil {
-//       log.Fatal(err)
-//   }
-//   fmt.Println(result)
-```
-
-### For Other Languages:
-Adapt the documentation format to match the language's standard conventions (e.g., Rustdoc for Rust, XML comments for C#, RDoc for Ruby, etc.).
-
-## Step 4: Include Comprehensive Information
-
-Ensure every piece of documentation includes:
-
-### Required Sections:
-1. **Brief Summary** (1-2 sentences) - What does this do?
-2. **Detailed Description** (1-3 paragraphs) - How and why?
-3. **Parameters/Arguments** - Complete list with types and descriptions
-4. **Return Values** - What does it return and what do the values mean?
-5. **Examples** - At least one practical example showing real usage
-6. **Side Effects** - Any state changes, I/O, or external impacts
-
-### Optional but Recommended Sections:
-7. **Exceptions/Errors** - What can go wrong?
-8. **Performance Notes** - Time/space complexity, bottlenecks
-9. **See Also** - Related functions or documentation
-10. **Notes/Warnings** - Important caveats or gotchas
-11. **Since/Version** - When was this introduced?
-12. **Deprecated** - If applicable, what to use instead
-
-## Step 5: Write Clear, Developer-Friendly Documentation
-
-Follow these writing principles:
-
-### Clarity:
-- Use simple, direct language
-- Avoid jargon unless it's standard for the domain
-- Define acronyms on first use
-- Use active voice ("Returns the user object" not "The user object is returned")
-
-### Completeness:
-- Document ALL public APIs
-- Don't skip "obvious" parameters
-- Include edge cases and special behaviors
-- Explain non-obvious implementation choices
-
-### Examples:
-- Provide realistic, practical examples
-- Show common use cases first
-- Include edge cases in examples
-- Make examples runnable if possible
-
-### Consistency:
-- Use the same terminology throughout
-- Follow the project's documentation style
-- Maintain consistent formatting
-- Use consistent parameter order in descriptions
-
-## Step 6: Add Documentation to Code
+## Step 4: Add Documentation to Code
 
 After generating documentation:
 
@@ -221,7 +84,7 @@ After generating documentation:
 4. **Preserve existing code formatting** and indentation
 5. **Do not modify** the actual code logic
 
-## Step 7: Generate Separate Documentation Files (Optional)
+## Step 5: Generate Separate Documentation Files (Optional)
 
 If the codebase uses separate documentation files (like Markdown docs), also generate:
 
@@ -259,7 +122,7 @@ If the codebase uses separate documentation files (like Markdown docs), also gen
 **See Also:** [Related functions]
 ```
 
-## Step 8: Summary Report
+## Step 6: Summary Report
 
 After generating all documentation, provide a summary:
 
@@ -284,7 +147,7 @@ Documentation Quality Checklist:
 
 Next Steps:
 - Review the generated documentation for accuracy
-- Run /doc-sync-check to identify any remaining undocumented code
+- Use the doc-reviewer agent to identify any remaining undocumented code
 - Consider generating API documentation with /api-docs
 ```
 
