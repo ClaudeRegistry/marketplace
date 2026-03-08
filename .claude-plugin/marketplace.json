@@ -211,6 +211,36 @@
       "skills": [
         "./skills/seo-expert.md"
       ]
+    },
+    {
+      "name": "plugin-benchmarker",
+      "description": "Benchmark Claude Code plugins by validating structure, reviewing skill quality, and comparing with-skill vs without-skill performance with per-file KEEP/TRIM/DELETE recommendations",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "source": "./plugins/plugin-benchmarker",
+      "category": "optimization",
+      "homepage": "https://clauderegistry.com/plugin/plugin-benchmarker",
+      "license": "MIT",
+      "keywords": [
+        "benchmark",
+        "plugin",
+        "skill",
+        "audit",
+        "optimization",
+        "token-efficiency",
+        "evaluation",
+        "validation"
+      ],
+      "strict": true,
+      "commands": [
+        "./commands/benchmark-plugin.md"
+      ],
+      "agents": [
+        "./agents/skill-file-auditor.md",
+        "./agents/recommendation-engine.md"
+      ]
     }
   ]
 }
