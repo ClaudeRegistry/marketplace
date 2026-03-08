@@ -1,160 +1,100 @@
-# Code Auditor
+# Code Auditor Plugin
 
-A comprehensive codebase assessment plugin for Claude Code that provides security, performance, architecture, and remediation analysis commands.
-
-## Purpose
-
-Code Auditor helps developers perform thorough codebase assessments through specialized slash commands. Each command provides detailed analysis and actionable insights for different aspects of your codebase.
+Comprehensive code auditing and assessment plugin for Claude Code with parallel analysis agents, reusable assessment skills, and professional report generation.
 
 ## Installation
 
-First, add the Claude Registry marketplace (if you haven't already):
-
 ```bash
-/plugin marketplace add clauderegistry/marketplace
+# From the Claude Registry marketplace
+/plugin marketplace add code-auditor
+
+# Or install directly
+/plugin install https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/code-auditor
 ```
 
-Then install Code Auditor:
+## Quick Start
 
-```bash
-/plugin install code-auditor@clauderegistry
+Run a full codebase audit:
+```
+/full-audit
 ```
 
-Or use the interactive browser:
+This dispatches 5 analysis agents in parallel — security, code quality, architecture, performance, and test coverage — then compiles a unified report with a weighted composite score.
 
-```bash
-/plugin
-```
+## Commands
 
-## Usage
+| Command | Description |
+|---------|-------------|
+| `/full-audit` | Run comprehensive audit with all agents in parallel |
+| `/generate-report` | Generate professional HTML report from assessment results |
 
-Once installed, you can use the following slash commands in any Claude Code session:
+## Agents
 
-### Security Assessment
+Agents run autonomously and can also be triggered automatically from natural conversation.
 
-```
-/security-assessment
-```
+| Agent | Color | Scope |
+|-------|-------|-------|
+| `security-scanner` | Red | Vulnerability scanning, injection detection, hardcoded secrets, dependency CVEs, compliance |
+| `code-quality-analyzer` | Cyan | Code smells, complexity, duplication, standards violations, codebase metrics |
+| `architecture-analyzer` | Blue | Architecture discovery, design patterns, dependency analysis, Mermaid diagrams |
+| `performance-analyzer` | Yellow | Bottleneck detection, memory leaks, bundle optimization, caching analysis |
+| `test-coverage-analyzer` | Green | Test coverage mapping, quality assessment, gap identification |
 
-Performs a comprehensive security analysis of your codebase, identifying potential vulnerabilities, insecure patterns, and security best practice violations.
+## Skills
 
-### Performance Assessment
+Skills provide reusable assessment methodology that agents and commands consume.
 
-```
-/performance-assessment
-```
-
-Analyzes your codebase for performance issues, inefficient algorithms, resource usage problems, and optimization opportunities.
-
-### Architecture Assessment
-
-```
-/architecture-assessment
-```
-
-Evaluates the overall architecture, code organization, design patterns, modularity, and maintainability of your codebase.
-
-### Remediation Plan
-
-```
-/remediation
-```
-
-Generates a prioritized remediation plan based on assessment results, providing actionable steps to address identified issues.
-
-### Generate HTML Report
-
-```
-/generate-report
-```
-
-Automatically generates a professional HTML report from all assessment results in the current conversation. The report includes:
-- Executive summary with issue counts by severity
-- Detailed findings from all assessments
-- Remediation recommendations
-- Professional styling with severity badges and modern design
-
-Reports are saved to `reports/code-auditor-report-[timestamp].html` and can be opened in any browser.
-
-## Command Customization
-
-All commands are defined in the `commands/` directory as markdown files. You can customize the assessment instructions by editing:
-
-- `commands/security-assessment.md`
-- `commands/performance-assessment.md`
-- `commands/architecture-assessment.md`
-- `commands/remediation.md`
-- `commands/generate-report.md`
-
-Each command file uses frontmatter for metadata and markdown content for instructions that guide Claude's analysis.
+| Skill | Purpose |
+|-------|---------|
+| `assessment-scoring` | Weighted scoring methodology (Code Quality 25%, Performance 25%, Security 20%, Maintainability 20%, Testing 10%) |
+| `security-methodology` | OWASP Top 10, CWE/CVE classification, compliance frameworks (PCI DSS, GDPR, HIPAA, SOC 2) |
+| `architecture-diagramming` | C4 Model methodology, Mermaid diagram patterns, reusable diagram templates |
 
 ## Typical Workflow
 
-1. Run one or more assessment commands:
-   ```
-   /security-assessment
-   /performance-assessment
-   /architecture-assessment
-   ```
-
-2. Review the findings in the conversation
-
-3. Generate an HTML report:
-   ```
-   /generate-report
-   ```
-
-4. Open the generated HTML file in your browser to view the formatted report
-
-The `/generate-report` command will automatically collect all assessment results from the conversation and create a comprehensive, professional report.
+1. Run `/full-audit` for comprehensive analysis
+2. Review findings from each agent
+3. Check the weighted composite score (0-10)
+4. Follow the prioritized remediation roadmap
+5. Run `/generate-report` for a shareable HTML report
 
 ## Plugin Structure
 
 ```
 code-auditor/
 ├── .claude-plugin/
-│   └── plugin.json              # Plugin manifest
-├── commands/                     # Slash commands
-│   ├── *-assessment.md
+│   └── plugin.json
+├── commands/
+│   ├── full-audit.md
 │   └── generate-report.md
-├── reports/                      # Generated HTML reports (created automatically)
-└── README.md                     # This file
+├── agents/
+│   ├── security-scanner.md
+│   ├── code-quality-analyzer.md
+│   ├── architecture-analyzer.md
+│   ├── performance-analyzer.md
+│   └── test-coverage-analyzer.md
+├── skills/
+│   ├── assessment-scoring/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   ├── security-methodology/
+│   │   ├── SKILL.md
+│   │   └── references/
+│   └── architecture-diagramming/
+│       ├── SKILL.md
+│       ├── references/
+│       └── assets/diagram-templates/
+└── README.md
 ```
+
+## Tech Agnostic
+
+All agents and skills are language and framework agnostic. They automatically detect the technology stack and apply relevant analysis patterns. Supported ecosystems include JavaScript/TypeScript, Python, Java, Go, Ruby, PHP, C#/.NET, Rust, and more.
 
 ## Requirements
 
-- Claude Code CLI installed
-- Claude Code version compatible with plugins feature
-
-## Managing the Plugin
-
-To disable the plugin temporarily:
-
-```bash
-/plugin disable code-auditor
-```
-
-To enable it again:
-
-```bash
-/plugin enable code-auditor
-```
-
-To uninstall completely:
-
-```bash
-/plugin uninstall code-auditor
-```
-
-## Contributing
-
-Contributions are welcome! Feel free to submit issues, feature requests, or pull requests to improve the assessment commands.
+- Claude Code CLI
 
 ## License
 
-[Specify your license here]
-
-
-## Version
-
-1.0.0
+MIT

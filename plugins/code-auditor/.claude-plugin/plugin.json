@@ -1,7 +1,7 @@
 {
   "name": "code-auditor",
-  "version": "1.0.2",
-  "description": "Comprehensive code auditing and assessment plugin with security, architecture, and performance analysis capabilities",
+  "version": "2.0.0",
+  "description": "Comprehensive code auditing plugin with parallel security, quality, architecture, performance, and testing agents powered by reusable assessment skills",
   "author": {
     "name": "Claude Registry Code Auditor",
     "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/code-auditor"
