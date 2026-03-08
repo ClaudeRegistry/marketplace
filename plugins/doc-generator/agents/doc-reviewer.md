@@ -1,6 +1,6 @@
 ---
 name: doc-reviewer
-description: Use this agent when the user wants to audit documentation quality, find missing or outdated docs, fix documentation drift, or ensure docs match the current codebase. Examples:
+description: Use this agent when a major coding task has been completed and documentation may need updating, or when the user wants to audit documentation quality, find missing or outdated docs, fix documentation drift, or ensure docs match the current codebase. Examples:
 
 <example>
 Context: User just finished a large refactor and wants to make sure documentation still matches the code
