@@ -190,7 +190,7 @@ When splitting a system across multiple diagrams, maintain traceability:
 - Verify every connection in the diagram against actual code, configuration, or architecture documentation
 - Include directionality on all arrows -- undirected edges in directed systems cause confusion
 - Label async connections explicitly (e.g., "async", "event", "webhook") to distinguish them from synchronous calls
-- Represent optional or conditional paths with dotted lines (`-.->` or `-..->`  syntax)
+- Represent optional or conditional paths with dotted lines (`-.->` syntax)
 
 ### Maintainability
 
