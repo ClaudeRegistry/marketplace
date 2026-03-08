@@ -63,6 +63,7 @@ These are moderately complex. Annotate them when they are non-trivial or when th
 - **Complex conditionals** — multi-branch if/else chains, nested ternaries, and compound boolean expressions with more than two clauses
 - **Error handling** — catch blocks, fallback strategies, retry logic, and error propagation; explain what failure scenario each handler addresses
 - **Integration points** — API calls, database queries, message queue interactions, and external service boundaries; explain the contract and any assumptions about the external system
+- **Configuration-dependent behavior** — code paths that change based on environment variables, feature flags, or runtime configuration; explain which settings control the behavior and what the defaults are
 
 ### Low Priority
 
