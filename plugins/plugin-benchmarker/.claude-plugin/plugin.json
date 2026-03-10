@@ -1,0 +1,10 @@
+{
+  "name": "plugin-benchmarker",
+  "version": "1.0.0",
+  "description": "Benchmark Claude Code plugins by validating structure, reviewing skill quality, and comparing with-skill vs without-skill performance with per-file KEEP/TRIM/DELETE recommendations",
+  "author": {
+    "name": "Claude Registry",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/plugin-benchmarker"
+  },
+  "license": "MIT"
+}
