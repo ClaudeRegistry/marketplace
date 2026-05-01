@@ -8,6 +8,10 @@
 
 # Records for Claude Code
 
+[![Plugin CI](https://github.com/medvertical/claude-records/actions/workflows/plugin-ci.yml/badge.svg)](https://github.com/medvertical/claude-records/actions/workflows/plugin-ci.yml)
+![Version](https://img.shields.io/badge/version-0.3.0-blue)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](./LICENSE)
+
 FHIR validation and data-quality workflow skills for Claude Code.
 
 Records helps FHIR developers, IG authors, and AI agents validate FHIR JSON, explain validation issues, add CI checks, and run validate-patch-revalidate workflows without sending patient data to an external service by default.
@@ -26,6 +30,17 @@ Invoke the FHIR validation skill:
 ```text
 /records:fhir-validation validate ./examples
 ```
+
+## Quickstart
+
+After installation, try the bundled non-PHI fixtures:
+
+```text
+/records:doctor fixtures/mini-ig
+/records:explain-outcome fixtures/operationoutcome-required.json
+```
+
+The first command detects a mini SUSHI/FSH IG project. The second explains a sample `OperationOutcome` without claiming that a new validation run happened.
 
 ## Skills
 
@@ -54,6 +69,17 @@ The plugin includes focused commands that route into the `fhir-validation` workf
 
 It also includes the read-only `fhir-validation-reviewer` agent for diagnosis without edits.
 
+## Feature Matrix
+
+| Feature | What it does |
+| --- | --- |
+| Project detection | Detects FHIR resources, SUSHI/FSH, IG Publisher files, CI workflows, runtimes, and privacy warnings. |
+| OperationOutcome explanation | Maps issue codes such as `required`, `code-invalid`, `profile-unknown`, and `slicing` to fixability and setup guidance. |
+| FSH source mapping | Traces `fsh-generated/resources/*.json` issues back to likely `input/fsh` declarations. |
+| CI generation | Drafts Records validation GitHub Actions workflows for local or API-backed validation. |
+| Privacy redaction | Summarizes Patient-like resources, Bundles, identifiers, and references without printing full PHI. |
+| Quality rules | Derives reviewable project data-quality rules from local evidence. |
+
 ## What It Does
 
 The FHIR validation skill guides Claude through five validation paths:
@@ -74,6 +100,13 @@ This repository is plugin/skill-only. It contains the Claude Code marketplace en
 
 The Records Engine, CLI, API, and MCP server live in the Records main repository. This plugin can use those runtimes when they are already installed or configured, but this repository does not contain their implementation.
 
+## Requirements
+
+- Claude Code is required to install and run the plugin.
+- Node.js is required for local helper scripts and repository tests.
+- Records CLI, Records MCP, Records API, SUSHI, IG Publisher, Firely Terminal, Java validator, and HAPI are optional. The plugin detects and uses them only when available or explicitly configured.
+- Full profile, terminology, invariant, and reference validation requires a configured profile-aware runtime and the relevant FHIR/IG packages.
+
 ## Why Records
 
 - **Local-first** Node/TypeScript workflow, with no JVM required for local structural checks.
@@ -89,6 +122,22 @@ See [PRIVACY.md](./PRIVACY.md) for the data-handling policy.
 ## Compatibility
 
 See [docs/compatibility.md](./docs/compatibility.md) for how Records CLI/API/MCP, SUSHI, IG Publisher, Firely Terminal, HAPI, and fallback validation are detected and bounded.
+
+## Troubleshooting
+
+- Installed plugin but commands are missing: restart Claude Code and check `/plugin`.
+- `records` not found: the Records CLI is optional; the skill will use another configured runtime or structural fallback.
+- `claude` not found during `npm run release:check`: only the live plugin update check is skipped.
+- Generated JSON has validation errors: edit `input/fsh` when FSH sources exist, then rebuild with SUSHI.
+- Full profile validation is not running: confirm the validator has access to the required profiles, packages, terminology, and FHIR version.
+
+## Registry
+
+Canonical installation is via `medvertical/claude-records`. The ClaudeRegistry submission is for discovery and review.
+
+## Release Notes
+
+See [eval-results/v0.3.0.md](./eval-results/v0.3.0.md) for the current release checks and scope.
 
 ## Development
 
