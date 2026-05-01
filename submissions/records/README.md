@@ -43,16 +43,30 @@ Example prompts:
 /records:fhir-validation validate this IG folder
 ```
 
+## Commands
+
+The plugin includes focused commands that route into the `fhir-validation` workflow:
+
+- `/records:doctor` - diagnose FHIR/IG project structure, runtimes, and privacy boundaries.
+- `/records:init-ci` - generate or update Records FHIR validation CI.
+- `/records:explain-outcome` - explain FHIR `OperationOutcome` issues and safe fixability.
+- `/records:derive-quality-rules` - derive reviewable project quality rules from local evidence.
+
+It also includes the read-only `fhir-validation-reviewer` agent for diagnosis without edits.
+
 ## What It Does
 
-The FHIR validation skill guides Claude through four modes:
+The FHIR validation skill guides Claude through five validation paths:
 
 1. **Records MCP tools**, when available.
 2. **Records API**, when `RECORDS_API_URL` is configured.
 3. **Records CLI**, using `records validate-file`.
-4. **Structural fallback**, clearly labeled when no Records runtime is available.
+4. **Configured profile-aware validators**, such as SUSHI, IG Publisher, Firely Terminal, Java validator, or HAPI when already available.
+5. **Structural fallback**, clearly labeled when no Records runtime is available.
 
 The local CLI fallback uses Records' packaged FHIR R4 structural schema for resource types, required fields, unknown fields, cardinality, primitive types, choice fields, and simple backbone children. It does not replace profile, terminology, invariant, reference, metadata, advisor-rule, anomaly, or evidence-report validation.
+
+Executable helper scripts support deterministic project detection, generated FSH source mapping, OperationOutcome explanation, PHI-minimizing summaries, quality-rule derivation, CI YAML generation, and FHIR expression to JSON Pointer mapping.
 
 ## Repository Scope
 
