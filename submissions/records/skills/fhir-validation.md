@@ -1,7 +1,7 @@
 ---
 name: fhir-validation
 description: This skill should be used when the user asks to validate FHIR resources, check FHIR JSON, review Implementation Guide examples, validate AI-created FHIR output, explain validation issues, generate CI validation steps, derive FHIR data-quality rules, or run a validate-patch-revalidate loop with Records.
-version: 0.3.0
+version: 0.5.0
 argument-hint: "[file-or-directory-or-json]"
 allowed-tools: [Read, Glob, Grep, Bash, Edit, Write, MultiEdit]
 ---
@@ -32,7 +32,7 @@ Then choose the first suitable mode:
 2. Records API, only when `RECORDS_API_URL` is configured and the privacy boundary is acceptable.
 3. Records CLI, using `records validate-file <target>`.
 4. Existing local profile-aware validators such as SUSHI, IG Publisher, Firely Terminal, Java validator, or HAPI when already configured and relevant.
-5. Structural fallback, clearly labeled as not profile-, terminology-, invariant-, or reference-aware.
+5. Structural fallback via `scripts/validate-structural.mjs` ([scope](fhir-validation/references/structural-validation.md)), clearly labeled as not profile-, terminology-, invariant-, or reference-aware.
 
 ## Privacy Gates
 

@@ -3,6 +3,7 @@ import { access, readdir, readFile, stat } from "node:fs/promises";
 import { accessSync } from "node:fs";
 import { constants } from "node:fs";
 import path from "node:path";
+import os from "node:os";
 import { spawnSync } from "node:child_process";
 
 const schemaVersion = 1;
@@ -157,6 +158,61 @@ async function inventoryResources(dirs) {
   return { scannedJsonFiles: scanned, byDirectory, byResourceType, metaProfiles, privacySignals };
 }
 
+function packageCacheDir() {
+  if (process.env.FHIR_PACKAGE_CACHE) return process.env.FHIR_PACKAGE_CACHE;
+  const home = os.homedir();
+  return home ? path.join(home, ".fhir", "packages") : null;
+}
+
+async function scanPackageCache() {
+  const dir = packageCacheDir();
+  const cache = { path: dir, available: false, packageCount: 0, packages: [] };
+  if (!dir) return cache;
+  let entries = [];
+  try {
+    entries = await readdir(dir, { withFileTypes: true });
+  } catch {
+    return cache;
+  }
+  cache.available = true;
+  for (const entry of entries) {
+    if (!entry.isDirectory()) continue;
+    const [name, version] = entry.name.split("#");
+    if (!name) continue;
+    cache.packages.push({ id: entry.name, name, version: version || null });
+  }
+  cache.packages.sort((a, b) => a.id.localeCompare(b.id));
+  cache.packageCount = cache.packages.length;
+  return cache;
+}
+
+function resolveDependencies(declared, cache) {
+  const resolved = [];
+  const missing = [];
+  const byName = new Map();
+  for (const entry of cache.packages) {
+    if (!byName.has(entry.name)) byName.set(entry.name, []);
+    byName.get(entry.name).push(entry.version);
+  }
+  for (const [name, version] of Object.entries(declared)) {
+    const versions = byName.get(name);
+    if (!versions) {
+      missing.push({ name, version, reason: "not_in_cache" });
+    } else if (version && !versions.includes(String(version))) {
+      missing.push({ name, version, reason: "version_mismatch", cachedVersions: versions });
+    } else {
+      resolved.push({ name, version });
+    }
+  }
+  return {
+    declaredCount: Object.keys(declared).length,
+    resolvedCount: resolved.length,
+    missingCount: missing.length,
+    resolved,
+    missing,
+  };
+}
+
 const sourceDirs = [];
 for (const dir of ["input/fsh", "input/resources", "examples", "fixtures", "src", "test"]) {
   if (await isDir(dir)) sourceDirs.push(dir);
@@ -239,17 +295,38 @@ const availableRuntimes = {
 };
 
 let projectType = "unknown";
+// Flat-directory fallback: FHIR resources placed directly in the root, with no
+// conventional source/generated layout. Only checked when no conventional
+// resource directory matched, so it does not double-scan known projects.
+const rootResourceDirs = [];
+if (!sourceDirs.length && !generatedDirs.length) {
+  for (const file of (await listFiles(".", 1)).filter((entry) => entry.endsWith(".json") && !entry.includes(path.sep))) {
+    try {
+      const resource = JSON.parse(await readText(file));
+      if (resource && typeof resource.resourceType === "string") {
+        rootResourceDirs.push(".");
+        break;
+      }
+    } catch {
+      // Ignore non-resource JSON in the root.
+    }
+  }
+}
+
 if (workflowFiles.some((file) => file.startsWith("sushi-config")) || sourceDirs.includes("input/fsh")) {
   projectType = "fsh-ig";
 } else if (workflowFiles.includes("ig.ini")) {
   projectType = "ig";
-} else if (sourceDirs.some((dir) => ["input/resources", "examples", "fixtures"].includes(dir))) {
+} else if (sourceDirs.some((dir) => ["input/resources", "examples", "fixtures"].includes(dir)) || rootResourceDirs.length) {
   projectType = "fhir-resources";
 }
 
-const resourceDirs = [...new Set([...sourceDirs, ...generatedDirs].filter((dir) => !dir.endsWith("/fsh") && dir !== "fsh-generated"))];
+const resourceDirs = [...new Set([...sourceDirs, ...generatedDirs, ...rootResourceDirs].filter((dir) => !dir.endsWith("/fsh") && dir !== "fsh-generated"))];
 const resourceInventory = await inventoryResources(resourceDirs);
 const mixedFhirVersionWarning = new Set(fhirVersions.map((value) => String(value).toLowerCase().replace(/\s+/g, ""))).size > 1;
+
+const fhirPackageCache = await scanPackageCache();
+const packageResolution = resolveDependencies(packageDependencies.sushi, fhirPackageCache);
 
 const recommendedOrder = [];
 if (sourceDirs.includes("input/fsh")) {
@@ -272,6 +349,10 @@ if (workflowFiles.includes("ig.ini") && availableRuntimes.java.available) {
 }
 if (availableRuntimes.firelyTerminal.available || availableRuntimes.hapi.available) {
   recommendedOrder.push("Use Firely Terminal or HAPI as a configured cross-check, not as an unannounced replacement.");
+}
+if (packageResolution.missingCount) {
+  const names = packageResolution.missing.map((entry) => entry.name).join(", ");
+  recommendedOrder.push(`Resolve ${packageResolution.missingCount} declared dependency package(s) before profile-aware validation: ${names}. Missing packages cause not-found and profile-unknown issues.`);
 }
 
 const privacyWarnings = [];
@@ -304,6 +385,8 @@ const result = {
   workflowFiles,
   fhirVersions,
   packageDependencies,
+  fhirPackageCache,
+  packageResolution,
   resourceInventory,
   availableRuntimes,
   recommendedOrder,

@@ -56,6 +56,20 @@ SUSHI compiles FSH from the project input directory, commonly `input/fsh`, into 
 
 Do not install SUSHI, Java, the IG Publisher, Firely Terminal, HAPI, or terminology tooling without user consent. If they are already configured locally, it is acceptable to run them after stating the privacy/setup boundary.
 
+## Profile Snapshots and Slicing
+
+Constraint profiles (`derivation: constraint`) must have a generated snapshot before profile-aware validation. A differential-only `StructureDefinition` leads the HL7 reference validator, HAPI, and Firely to misreport `structure` and `slicing` issues. When a `slicing` or profile issue appears, analyze the profile first:
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/skills/fhir-validation/scripts/analyze-structuredefinition.mjs" <structuredefinition-json>
+```
+
+The output reports `needsSnapshot`, and for each sliced element the discriminator type/path and the declared slice names. Use it to:
+
+1. Regenerate the snapshot with SUSHI or IG Publisher when `needsSnapshot` is true, before editing resources.
+2. Map a `slicing` OperationOutcome issue to the right slice by matching the discriminator path against the instance, then resolve the array index with `map-fhir-expression.mjs`.
+3. Make only mechanical slice-name or discriminator fixes in `input/fsh`, never invented codes.
+
 ## Firely and HAPI Cross-Checks
 
 Firely Terminal can validate resources using project scope and package dependencies when available. HAPI and the HL7 Java validator can provide profile-aware cross-checks when configured. Use them as second opinions, not replacements for Records, unless the user asks for a specific validator.

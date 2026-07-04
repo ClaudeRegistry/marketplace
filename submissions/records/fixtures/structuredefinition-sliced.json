@@ -1,0 +1,53 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "records-sliced-observation",
+  "url": "https://example.org/fhir/records-mini/StructureDefinition/records-sliced-observation",
+  "name": "RecordsSlicedObservation",
+  "status": "draft",
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Observation",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Observation.category",
+        "path": "Observation.category",
+        "slicing": {
+          "discriminator": [
+            { "type": "value", "path": "coding.code" }
+          ],
+          "rules": "open",
+          "ordered": false
+        },
+        "min": 1
+      },
+      {
+        "id": "Observation.category:vital",
+        "path": "Observation.category",
+        "sliceName": "vital",
+        "min": 1,
+        "max": "1"
+      },
+      {
+        "id": "Observation.category:vital.coding.code",
+        "path": "Observation.category.coding.code",
+        "patternCode": "vital-signs"
+      },
+      {
+        "id": "Observation.category:lab",
+        "path": "Observation.category",
+        "sliceName": "lab",
+        "min": 0,
+        "max": "1"
+      },
+      {
+        "id": "Observation.category:lab.coding.code",
+        "path": "Observation.category.coding.code",
+        "patternCode": "laboratory"
+      }
+    ]
+  }
+}

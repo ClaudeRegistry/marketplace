@@ -1,10 +1,17 @@
 #!/usr/bin/env node
 import { spawnSync } from "node:child_process";
+import { existsSync } from "node:fs";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const repo = path.resolve(new URL("../../..", import.meta.url).pathname);
-const plugin = path.join(repo, "plugins/records");
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const plugin = path.resolve(scriptDir, "..");
+const marketplaceRepo = path.resolve(plugin, "../..");
+const isCanonicalMarketplaceLayout = path.basename(plugin) === "records"
+  && path.basename(path.dirname(plugin)) === "plugins"
+  && existsSync(path.join(marketplaceRepo, ".claude-plugin/marketplace.json"));
+const repo = isCanonicalMarketplaceLayout ? marketplaceRepo : plugin;
 const failures = [];
 
 function runJson(script, args, input = null) {
@@ -110,6 +117,32 @@ if (summary && JSON.stringify(stableRedaction(summary), null, 2) !== JSON.string
 const outcome = runJson(redactor, [path.join(plugin, "fixtures/operationoutcome-required.json")]);
 if (outcome) {
   if (outcome.resourceType !== "OperationOutcome" || outcome.issueCount !== 2) failures.push("Redactor did not summarize OperationOutcome.");
+}
+
+const validator = path.join(plugin, "skills/fhir-validation/scripts/validate-structural.mjs");
+const validatorRun = spawnSync(process.execPath, [validator, path.join(plugin, "fixtures/invalid-observation.json")], { cwd: repo, encoding: "utf8" });
+let validatorOutput = null;
+try {
+  validatorOutput = JSON.parse(validatorRun.stdout);
+} catch (error) {
+  failures.push(`Structural validator output was not JSON: ${error.message}`);
+}
+if (validatorOutput) {
+  const stableValidation = {
+    schemaVersion: validatorOutput.schemaVersion,
+    mode: validatorOutput.mode,
+    resourceType: validatorOutput.resourceType,
+    exitCode: validatorRun.status,
+    summary: validatorOutput.summary,
+    issues: validatorOutput.operationOutcome.issue.map((entry) => ({
+      severity: entry.severity,
+      code: entry.code,
+      expression: entry.expression[0],
+    })),
+  };
+  if (JSON.stringify(stableValidation, null, 2) !== JSON.stringify(await snapshot("structural-invalid-observation.json"), null, 2)) {
+    failures.push("Structural validator snapshot changed.");
+  }
 }
 
 if (failures.length) {
