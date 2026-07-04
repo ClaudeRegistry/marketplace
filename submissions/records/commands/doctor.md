@@ -9,10 +9,12 @@ Use `/records:fhir-validation` behavior for this diagnostic task.
 
 Target: `$ARGUMENTS` or the current working directory.
 
-Run the deterministic detector script when available:
+Run the deterministic detector, runtime planner, and package doctor when available:
 
 ```bash
 node "${CLAUDE_PLUGIN_ROOT}/skills/fhir-validation/scripts/detect-fhir-project.mjs" "$ARGUMENTS"
+node "${CLAUDE_PLUGIN_ROOT}/skills/fhir-validation/scripts/plan-runtime.mjs" "$ARGUMENTS"
+node "${CLAUDE_PLUGIN_ROOT}/skills/fhir-validation/scripts/doctor-packages.mjs" "$ARGUMENTS"
 ```
 
 If no argument was provided, use `.`. Summarize:
@@ -22,5 +24,6 @@ If no argument was provided, use `.`. Summarize:
 3. Available Records, SUSHI, Java validator, Firely, or HAPI runtimes.
 4. Recommended validation order.
 5. Privacy warnings and any consent gates before network/server/API use.
+6. Package-cache findings, missing dependencies, mixed FHIR versions, and setup-vs-resource defects.
 
 Do not edit files unless the user explicitly asks for fixes.

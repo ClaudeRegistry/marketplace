@@ -2,6 +2,8 @@
 
 This plugin is a Claude Code plugin/skill package. It does not ship the Records Engine, Records API, Records MCP server, SUSHI, IG Publisher, Firely Terminal, HAPI, Java validator, or terminology services.
 
+Use `skills/fhir-validation/scripts/plan-runtime.mjs <target>` for executable runtime selection and consent gates. Use `skills/fhir-validation/scripts/doctor-packages.mjs <target>` for FHIR package-cache and setup diagnostics.
+
 | Runtime | Detection | Local by default | Profile-aware | Terminology-aware | Network risk | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | Records MCP | Claude tool availability | Depends on user config | Yes when backend supports it | Yes when backend supports it | Depends on MCP server | Preferred when configured. |
@@ -17,6 +19,7 @@ This plugin is a Claude Code plugin/skill package. It does not ship the Records 
 ## Rules
 
 - Ask before installing tools, fetching FHIR URLs, using hosted APIs, or contacting terminology servers.
+- Treat `privacyGate.consentRequired` and package-doctor `error` findings as blockers before network, package, terminology, or hosted validation.
 - Do not edit `fsh-generated/resources` when `input/fsh` exists unless the user explicitly asks for a generated-artifact patch.
 - Do not claim profile, terminology, invariant, or reference validation unless the selected runtime actually loaded that context.
 - Prefer redacted summaries for Patient-like resources and Bundles.

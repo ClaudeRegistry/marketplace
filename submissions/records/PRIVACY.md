@@ -10,6 +10,10 @@ By default, the skill instructs Claude to use local project files, local Records
 
 Hosted validation is opt-in. The skill uses a Records API only when `RECORDS_API_URL` is configured by the user or project. Authentication is provided through user-managed configuration such as `RECORDS_AUTH_TOKEN`, `RECORDS_API_KEY` passed as a CLI `--auth-token`, or the Records CLI config.
 
+## Executable Gates
+
+The plugin includes `skills/fhir-validation/scripts/plan-runtime.mjs` and the `validate.mjs` orchestrator. They emit a `privacyGate` object and block URL fetching, FHIR server access, hosted validators, Records API use for medium/high-risk resources, terminology service use, and package downloads until explicit consent is provided for the current task.
+
 ## Structural Fallback
 
 When no Records runtime is available, Claude may perform a local structural fallback by parsing JSON and checking obvious FHIR shape issues. This fallback is not full validation and does not require network access.

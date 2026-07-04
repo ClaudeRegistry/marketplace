@@ -1,7 +1,7 @@
 ---
 name: fhir-validation
 description: This skill should be used when the user asks to validate FHIR resources, check FHIR JSON, review Implementation Guide examples, validate AI-created FHIR output, explain validation issues, generate CI validation steps, derive FHIR data-quality rules, or run a validate-patch-revalidate loop with Records.
-version: 0.5.0
+version: 0.6.0
 argument-hint: "[file-or-directory-or-json]"
 allowed-tools: [Read, Glob, Grep, Bash, Edit, Write, MultiEdit]
 ---
@@ -18,13 +18,14 @@ Treat arguments as a file, directory, JSON resource, OperationOutcome, FHIR URL,
 
 ## Fast Start
 
-For file or directory validation, first run the deterministic detector when available:
+For file or directory validation, first run the deterministic detector and runtime planner when available:
 
 ```bash
 node "${CLAUDE_PLUGIN_ROOT:-.}/skills/fhir-validation/scripts/detect-fhir-project.mjs" <target-or-repo>
+node "${CLAUDE_PLUGIN_ROOT:-.}/skills/fhir-validation/scripts/plan-runtime.mjs" <target-or-repo>
 ```
 
-Use the detector output to pick source directories, generated directories, available runtimes, privacy warnings, and validation order. If `CLAUDE_PLUGIN_ROOT` is not set during local development, resolve the script relative to this skill directory.
+Use their output to pick source directories, generated directories, available runtimes, privacy gates, and validation order.
 
 Then choose the first suitable mode:
 
@@ -42,9 +43,7 @@ Ask for explicit consent before fetching FHIR URLs, contacting FHIR servers, sen
 
 Run validate-patch-revalidate for fixes. Patch only mechanical or clearly inferable issues. Do not invent clinical codes, identifiers, dates, references, status values, or business policy. Stop and ask for domain input when the validator is correct but the right clinical value is not present in local source data.
 
-Generated artifacts are usually not the durable source. If an issue points at `fsh-generated/resources/*.json`, read [references/ig-workflows.md](fhir-validation/references/ig-workflows.md) before editing.
-
-For safe/unsafe fix classification, read [references/repair-policy.md](fhir-validation/references/repair-policy.md).
+Generated artifacts are usually not the durable source. If an issue points at `fsh-generated/resources/*.json`, read [references/ig-workflows.md](fhir-validation/references/ig-workflows.md) before editing. For safe/unsafe fix classification, read [references/repair-policy.md](fhir-validation/references/repair-policy.md).
 
 For generated FSH artifacts, prefer:
 
@@ -62,6 +61,7 @@ For OperationOutcome JSON, quality-rule derivation, CI YAML, or FHIR expression 
 
 ```bash
 node "${CLAUDE_PLUGIN_ROOT:-.}/skills/fhir-validation/scripts/explain-operationoutcome.mjs" <operationoutcome-json>
+node "${CLAUDE_PLUGIN_ROOT:-.}/skills/fhir-validation/scripts/doctor-packages.mjs" <target-or-repo>
 node "${CLAUDE_PLUGIN_ROOT:-.}/skills/fhir-validation/scripts/derive-quality-rules.mjs" <resource-directory>
 node "${CLAUDE_PLUGIN_ROOT:-.}/skills/fhir-validation/scripts/generate-ci.mjs" --dir <resource-directory>
 node "${CLAUDE_PLUGIN_ROOT:-.}/skills/fhir-validation/scripts/map-fhir-expression.mjs" "Observation.category[0].coding[0].code"

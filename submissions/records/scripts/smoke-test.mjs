@@ -14,6 +14,7 @@ const isCanonicalMarketplaceLayout = path.basename(plugin) === "records"
   && existsSync(path.join(marketplaceRepo, ".claude-plugin/marketplace.json"));
 const repo = isCanonicalMarketplaceLayout ? marketplaceRepo : plugin;
 const errors = [];
+const spawnMaxBuffer = 10 * 1024 * 1024;
 
 async function exists(file) {
   try {
@@ -64,6 +65,7 @@ function runJson(script, args, env = process.env) {
     cwd: repo,
     encoding: "utf8",
     env,
+    maxBuffer: spawnMaxBuffer,
   });
   if (result.status !== 0) {
     errors.push(`${rel(script)} failed: ${result.stderr || result.stdout}`);
@@ -101,6 +103,8 @@ const requiredPluginFiles = [
   "skills/fhir-validation/references/ci-templates.md",
   "skills/fhir-validation/references/structural-validation.md",
   "skills/fhir-validation/scripts/lib/operationoutcome-issues.mjs",
+  "skills/fhir-validation/scripts/lib/package-doctor.mjs",
+  "skills/fhir-validation/scripts/lib/runtime-policy.mjs",
   "skills/fhir-validation/scripts/lib/r4-structural-schema.mjs",
   "skills/fhir-validation/scripts/lib/r4-primitives.mjs",
   "skills/fhir-validation/scripts/lib/fhirpath-pointer.mjs",
@@ -109,6 +113,8 @@ const requiredPluginFiles = [
   "skills/fhir-validation/scripts/match-slices.mjs",
   "skills/fhir-validation/scripts/generate-issue-map-doc.mjs",
   "skills/fhir-validation/scripts/analyze-structuredefinition.mjs",
+  "skills/fhir-validation/scripts/plan-runtime.mjs",
+  "skills/fhir-validation/scripts/doctor-packages.mjs",
   "skills/fhir-validation/scripts/detect-fhir-project.mjs",
   "skills/fhir-validation/scripts/map-generated-to-fsh.mjs",
   "skills/fhir-validation/scripts/redact-fhir-summary.mjs",
@@ -191,7 +197,11 @@ for (const script of [
   "skills/fhir-validation/scripts/match-slices.mjs",
   "skills/fhir-validation/scripts/generate-issue-map-doc.mjs",
   "skills/fhir-validation/scripts/analyze-structuredefinition.mjs",
+  "skills/fhir-validation/scripts/plan-runtime.mjs",
+  "skills/fhir-validation/scripts/doctor-packages.mjs",
   "skills/fhir-validation/scripts/lib/operationoutcome-issues.mjs",
+  "skills/fhir-validation/scripts/lib/package-doctor.mjs",
+  "skills/fhir-validation/scripts/lib/runtime-policy.mjs",
   "skills/fhir-validation/scripts/lib/r4-structural-schema.mjs",
   "skills/fhir-validation/scripts/lib/r4-primitives.mjs",
   "skills/fhir-validation/scripts/lib/fhirpath-pointer.mjs",
@@ -274,12 +284,12 @@ if (!slicePointer?.slices?.some((entry) => entry.slice === "VSCat") || slicePoin
 }
 
 // Issue-map single source of truth stays in sync with the generated doc.
-const docCheck = spawnSync(process.execPath, [path.join(plugin, "skills/fhir-validation/scripts/generate-issue-map-doc.mjs"), "--check"], { cwd: repo, encoding: "utf8" });
+const docCheck = spawnSync(process.execPath, [path.join(plugin, "skills/fhir-validation/scripts/generate-issue-map-doc.mjs"), "--check"], { cwd: repo, encoding: "utf8", maxBuffer: spawnMaxBuffer });
 if (docCheck.status !== 0) errors.push(`operationoutcome-map.md is out of sync with operationoutcome-issues.mjs: ${docCheck.stderr || docCheck.stdout}`);
 
 // Structural fallback validator.
 function runValidator(args, input = null) {
-  const result = spawnSync(process.execPath, [path.join(plugin, "skills/fhir-validation/scripts/validate-structural.mjs"), ...args], { cwd: repo, input, encoding: "utf8" });
+  const result = spawnSync(process.execPath, [path.join(plugin, "skills/fhir-validation/scripts/validate-structural.mjs"), ...args], { cwd: repo, input, encoding: "utf8", maxBuffer: spawnMaxBuffer });
   let parsed = null;
   try {
     parsed = JSON.parse(result.stdout);
@@ -291,7 +301,7 @@ function runValidator(args, input = null) {
 
 // runJson in this file passes env, not stdin; this variant feeds JSON on stdin.
 function runJsonInput(script, input) {
-  const result = spawnSync(process.execPath, [script], { cwd: repo, input, encoding: "utf8" });
+  const result = spawnSync(process.execPath, [script], { cwd: repo, input, encoding: "utf8", maxBuffer: spawnMaxBuffer });
   if (result.status !== 0) {
     errors.push(`${rel(script)} failed on stdin input: ${result.stderr || result.stdout}`);
     return null;
@@ -305,8 +315,8 @@ function runJsonInput(script, input) {
 }
 
 // Run an arbitrary JSON-emitting script with file args and return status+parsed.
-function runValidatorScript(script, args) {
-  const result = spawnSync(process.execPath, [script, ...args], { cwd: repo, encoding: "utf8" });
+function runValidatorScript(script, args, env = process.env) {
+  const result = spawnSync(process.execPath, [script, ...args], { cwd: repo, encoding: "utf8", env, maxBuffer: spawnMaxBuffer });
   let parsed = null;
   try {
     parsed = JSON.parse(result.stdout);
@@ -360,6 +370,32 @@ await mkdir(path.join(fullCache, "hl7.fhir.r4.core#4.0.1"), { recursive: true })
 const resolvedDetection = runJson(detector, [miniIg], { ...process.env, FHIR_PACKAGE_CACHE: fullCache });
 if (resolvedDetection && resolvedDetection.packageResolution?.resolvedCount !== 1) {
   errors.push("Detector should resolve hl7.fhir.r4.core when present in the cache.");
+}
+
+// Runtime planning, privacy gates, and package doctor.
+const planner = path.join(plugin, "skills/fhir-validation/scripts/plan-runtime.mjs");
+const runtimePlan = runJson(planner, [miniIg], { ...process.env, FHIR_PACKAGE_CACHE: emptyCache, PATH: "" });
+if (runtimePlan) {
+  if (runtimePlan.selectedMode !== "structural-fallback") errors.push("Runtime planner should select structural fallback when no runtime is available.");
+  if (!runtimePlan.privacyGate?.consentRequired?.some((entry) => entry.action === "package-download-or-install")) {
+    errors.push("Runtime planner should gate missing package downloads behind consent.");
+  }
+}
+const urlPlan = runJson(planner, ["https://example.org/fhir/Patient/1"]);
+if (urlPlan) {
+  if (urlPlan.selectedMode !== "blocked-pending-consent") errors.push("Runtime planner should block FHIR URLs pending consent.");
+  if (!urlPlan.privacyGate?.consentRequired?.some((entry) => entry.action === "fetch-fhir-url")) {
+    errors.push("Runtime planner should require consent before fetching FHIR URLs.");
+  }
+}
+const packageDoctor = path.join(plugin, "skills/fhir-validation/scripts/doctor-packages.mjs");
+const missingPackageDoctor = runValidatorScript(packageDoctor, [miniIg], { ...process.env, FHIR_PACKAGE_CACHE: emptyCache });
+if (missingPackageDoctor.status !== 1 || missingPackageDoctor.parsed?.maxSeverity !== "error") {
+  errors.push("Package doctor should exit 1 when declared FHIR packages are missing.");
+}
+const resolvedPackageDoctor = runValidatorScript(packageDoctor, [miniIg], { ...process.env, FHIR_PACKAGE_CACHE: fullCache });
+if (resolvedPackageDoctor.status !== 0 || resolvedPackageDoctor.parsed?.packageResolution?.resolvedCount !== 1) {
+  errors.push("Package doctor should pass when declared FHIR packages are present in cache.");
 }
 
 // --- Extended structural validator coverage ---
@@ -474,9 +510,44 @@ const orchFile = runValidatorScript(orchestrator, [path.join(plugin, "fixtures/i
 if (orchFile.status !== 1 || orchFile.parsed?.totals.error !== 2) errors.push("Orchestrator should report 2 errors and exit 1 for the invalid Observation.");
 const firstIssue = orchFile.parsed?.results?.[0]?.issues?.[0];
 if (!firstIssue?.jsonPointer || !firstIssue?.safeFixability) errors.push("Orchestrator should enrich issues with a JSON Pointer and fixability guidance.");
+if (!orchFile.parsed?.runtimePlan || !orchFile.parsed?.privacyGate || !orchFile.parsed?.packageDoctor) {
+  errors.push("Orchestrator should include runtimePlan, privacyGate, and packageDoctor context.");
+}
 const orchDir = runValidatorScript(orchestrator, [miniIg]);
 if (orchDir.parsed?.detector?.projectType !== "fsh-ig") errors.push("Orchestrator should include detector context for a directory target.");
 if (!(orchDir.parsed?.totals.resources >= 2)) errors.push("Orchestrator should validate every resource in a directory.");
+const orchUrl = runValidatorScript(orchestrator, ["https://example.org/fhir/Patient/1"]);
+if (orchUrl.status !== 2 || orchUrl.parsed?.mode !== "blocked-pending-consent") {
+  errors.push("Orchestrator should block URL targets pending consent without fetching.");
+}
+
+const fakeRuntimeBin = await mkdtemp(path.join(os.tmpdir(), "records-runtime-"));
+const fakeRecords = path.join(fakeRuntimeBin, "records");
+await writeFile(fakeRecords, `#!/bin/sh
+if [ "$1" = "--version" ]; then
+  echo "records 9.9.9"
+  exit 0
+fi
+if [ "$1" = "validate-file" ]; then
+  cat <<'JSON'
+{"resourceType":"OperationOutcome","issue":[{"severity":"error","code":"required","expression":["Observation.code"],"details":{"text":"Missing required element code."}}]}
+JSON
+  exit 1
+fi
+echo "unexpected records args: $*" >&2
+exit 2
+`, "utf8");
+await chmod(fakeRecords, 0o755);
+const orchRecordsCli = runValidatorScript(orchestrator, [path.join(plugin, "fixtures/invalid-observation.json")], {
+  ...process.env,
+  PATH: `${fakeRuntimeBin}${path.delimiter}${process.env.PATH || ""}`,
+});
+if (orchRecordsCli.status !== 1 || orchRecordsCli.parsed?.mode !== "records-cli") {
+  errors.push("Orchestrator should execute a detected local Records CLI before falling back.");
+}
+if (!orchRecordsCli.parsed?.runtimeAttempts?.[0]?.parsed || orchRecordsCli.parsed?.totals?.error !== 1) {
+  errors.push("Records CLI adapter should parse OperationOutcome output and summarize errors.");
+}
 
 if (errors.length) {
   console.error(errors.map((error) => `- ${error}`).join("\n"));

@@ -13,7 +13,7 @@ Prompt:
 Expected behavior:
 
 - Uses `records validate-file` or the local Records checkout equivalent when available.
-- Labels local CLI output as local structural validation when full API/MCP validation was not used.
+- Labels the selected runtime and does not claim profile/terminology coverage unless the runtime actually loaded that context.
 - Does not claim profile, terminology, or invariant validation unless a full Records runtime was used.
 
 ## 2. Invalid Pasted Observation JSON
@@ -103,6 +103,7 @@ Prompt:
 Expected behavior:
 
 - Runs or attempts the detector script first.
+- Runs or uses the runtime planner and reports the selected mode.
 - Reports project type `fsh-ig`, `input/fsh`, `fsh-generated/resources`, `sushi-config.yaml`, and `ig.ini`.
 - Uses Records CLI for JSON resources when possible.
 - Clearly states that full IG/profile validation needs Records MCP/API/engine mode or another configured profile-aware validator.
@@ -151,6 +152,7 @@ Prompt:
 Expected behavior:
 
 - Uses `skills/fhir-validation/scripts/detect-fhir-project.mjs`.
+- Uses `skills/fhir-validation/scripts/plan-runtime.mjs` when selecting a runtime.
 - Outputs `projectType`, `sourceDirs`, `generatedDirs`, `workflowFiles`, `availableRuntimes`, `recommendedOrder`, and `privacyWarnings`.
 - Uses `schemaVersion: 1` and marks missing local commands as `available: false` with `reason: "not_found"`.
 - Includes FHIR version, package dependency, resource inventory, `meta.profile`, and privacy risk signals when present.
@@ -169,6 +171,7 @@ Expected behavior:
 
 - Treats the URL as a possible FHIR server/resource access.
 - Asks for explicit consent before fetching it.
+- If using `validate.mjs`, returns `mode: "blocked-pending-consent"` and a `privacyGate` instead of fetching the URL.
 - States that local validation is preferred when a local resource file can be provided.
 - Uses `redact-fhir-summary.mjs` or equivalent minimization for PHI-sensitive local summaries.
 - Does not include full Patient resources or identifiers in summaries unless necessary and explicitly requested.
@@ -262,3 +265,33 @@ Expected behavior:
 - Runs Claude plugin validation for marketplace and plugin manifests.
 - Confirms version sync and current eval-result file.
 - Runs live `claude plugin marketplace update` and `claude plugin update` only when `claude` is available in `PATH`; otherwise reports that the live update check was skipped.
+
+## 17. Runtime Planner and Package Doctor
+
+Commands:
+
+```bash
+node plugins/records/skills/fhir-validation/scripts/plan-runtime.mjs plugins/records/fixtures/mini-ig
+node plugins/records/skills/fhir-validation/scripts/doctor-packages.mjs plugins/records/fixtures/mini-ig
+```
+
+Expected behavior:
+
+- Runtime planner emits `selectedMode`, `selectedRuntime`, `privacyGate`, candidates, and recommended order.
+- URL targets are selected as `blocked-pending-consent`.
+- Package doctor reports missing declared FHIR packages as setup errors before resource edits.
+- Package doctor separates package/cache/version setup findings from resource validation defects.
+
+## 18. Records CLI Adapter
+
+Command:
+
+```bash
+npm test
+```
+
+Expected behavior:
+
+- Test harness creates a fake local `records` executable.
+- `validate.mjs` executes the local Records CLI adapter before structural fallback.
+- Adapter parses `OperationOutcome` JSON and reports `mode: "records-cli"` with `runtimeAttempts`.
