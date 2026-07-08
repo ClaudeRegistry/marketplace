@@ -1,0 +1,10 @@
+{
+  "name": "release-conductor",
+  "version": "1.0.0",
+  "description": "Owns everything around the diff: craft Conventional Commits and PR descriptions, recommend the right semver bump by reasoning about behavioral breaking changes, assemble changelogs from messy history, and guide merge-conflict resolution, rebase planning, and git-history archaeology.",
+  "author": {
+    "name": "Claude Registry Release Conductor",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/release-conductor"
+  },
+  "license": "MIT"
+}

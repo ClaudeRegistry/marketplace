@@ -241,6 +241,131 @@
         "./agents/skill-file-auditor.md",
         "./agents/recommendation-engine.md"
       ]
+    },
+    {
+      "name": "release-conductor",
+      "description": "Owns everything around the diff: craft Conventional Commits and PR descriptions, recommend the right semver bump by reasoning about behavioral breaking changes, assemble changelogs from messy history, and guide merge-conflict resolution, rebase planning, and git-history archaeology",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "source": "./plugins/release-conductor",
+      "category": "git",
+      "homepage": "https://clauderegistry.com/plugin/release-conductor",
+      "license": "MIT",
+      "keywords": [
+        "git",
+        "release",
+        "semver",
+        "changelog",
+        "conventional-commits",
+        "pull-request",
+        "merge-conflict",
+        "rebase",
+        "versioning"
+      ],
+      "strict": true,
+      "commands": [
+        "./commands/ship.md",
+        "./commands/commit.md",
+        "./commands/release-notes.md",
+        "./commands/resolve-conflicts.md",
+        "./commands/rebase-plan.md"
+      ],
+      "agents": [
+        "./agents/semver-advisor.md",
+        "./agents/conflict-resolver.md",
+        "./agents/git-historian.md"
+      ],
+      "skills": [
+        "./skills/changelog-assembly/SKILL.md",
+        "./skills/breaking-change-detection/SKILL.md"
+      ]
+    },
+    {
+      "name": "ci-incident-medic",
+      "description": "Triages failing GitHub Actions runs, hardens Dockerfiles, pre-flights Kubernetes manifests before they reach the cluster, and drafts blameless postmortems from incident evidence",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "source": "./plugins/ci-incident-medic",
+      "category": "devops",
+      "homepage": "https://clauderegistry.com/plugin/ci-incident-medic",
+      "license": "MIT",
+      "keywords": [
+        "devops",
+        "sre",
+        "ci-cd",
+        "github-actions",
+        "docker",
+        "kubernetes",
+        "postmortem",
+        "incident-response",
+        "dockerfile",
+        "observability"
+      ],
+      "strict": true,
+      "commands": [
+        "./commands/gha-triage.md",
+        "./commands/workflow-review.md",
+        "./commands/dockerfile-optimize.md",
+        "./commands/k8s-preflight.md",
+        "./commands/postmortem.md"
+      ],
+      "agents": [
+        "./agents/ci-failure-triager.md",
+        "./agents/postmortem-writer.md",
+        "./agents/dockerfile-hardener.md"
+      ],
+      "skills": [
+        "./skills/gha-failure-taxonomy/SKILL.md",
+        "./skills/dockerfile-smells/SKILL.md",
+        "./skills/k8s-manifest-validation/SKILL.md",
+        "./skills/incident-response/SKILL.md"
+      ]
+    },
+    {
+      "name": "sql-safety-net",
+      "description": "Static, no-database-connection guardrails for schema and query work: rewrites unsafe migrations into zero-downtime expand-contract steps, hunts ORM N+1 queries in your diff, interprets pasted EXPLAIN plans, and flags schema anti-patterns",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "source": "./plugins/sql-safety-net",
+      "category": "database",
+      "homepage": "https://clauderegistry.com/plugin/sql-safety-net",
+      "license": "MIT",
+      "keywords": [
+        "database",
+        "sql",
+        "migration",
+        "zero-downtime",
+        "n+1",
+        "orm",
+        "explain-plan",
+        "postgres",
+        "mysql",
+        "schema",
+        "index"
+      ],
+      "strict": true,
+      "commands": [
+        "./commands/migration-safety.md",
+        "./commands/explain-plan.md",
+        "./commands/schema-review.md",
+        "./commands/index-advisor.md",
+        "./commands/n1-scan.md"
+      ],
+      "agents": [
+        "./agents/n1-hunter.md",
+        "./agents/migration-rewriter.md"
+      ],
+      "skills": [
+        "./skills/safe-migrations/SKILL.md",
+        "./skills/explain-interpreter/SKILL.md",
+        "./skills/schema-antipatterns/SKILL.md"
+      ]
     }
   ]
 }

@@ -1,0 +1,10 @@
+{
+  "name": "ci-incident-medic",
+  "version": "1.0.0",
+  "description": "Triages failing GitHub Actions runs, hardens Dockerfiles, pre-flights Kubernetes manifests before they reach the cluster, and drafts blameless postmortems from incident evidence.",
+  "author": {
+    "name": "Claude Registry CI & Incident Medic",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/ci-incident-medic"
+  },
+  "license": "MIT"
+}

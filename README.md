@@ -24,6 +24,11 @@ Install a plugin:
 | [legacy-analyzer](https://clauderegistry.com/plugin/legacy-analyzer) | Business logic extraction from legacy code |
 | [data-converter](https://clauderegistry.com/plugin/data-converter) | Data transformation and format conversion |
 | [code-tutor](https://clauderegistry.com/plugin/code-tutor) | Interactive coding education and mentoring |
+| [seo-optimizer](https://clauderegistry.com/plugin/seo-optimizer) | SEO audit, optimization, and review |
+| [plugin-benchmarker](https://clauderegistry.com/plugin/plugin-benchmarker) | Benchmark and audit Claude Code plugins and skills |
+| [release-conductor](https://clauderegistry.com/plugin/release-conductor) | Commits, semver, changelogs, conflicts, and git-history archaeology |
+| [ci-incident-medic](https://clauderegistry.com/plugin/ci-incident-medic) | CI failure triage, Dockerfile hardening, K8s pre-flight, and postmortems |
+| [sql-safety-net](https://clauderegistry.com/plugin/sql-safety-net) | Safe migrations, N+1 hunting, and EXPLAIN-plan interpretation |
 
 ## Contributing
 
