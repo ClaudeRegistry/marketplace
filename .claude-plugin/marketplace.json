@@ -29,10 +29,20 @@
       ],
       "strict": true,
       "commands": [
-        "./commands/generic-assessment.md",
-        "./commands/architecture-assessment.md",
-        "./commands/java-security-assessment.md",
+        "./commands/full-audit.md",
         "./commands/generate-report.md"
+      ],
+      "agents": [
+        "./agents/security-scanner.md",
+        "./agents/code-quality-analyzer.md",
+        "./agents/architecture-analyzer.md",
+        "./agents/performance-analyzer.md",
+        "./agents/test-coverage-analyzer.md"
+      ],
+      "skills": [
+        "./skills/assessment-scoring/SKILL.md",
+        "./skills/security-methodology/SKILL.md",
+        "./skills/architecture-diagramming/SKILL.md"
       ]
     },
     {
@@ -57,13 +67,18 @@
       ],
       "strict": true,
       "commands": [
-        "./commands/api-docs.md",
-        "./commands/architecture-diagram.md",
         "./commands/doc-generate.md",
-        "./commands/doc-sync-check.md",
-        "./commands/doc-update.md",
-        "./commands/explain-code.md",
-        "./commands/readme-generate.md"
+        "./commands/api-docs.md",
+        "./commands/readme-generate.md",
+        "./commands/architecture-diagram.md"
+      ],
+      "agents": [
+        "./agents/doc-reviewer.md",
+        "./agents/code-explainer.md"
+      ],
+      "skills": [
+        "./skills/documentation-standards/SKILL.md",
+        "./skills/mermaid-diagrams/SKILL.md"
       ]
     },
     {
