@@ -4,12 +4,12 @@ argument-hint: [migration-file]
 model: inherit
 ---
 
-Analyze the migration in `$ARGUMENTS` (or the migration files in the current diff if no path is given) for operations that take blocking table locks, rewrite the hazardous steps into a safe expand-contract sequence, and produce a paired rollback. This is a **static** analysis — no database connection is used. Load the `safe-migrations` skill for the lock catalog and expand-contract recipes.
+Analyze the migration in `$ARGUMENTS` (or the migration files in the current diff if no path is given) for operations that take blocking table locks, rewrite the hazardous steps into a safe expand-contract sequence, and produce a paired rollback. This is a **static** analysis, no database connection is used. Load the `safe-migrations` skill for the lock catalog and expand-contract recipes.
 
 ## Process
 
 ### Step 1: Detect dialect and framework
-Read the target file. Determine the **dialect** (Postgres vs MySQL/InnoDB — infer from types like `serial`/`jsonb`/`text` vs `AUTO_INCREMENT`/`ENGINE=InnoDB`, or from config). Determine the **framework** by file path and syntax:
+Read the target file. Determine the **dialect** (Postgres vs MySQL/InnoDB, infer from types like `serial`/`jsonb`/`text` vs `AUTO_INCREMENT`/`ENGINE=InnoDB`, or from config). Determine the **framework** by file path and syntax:
 
 | Framework | Signal |
 |---|---|
@@ -47,13 +47,13 @@ Launch the **migration-rewriter** agent to write the rewritten UP migration and 
 
 ### Step 5: Report
 Emit exactly these sections:
-- `## Hazard Summary` — the operation → lock → impact table.
-- `## Safe Migration (UP)` — the rewritten migration, with a one-line comment per step naming the lock it avoids.
-- `## Rollback (DOWN)` — the reversible counterpart.
-- `## Deploy Notes` — if multi-deploy, the exact order and what must ship between steps.
+- `## Hazard Summary`: the operation → lock → impact table.
+- `## Safe Migration (UP)`: the rewritten migration, with a one-line comment per step naming the lock it avoids.
+- `## Rollback (DOWN)`: the reversible counterpart.
+- `## Deploy Notes`: if multi-deploy, the exact order and what must ship between steps.
 
 ## Important Notes
-- Base every finding on the real DDL in the file — cite the line number of each hazardous statement.
+- Base every finding on the real DDL in the file, cite the line number of each hazardous statement.
 - Never fabricate lock behavior; ground each claim in the skill's lock catalog for the detected dialect.
-- Backfills must be batched with a bound (e.g. `LIMIT`/`WHERE id BETWEEN`) — never a single unbounded `UPDATE`.
+- Backfills must be batched with a bound (e.g. `LIMIT`/`WHERE id BETWEEN`), never a single unbounded `UPDATE`.
 - A migration without a working DOWN is not safe; always produce a rollback even if it is a documented manual step.

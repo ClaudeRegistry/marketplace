@@ -7,7 +7,7 @@ description: This skill should be used when the user mentions "breaking change",
 
 ## Purpose
 
-Standardize how a change is classified against Semantic Versioning by reasoning about its effect on *consumers* — including behavioral breaks that leave the syntax intact. Humans get binary compatibility right only about 60% of the time; this methodology closes the gap with an explicit decision matrix and per-ecosystem catalogs. Tech-agnostic.
+Standardize how a change is classified against Semantic Versioning by reasoning about its effect on *consumers*, including behavioral breaks that leave the syntax intact. Humans get binary compatibility right only about 60% of the time; this methodology closes the gap with an explicit decision matrix and per-ecosystem catalogs. Tech-agnostic.
 
 ## First: is the change on the public surface?
 
@@ -63,5 +63,5 @@ Always read the *diff of behavior*, not only the diff of declarations.
 ## Additional Resources
 
 ### Reference Files
-- **`references/breaking-change-catalog.md`** — per-language and per-interface signals (JS/TS, Python, Go, Java, Rust, HTTP/REST, GraphQL, database schema, CLI): what is a break vs an additive change, with concrete examples.
-- **`references/semver-rules.md`** — a concise SemVer 2.0.0 summary, pre-1.0.0 rules, deprecation policy (deprecate before removing), and how to communicate breaks to users.
+- **`references/breaking-change-catalog.md`**: per-language and per-interface signals (JS/TS, Python, Go, Java, Rust, HTTP/REST, GraphQL, database schema, CLI): what is a break vs an additive change, with concrete examples.
+- **`references/semver-rules.md`**: a concise SemVer 2.0.0 summary, pre-1.0.0 rules, deprecation policy (deprecate before removing), and how to communicate breaks to users.

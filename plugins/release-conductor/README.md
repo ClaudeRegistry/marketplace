@@ -1,19 +1,19 @@
 # Release Conductor
 
-The release-chore co-pilot for Claude Code: it owns everything clustered around the diff — commit messages, PR descriptions, version bumps, changelogs, merge conflicts, rebase planning, and git-history archaeology.
+The release-chore co-pilot for Claude Code: it owns everything clustered around the diff, commit messages, PR descriptions, version bumps, changelogs, merge conflicts, rebase planning, and git-history archaeology.
 
 ## Purpose
 
-AI made code generation roughly 30% faster, but human review and release capacity stayed flat — the "review gap." The chores clustered around shipping are fragmented and high-frequency: writing PR descriptions, deciding major/minor/patch (humans get binary-compatibility right only about 60% of the time), assembling changelogs from non-conventional history, resolving merge conflicts (10-20% of developer time), and doing blame/bisect archaeology. Diff-review tools explicitly disown these tasks. Release Conductor owns exactly them — turning the messy, manual work between "code is written" and "code is shipped" into a guided, evidence-based workflow.
+AI made code generation roughly 30% faster, but human review and release capacity stayed flat, the "review gap." The chores clustered around shipping are fragmented and high-frequency: writing PR descriptions, deciding major/minor/patch (humans get binary-compatibility right only about 60% of the time), assembling changelogs from non-conventional history, resolving merge conflicts (10-20% of developer time), and doing blame/bisect archaeology. Diff-review tools explicitly disown these tasks. Release Conductor owns exactly them, turning the messy, manual work between "code is written" and "code is shipped" into a guided, evidence-based workflow.
 
 ## Features
 
-- One-command ship prep: state detection, change summary, Conventional Commit drafts, semver recommendation, and a full PR description — all presented for approval, nothing executed.
+- One-command ship prep: state detection, change summary, Conventional Commit drafts, semver recommendation, and a full PR description, all presented for approval, nothing executed.
 - Conventional Commit authoring from staged changes, with correct type/scope/subject/body/footers.
 - Release notes and changelog assembly that works even on non-conventional history by inferring change types from diffs.
 - Behavioral (not just syntactic) breaking-change detection and a MAJOR/MINOR/PATCH recommendation with a confidence level and an evidence table.
 - Intent-aware merge-conflict resolution that preserves both sides rather than blindly picking one.
-- Safe interactive-rebase planning with an exact todo list and an explicit risk assessment — plan only, never executed.
+- Safe interactive-rebase planning with an exact todo list and an explicit risk assessment, plan only, never executed.
 - Git archaeology: pickaxe, blame, and bisect to answer why code exists, when it broke, and what introduced a behavior.
 - Two reusable skills (changelog assembly, breaking-change detection) that the commands and agents share.
 
@@ -138,11 +138,11 @@ Methodology to reason about semver-relevant changes: a MAJOR/MINOR/PATCH decisio
 
 ## Hooks
 
-Release Conductor ships a single **SessionStart** hook that is **advisory and non-blocking**. When a session starts inside a git repository, it injects a one-line summary of the current branch, ahead/behind versus upstream, staged/unstaged file counts, and the last tag, and suggests running `/ship` or `/release-notes`. It only surfaces this suggestion as context — it never blocks a tool call, never modifies the repository, and never fails the session. Outside a git repository it is a silent no-op (fail-safe). Disable it any time via the `/hooks` menu or by removing the plugin.
+Release Conductor ships a single **SessionStart** hook that is **advisory and non-blocking**. When a session starts inside a git repository, it injects a one-line summary of the current branch, ahead/behind versus upstream, staged/unstaged file counts, and the last tag, and suggests running `/ship` or `/release-notes`. It only surfaces this suggestion as context, it never blocks a tool call, never modifies the repository, and never fails the session. Outside a git repository it is a silent no-op (fail-safe). Disable it any time via the `/hooks` menu or by removing the plugin.
 
 ## Typical Workflow
 
-1. Start a session in your repo — the SessionStart hook shows your branch, ahead/behind, and last tag, and suggests `/ship`.
+1. Start a session in your repo, the SessionStart hook shows your branch, ahead/behind, and last tag, and suggests `/ship`.
 2. Finish your feature branch, then run `/ship main`.
 3. Review the change summary, the drafted Conventional Commit message(s), and the semver-advisor's bump recommendation with its evidence table.
 4. Copy the PR description (Summary / Motivation / Changes / Testing / Breaking Changes / Screenshots) and run the printed commit and push commands yourself.
@@ -193,4 +193,4 @@ MIT
 
 1.0.0
 
-Release Conductor handles the chores between "code is written" and "code is shipped" — so you can spend your review capacity on the code that matters.
+Release Conductor handles the chores between "code is written" and "code is shipped", so you can spend your review capacity on the code that matters.

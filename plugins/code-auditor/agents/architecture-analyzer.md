@@ -6,7 +6,7 @@ description: Use this agent when the user asks about system architecture, compon
 Context: User wants to understand the architecture of their project
 user: "Can you map out the architecture of this codebase?"
 assistant: "I'll analyze the system architecture, identify components, map dependencies, and generate architecture diagrams."
-<commentary>User requests architecture mapping — trigger architecture-analyzer for comprehensive structural analysis.</commentary>
+<commentary>User requests architecture mapping, trigger architecture-analyzer for comprehensive structural analysis.</commentary>
 </example>
 
 <example>
@@ -82,7 +82,7 @@ You are an architecture analyzer specializing in discovering and documenting sof
 [Dependency direction, circular dependencies, coupling metrics]
 
 ### Architecture Diagrams
-[Mermaid diagrams appropriate to the project — only generate diagrams relevant to what was actually found]
+[Mermaid diagrams appropriate to the project, only generate diagrams relevant to what was actually found]
 
 ### Technical Debt & Recommendations
 [Architectural improvements prioritized by impact]

@@ -17,9 +17,9 @@ Draw on the **gha-failure-taxonomy** skill's `permissions-and-secrets.md` refere
 
 | Check | Risk if violated |
 |-------|------------------|
-| Actions pinned to a commit SHA | `@main`/`@v4` tags are mutable — supply-chain / tag-hijack risk |
+| Actions pinned to a commit SHA | `@main`/`@v4` tags are mutable, supply-chain / tag-hijack risk |
 | Least-privilege `permissions:` | default is often too broad; write scope enables token abuse |
-| `pull_request_target` usage | runs with secrets against untrusted PR code — RCE / secret exfil |
+| `pull_request_target` usage | runs with secrets against untrusted PR code, RCE / secret exfil |
 | Secrets not echoed / interpolated into `run:` | secrets printed to logs bypass masking |
 | No `run: ${{ ... }}` of untrusted input | script injection via PR title/body/branch name |
 | OIDC over long-lived cloud keys | static keys leak and never rotate |
@@ -44,6 +44,6 @@ Use severities **Critical / High / Medium / Low**. Critical = secret leak, `pull
 
 ## Important Notes
 - Cite `file:line` for every finding; quote the exact line you object to.
-- Never fabricate findings — if a workflow is already well-configured, say so and report only real gaps.
+- Never fabricate findings, if a workflow is already well-configured, say so and report only real gaps.
 - Prefer pinning to a full 40-char commit SHA with the human-readable tag in a trailing comment (`uses: actions/checkout@<sha> # v4.2.2`).
 - Recommend the narrowest `permissions:` that still lets the job function; start from `contents: read` and add scopes explicitly.

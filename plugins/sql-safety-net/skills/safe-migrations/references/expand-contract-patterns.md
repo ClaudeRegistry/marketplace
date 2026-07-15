@@ -52,7 +52,7 @@ Deploy 5: DROP the old columns from users.
 ```
 
 ## Recipe 5: Batched backfill (the workhorse)
-Never `UPDATE orders SET status = 'active';` on a large table — it locks every touched row for one giant transaction and bloats WAL/undo. Batch it:
+Never `UPDATE orders SET status = 'active';` on a large table, it locks every touched row for one giant transaction and bloats WAL/undo. Batch it:
 ```sql
 -- Postgres: loop in the migration or a script, one bounded, committed batch at a time
 UPDATE orders
@@ -70,10 +70,10 @@ Principles:
 `CREATE INDEX CONCURRENTLY` and other operations cannot run inside a transaction. Each framework has an escape hatch:
 - **Rails**: `disable_ddl_transaction!` + `add_index :orders, :customer_id, algorithm: :concurrently`.
 - **Django**: `atomic = False` on the `Migration` class + `AddIndexConcurrently` (from `django.contrib.postgres.operations`).
-- **Alembic**: run with autocommit — `op.execute` after `op.get_bind().execution_options(isolation_level='AUTOCOMMIT')`, or use `op.create_index(..., postgresql_concurrently=True)` with `with op.get_context().autocommit_block():`.
+- **Alembic**: run with autocommit, `op.execute` after `op.get_bind().execution_options(isolation_level='AUTOCOMMIT')`, or use `op.create_index(..., postgresql_concurrently=True)` with `with op.get_context().autocommit_block():`.
 - **Knex / node-pg-migrate**: disable the transaction for the migration (`exports.config = { transaction: false }` / `pgm.noTransaction()`).
 - **Flyway**: put the concurrent index in its own script and set `executeInTransaction=false` (or use a `-- flyway:executeInTransaction=false` header where supported).
 - **golang-migrate**: concurrent index goes in a migration file with no transaction wrapper; keep the `.up.sql`/`.down.sql` pair minimal.
 
 ## Universal rollback rule
-Every step ships a DOWN. For additive steps the DOWN is the inverse (drop what you added). For a destructive final `DROP`, the "rollback" is a documented forward-fix (re-add the column and re-run the backfill) since dropped data cannot be un-dropped — state that explicitly rather than pretending it reverses.
+Every step ships a DOWN. For additive steps the DOWN is the inverse (drop what you added). For a destructive final `DROP`, the "rollback" is a documented forward-fix (re-add the column and re-run the backfill) since dropped data cannot be un-dropped, state that explicitly rather than pretending it reverses.

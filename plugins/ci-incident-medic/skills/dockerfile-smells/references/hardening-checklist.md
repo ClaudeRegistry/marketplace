@@ -12,15 +12,15 @@ RUN addgroup --system --gid 10001 app \
  && adduser  --system --uid 10001 --ingroup app app
 USER 10001            # numeric UID so K8s runAsNonRoot can verify it
 ```
-Use a **numeric** UID in `USER` — Kubernetes `runAsNonRoot` cannot confirm a username resolves to non-zero, but it can verify a numeric non-zero UID. Distroless `:nonroot` images already run as UID 65532.
+Use a **numeric** UID in `USER`: Kubernetes `runAsNonRoot` cannot confirm a username resolves to non-zero, but it can verify a numeric non-zero UID. Distroless `:nonroot` images already run as UID 65532.
 
 ## 2. Minimal / distroless runtime base
 **Threat:** Every shell, package manager, and library in the final image is attack surface and a potential CVE. A full `ubuntu`/`node` base carries hundreds of packages the app never uses.
 
-**How:** Use `gcr.io/distroless/*`, `-slim`, or `alpine` (mind musl for glibc-linked apps). Distroless has no shell — smaller surface, but debug with an ephemeral/`:debug` variant. Never install `curl`, `bash`, or build tools "just in case."
+**How:** Use `gcr.io/distroless/*`, `-slim`, or `alpine` (mind musl for glibc-linked apps). Distroless has no shell, smaller surface, but debug with an ephemeral/`:debug` variant. Never install `curl`, `bash`, or build tools "just in case."
 
 ## 3. Pin the base image by digest
-**Threat:** `FROM node:20` is a moving tag — tomorrow's pull can be a different image (drift or a compromised tag). Non-reproducible builds also make incident forensics impossible.
+**Threat:** `FROM node:20` is a moving tag, tomorrow's pull can be a different image (drift or a compromised tag). Non-reproducible builds also make incident forensics impossible.
 
 **How:**
 ```dockerfile
@@ -29,7 +29,7 @@ FROM node:20.11.1-slim@sha256:<64-hex-digest>
 Keep the human tag as a comment for readability. Resolve an unknown digest with `docker buildx imagetools inspect node:20.11.1-slim`. Update digests deliberately (e.g. via a bot), not implicitly.
 
 ## 4. No secrets in any layer
-**Threat:** `ENV API_KEY=...`, `ARG TOKEN` used at build, or a copied `.env`/private key becomes a permanent, extractable layer — `docker history` and a pulled image expose it even after a later `RUN rm`.
+**Threat:** `ENV API_KEY=...`, `ARG TOKEN` used at build, or a copied `.env`/private key becomes a permanent, extractable layer, `docker history` and a pulled image expose it even after a later `RUN rm`.
 
 **How:**
 - Build-time secrets: BuildKit mounts, never persisted.
@@ -76,7 +76,7 @@ RUN apt-get update \
 Alpine: `apk add --no-cache`. Python: `pip install --no-cache-dir`.
 
 ## 9. Prefer COPY over ADD
-**Threat:** `ADD` auto-extracts archives and can fetch remote URLs unverified — surprising behavior and a supply-chain hole.
+**Threat:** `ADD` auto-extracts archives and can fetch remote URLs unverified, surprising behavior and a supply-chain hole.
 
 **How:** Use `COPY` for local files. For remote artifacts, fetch explicitly and verify a checksum before use.
 

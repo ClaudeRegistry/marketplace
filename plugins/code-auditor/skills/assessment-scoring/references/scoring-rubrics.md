@@ -1,4 +1,4 @@
-# Scoring Rubrics — Detailed Category Breakdown
+# Scoring Rubrics, Detailed Category Breakdown
 
 ## 1. Code Quality (Weight: 25%)
 

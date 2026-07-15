@@ -32,22 +32,22 @@ Rules of thumb:
 - Start from `contents: read`; add scopes one at a time as steps demand them.
 - Grant write at the **job** level, not workflow level, so most jobs stay read-only.
 - `permissions: {}` drops all scopes (useful for pure-compute jobs).
-- Never `permissions: write-all` — it hands a leaked token full repo write.
+- Never `permissions: write-all`: it hands a leaked token full repo write.
 
 ## Secrets
 
 ### Where secrets live
-- **Repository secrets** — available to all workflows in the repo.
-- **Environment secrets** — only exposed when a job declares that `environment:`; can be gated by protection rules and required reviewers.
-- **Organization secrets** — shared, optionally restricted to selected repos.
+- **Repository secrets**: available to all workflows in the repo.
+- **Environment secrets**: only exposed when a job declares that `environment:`; can be gated by protection rules and required reviewers.
+- **Organization secrets**: shared, optionally restricted to selected repos.
 
 Precedence when names collide: environment > repository > organization.
 
 ### Why a secret is "not found" or empty
-1. **Wrong scope** — the secret is an *environment* secret but the job didn't declare `environment:`.
-2. **Fork PRs** — secrets are **not** passed to workflows triggered by `pull_request` from a fork. This is deliberate: it stops untrusted code exfiltrating them.
-3. **Case / name mismatch** — the `secrets` context is case-sensitive.
-4. **Composite/reusable workflow** — secrets must be passed explicitly with `secrets:` or `secrets: inherit`:
+1. **Wrong scope**: the secret is an *environment* secret but the job didn't declare `environment:`.
+2. **Fork PRs**: secrets are **not** passed to workflows triggered by `pull_request` from a fork. This is deliberate: it stops untrusted code exfiltrating them.
+3. **Case / name mismatch**: the `secrets` context is case-sensitive.
+4. **Composite/reusable workflow**: secrets must be passed explicitly with `secrets:` or `secrets: inherit`:
 ```yaml
 jobs:
   call:
@@ -55,21 +55,21 @@ jobs:
     secrets: inherit    # or map individually
 ```
 
-### How secrets get masked — and leaked
+### How secrets get masked, and leaked
 - Actions auto-masks the **exact string** of any registered secret in logs (prints `***`).
-- Masking fails when the secret is **transformed**: base64-encoded, JSON-embedded, split across lines, or URL-encoded — the transformed form is not registered, so it prints in clear.
+- Masking fails when the secret is **transformed**: base64-encoded, JSON-embedded, split across lines, or URL-encoded, the transformed form is not registered, so it prints in clear.
 - `set -x` / `bash -x` echoes commands and can surface secrets in argv.
 - Passing a secret as a **command-line argument** can expose it via process listings or error output.
 - Mitigations: pass secrets via `env:` (not inline in `run:` strings), avoid logging derived values, and register any derived secret with `::add-mask::` before use.
 
-### pull_request_target — the dangerous one
+### pull_request_target, the dangerous one
 `pull_request_target` runs in the context of the **base** repo *with secrets and write token*, but can be tricked into checking out untrusted PR head code. If such a workflow checks out and executes PR code, a fork can exfiltrate secrets or push to the repo (RCE). Rule: never `checkout` + build/run untrusted PR code under `pull_request_target`; keep it to label/triage tasks that don't run PR code.
 
 ## OIDC vs long-lived secrets
 
 **Long-lived cloud keys** (static `AWS_ACCESS_KEY_ID`, service-account JSON) stored as secrets are the highest-value leak target: they don't expire and are easy to copy.
 
-**OIDC** lets the workflow mint a short-lived token that the cloud exchanges for temporary credentials — no static secret stored.
+**OIDC** lets the workflow mint a short-lived token that the cloud exchanges for temporary credentials, no static secret stored.
 
 ```yaml
 permissions:
@@ -92,9 +92,9 @@ Common OIDC failures:
 
 ## Environment protection rules
 Environments add gates around secrets and deploys:
-- **Required reviewers** — a human must approve before the job runs.
-- **Wait timer** — enforced delay before deploy.
-- **Deployment branch policy** — only listed branches/tags may deploy to the environment.
+- **Required reviewers**: a human must approve before the job runs.
+- **Wait timer**: enforced delay before deploy.
+- **Deployment branch policy**: only listed branches/tags may deploy to the environment.
 Use these to keep production secrets behind approval, so even a compromised workflow on a feature branch cannot reach them.
 
 ## Quick audit checklist

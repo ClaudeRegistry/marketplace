@@ -1,4 +1,4 @@
-# Breaking Change Catalog — Per-Ecosystem Signals
+# Breaking Change Catalog, Per-Ecosystem Signals
 
 For each ecosystem: what constitutes a **break (MAJOR)** vs an **additive/compatible (MINOR/PATCH)** change. Read the diff of the *public surface* against these signals.
 
@@ -63,7 +63,7 @@ For each ecosystem: what constitutes a **break (MAJOR)** vs an **additive/compat
 
 **Additive / compatible**
 - Add a public class/method/overload; add a `default` interface method (Java 8+).
-- Add an enum constant at the end (may still break exhaustive switches — treat with care).
+- Add an enum constant at the end (may still break exhaustive switches, treat with care).
 - Widen a parameter type in a new overload.
 
 ## Rust
@@ -96,7 +96,7 @@ For each ecosystem: what constitutes a **break (MAJOR)** vs an **additive/compat
 
 ## GraphQL
 
-**Public surface**: the schema — types, fields, arguments, nullability, enum values, directives.
+**Public surface**: the schema, types, fields, arguments, nullability, enum values, directives.
 
 **Breaking**
 - Remove/rename a type, field, or enum value; change a field's type.
@@ -105,7 +105,7 @@ For each ecosystem: what constitutes a **break (MAJOR)** vs an **additive/compat
 - Change an input field from optional to required.
 
 **Additive / compatible**
-- Add a type, a nullable field, an enum value (may break exhaustive client handling — note it), or an optional argument with a default.
+- Add a type, a nullable field, an enum value (may break exhaustive client handling, note it), or an optional argument with a default.
 - Deprecate a field with `@deprecated` (still present).
 
 ## Database schema

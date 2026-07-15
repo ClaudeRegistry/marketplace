@@ -1,5 +1,5 @@
 ---
-description: Prepare the current branch to ship — commit messages, semver bump, and a PR description, all for approval
+description: Prepare the current branch to ship, commit messages, semver bump, and a PR description, all for approval
 argument-hint: [base-branch]
 model: inherit
 ---
@@ -10,15 +10,15 @@ Orchestrate everything needed to open a pull request from the current branch: un
 
 ### Step 1: Detect VCS state
 Run these read-only commands and interpret them before writing anything:
-- `git rev-parse --is-inside-work-tree` — confirm we are in a repo; if not, stop and say so.
-- `git status --porcelain=v1 -b` — current branch, upstream, ahead/behind, staged vs unstaged vs untracked file counts.
-- `git branch --show-current` — the feature branch name.
+- `git rev-parse --is-inside-work-tree`: confirm we are in a repo; if not, stop and say so.
+- `git status --porcelain=v1 -b`: current branch, upstream, ahead/behind, staged vs unstaged vs untracked file counts.
+- `git branch --show-current`: the feature branch name.
 
-If the working tree is clean AND there are no commits ahead of the base, there is nothing to ship — report that and stop.
+If the working tree is clean AND there are no commits ahead of the base, there is nothing to ship, report that and stop.
 
 ### Step 2: Resolve the base branch
 If `$ARGUMENTS` is provided, use it. Otherwise auto-detect in this order:
-1. `git symbolic-ref refs/remotes/origin/HEAD` (strip to the branch name) — the remote default.
+1. `git symbolic-ref refs/remotes/origin/HEAD` (strip to the branch name), the remote default.
 2. First existing of `main`, `master`, `develop` via `git rev-parse --verify`.
 
 Compute the merge base: `git merge-base HEAD <base>`. All analysis diffs against this merge base, not the raw base tip, so unrelated upstream commits do not pollute the summary.
@@ -48,12 +48,12 @@ Produce a Markdown PR body with EXACTLY these sections:
 ## Screenshots
 ```
 
-- **Summary** — the Step 3 summary, tightened.
-- **Motivation** — the problem this solves.
-- **Changes** — bulleted, grouped like the commits.
-- **Testing** — what was run / what a reviewer should run. Never claim tests passed unless the diff or history proves it.
-- **Breaking Changes** — the semver-advisor's breaking items, or "None."
-- **Screenshots** — a `<!-- add screenshots -->` placeholder for UI changes, else "N/A."
+- **Summary**: the Step 3 summary, tightened.
+- **Motivation**: the problem this solves.
+- **Changes**: bulleted, grouped like the commits.
+- **Testing**: what was run / what a reviewer should run. Never claim tests passed unless the diff or history proves it.
+- **Breaking Changes**: the semver-advisor's breaking items, or "None."
+- **Screenshots**: a `<!-- add screenshots -->` placeholder for UI changes, else "N/A."
 
 ### Step 7: Present for approval
 Show the commit message(s), the bump recommendation, and the PR body together. Then print the exact commands the user can run, e.g.:
@@ -65,7 +65,7 @@ git push -u origin <branch>
 ```
 
 ## Important Notes
-- NEVER run `git commit`, `git push`, or `gh pr create` automatically — output the messages and the exact commands only.
-- Base every finding on the real diff — cite file paths and line numbers as evidence for the summary and breaking-change calls.
+- NEVER run `git commit`, `git push`, or `gh pr create` automatically, output the messages and the exact commands only.
+- Base every finding on the real diff, cite file paths and line numbers as evidence for the summary and breaking-change calls.
 - Never fabricate test results, metrics, or CI status.
 - For very large diffs, read the highest-churn files first and state which files you sampled.

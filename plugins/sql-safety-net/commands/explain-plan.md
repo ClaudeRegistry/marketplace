@@ -4,7 +4,7 @@ argument-hint: [paste EXPLAIN output]
 model: inherit
 ---
 
-Interpret the query plan pasted in `$ARGUMENTS` and translate it into plain-language diagnosis plus concrete fixes. Works on pasted text — **no database connection required**. Load the `explain-interpreter` skill for node-type semantics and red-flag catalogs.
+Interpret the query plan pasted in `$ARGUMENTS` and translate it into plain-language diagnosis plus concrete fixes. Works on pasted text, **no database connection required**. Load the `explain-interpreter` skill for node-type semantics and red-flag catalogs.
 
 ## Process
 
@@ -36,13 +36,13 @@ For the dominant node and each red flag, give a concrete recommendation: the exa
 
 ### Step 5: Report
 Emit these sections:
-- `## Plan Summary` — dialect, whether analyzed, total time/cost.
-- `## Dominant Cost` — the node eating the time, in plain language.
-- `## Red Flags` — the table above, filtered to what actually appears.
-- `## Recommendations` — ordered by expected impact, each with the exact DDL or rewrite.
+- `## Plan Summary`: dialect, whether analyzed, total time/cost.
+- `## Dominant Cost`: the node eating the time, in plain language.
+- `## Red Flags`: the table above, filtered to what actually appears.
+- `## Recommendations`: ordered by expected impact, each with the exact DDL or rewrite.
 
 ## Important Notes
 - Distinguish estimate from actual: only an `EXPLAIN ANALYZE`/`EXPLAIN ANALYZE` plan proves a row-estimate error.
 - Never invent numbers the plan does not contain; quote the node's real cost/rows/time.
-- Multiply inner-node cost by `loops` before judging it — a cheap node run 900k times is the real problem.
+- Multiply inner-node cost by `loops` before judging it, a cheap node run 900k times is the real problem.
 - For index suggestions, note the write-side cost and whether an existing index already covers the need.

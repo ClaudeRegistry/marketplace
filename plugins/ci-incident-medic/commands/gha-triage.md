@@ -4,7 +4,7 @@ argument-hint: [workflow-file or pasted logs]
 model: inherit
 ---
 
-Triage a failing GitHub Actions run and return the root cause with an exact YAML fix. Use this the moment a workflow goes red and you want to stop guessing. `$ARGUMENTS` may be a path to a workflow file (e.g. `.github/workflows/ci.yml`), a job/step name, or a block of pasted failure logs — often both.
+Triage a failing GitHub Actions run and return the root cause with an exact YAML fix. Use this the moment a workflow goes red and you want to stop guessing. `$ARGUMENTS` may be a path to a workflow file (e.g. `.github/workflows/ci.yml`), a job/step name, or a block of pasted failure logs, often both.
 
 ## Process
 
@@ -22,7 +22,7 @@ Apply the **gha-failure-taxonomy** skill. Map the symptom to exactly one primary
 | Missing / misnamed secret | `secret ... not found`, empty env var, auth failure with no token |
 | Matrix expansion | job runs 0 times, `matrix` key typo, fail-fast cancels siblings |
 | Cache miss | `Cache not found for input keys`, cold installs every run |
-| Trigger mismatch | workflow "didn't run" — `on:` paths/branches filter excludes the ref |
+| Trigger mismatch | workflow "didn't run", `on:` paths/branches filter excludes the ref |
 | Checkout depth | `fatal: ... shallow`, missing tags, `git describe` fails |
 | Concurrency cancellation | `Canceling since a higher priority ... exists` |
 | Runner / tool drift | `command not found`, version mismatch, `latest` runner image change |
@@ -36,13 +36,13 @@ Apply the **gha-failure-taxonomy** skill. Map the symptom to exactly one primary
 ### Step 4: Report
 Produce exactly these sections:
 
-- **Root cause** — one sentence naming the taxonomy class.
-- **Evidence** — `file:line` references and the quoted log excerpt.
-- **Fix (corrected YAML)** — a minimal diff or replacement snippet the user can paste. Show only the changed keys with enough surrounding context to place them.
-- **Why this works / prevents recurrence** — one or two bullets.
+- **Root cause**: one sentence naming the taxonomy class.
+- **Evidence**: `file:line` references and the quoted log excerpt.
+- **Fix (corrected YAML)**: a minimal diff or replacement snippet the user can paste. Show only the changed keys with enough surrounding context to place them.
+- **Why this works / prevents recurrence**: one or two bullets.
 
 ## Important Notes
-- Base every finding on the real workflow file and the real log text — cite `file:line` and quote the log line as evidence.
+- Base every finding on the real workflow file and the real log text, cite `file:line` and quote the log line as evidence.
 - Never fabricate log output, run IDs, or error strings. If the pasted logs are insufficient to classify, say what additional excerpt you need.
-- Distinguish "the workflow failed" from "the workflow never ran" — the second is almost always a `on:` trigger/paths/branches filter, not a step error.
+- Distinguish "the workflow failed" from "the workflow never ran", the second is almost always a `on:` trigger/paths/branches filter, not a step error.
 - Recommend least-privilege `permissions:` when broadening scope, never a blanket `permissions: write-all`.

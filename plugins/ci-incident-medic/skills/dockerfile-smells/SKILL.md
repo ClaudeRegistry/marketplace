@@ -6,7 +6,7 @@ description: This skill should be used when the user mentions "Dockerfile", "doc
 # Dockerfile Smells and Hardening
 
 ## Purpose
-A consistent set of Dockerfile anti-patterns and their fixes, so container reviews produce smaller, safer, cache-friendly images the same way every time. This is container-build domain knowledge — the specific smells and the reasons they matter — not generic Docker syntax.
+A consistent set of Dockerfile anti-patterns and their fixes, so container reviews produce smaller, safer, cache-friendly images the same way every time. This is container-build domain knowledge, the specific smells and the reasons they matter, not generic Docker syntax.
 
 ## Smell catalog
 
@@ -24,11 +24,11 @@ A consistent set of Dockerfile anti-patterns and their fixes, so container revie
 | Many chained `RUN` layers | extra layers, larger image | combine related commands, order by volatility |
 
 ## Hardening principles (apply in order)
-1. **Least privilege at runtime** — non-root numeric `USER`, drop capabilities, read-only root filesystem where possible.
-2. **Minimal surface** — distroless or `-slim` runtime base; install only what runs in production.
-3. **Reproducibility** — pin base image by digest; pin package versions where feasible.
-4. **Cache efficiency** — order layers least-volatile → most-volatile (base, then deps, then source).
-5. **No secrets in layers** — build secrets via BuildKit mounts; runtime secrets via the orchestrator, never `ENV`/`ARG` bake-in.
+1. **Least privilege at runtime**: non-root numeric `USER`, drop capabilities, read-only root filesystem where possible.
+2. **Minimal surface**: distroless or `-slim` runtime base; install only what runs in production.
+3. **Reproducibility**: pin base image by digest; pin package versions where feasible.
+4. **Cache efficiency**: order layers least-volatile → most-volatile (base, then deps, then source).
+5. **No secrets in layers**: build secrets via BuildKit mounts; runtime secrets via the orchestrator, never `ENV`/`ARG` bake-in.
 
 ## Layer-ordering rule
 Put the things that rarely change (base image, system packages, dependency manifests + install) **above** the things that change every commit (application source). One dependency layer that survives across builds saves the most CI time.
@@ -36,7 +36,7 @@ Put the things that rarely change (base image, system packages, dependency manif
 ## Additional Resources
 ### Reference Files
 For the full hardening checklist with the security rationale, consult:
-- **`references/hardening-checklist.md`** — non-root user, minimal/distroless base, digest pinning, no secrets in layers, HEALTHCHECK, dropping setuid/setgid, read-only root filesystem, and least-capability, each with the concrete threat it addresses.
+- **`references/hardening-checklist.md`**: non-root user, minimal/distroless base, digest pinning, no secrets in layers, HEALTHCHECK, dropping setuid/setgid, read-only root filesystem, and least-capability, each with the concrete threat it addresses.
 
 For copy-pasteable multi-stage templates, consult:
-- **`references/multistage-patterns.md`** — build-vs-runtime split templates per ecosystem (Node, Python, Go, Java/JVM, Rust), cache-mount patterns, and exactly what to copy into the final stage.
+- **`references/multistage-patterns.md`**: build-vs-runtime split templates per ecosystem (Node, Python, Go, Java/JVM, Rust), cache-mount patterns, and exactly what to copy into the final stage.

@@ -4,9 +4,9 @@ Fast, checklist-driven triage and hardening for the parts of the delivery pipeli
 
 ## Purpose
 
-SRE toil rose to ~30% of engineering time in 2025, and ~70% of SREs report on-call burnout — over 2,000 alerts per week with only ~3% actionable. Most of that pain is patternizable: CI failures are usually config (permissions, secrets, matrix expansion, cache keys, trigger mismatches); Dockerfiles bloat images and run as root; Kubernetes manifests fail silently (string-vs-int ports, missing resource limits/probes/securityContext); and postmortems eat hours of pure timeline-stitching.
+SRE toil rose to ~30% of engineering time in 2025, and ~70% of SREs report on-call burnout, over 2,000 alerts per week with only ~3% actionable. Most of that pain is patternizable: CI failures are usually config (permissions, secrets, matrix expansion, cache keys, trigger mismatches); Dockerfiles bloat images and run as root; Kubernetes manifests fail silently (string-vs-int ports, missing resource limits/probes/securityContext); and postmortems eat hours of pure timeline-stitching.
 
-CI & Incident Medic turns each of these into a fast, checklist-driven fix. It classifies a red pipeline against a known failure taxonomy and hands you the exact YAML, hardens a Dockerfile into a small non-root multi-stage image, pre-flights manifests with a PASS/WARN/FAIL gate before they reach the cluster, and drafts a blameless postmortem from raw evidence — every finding grounded in real `file:line` evidence, never fabricated.
+CI & Incident Medic turns each of these into a fast, checklist-driven fix. It classifies a red pipeline against a known failure taxonomy and hands you the exact YAML, hardens a Dockerfile into a small non-root multi-stage image, pre-flights manifests with a PASS/WARN/FAIL gate before they reach the cluster, and drafts a blameless postmortem from raw evidence, every finding grounded in real `file:line` evidence, never fabricated.
 
 ## Features
 
@@ -114,9 +114,9 @@ CI & Incident Medic turns each of these into a fast, checklist-driven fix. It cl
 
 ### ci-failure-triager
 
-**Triggers when:** a CI pipeline is failing and you need the root cause and exact fix — across GitHub Actions, GitLab CI, or CircleCI ("CI is red", "pipeline broken", "why did the build fail", a pasted CI log).
+**Triggers when:** a CI pipeline is failing and you need the root cause and exact fix, across GitHub Actions, GitLab CI, or CircleCI ("CI is red", "pipeline broken", "why did the build fail", a pasted CI log).
 
-**What it does:** Locates the workflow/pipeline files, correlates the failing step to the config across multiple and reusable workflows, classifies the failure via the taxonomy, and proposes the exact fix. May run a safe local reproduction of the failing lint/test/build command to confirm the cause. Read-only (no Write/Edit) — it diagnoses, it doesn't rewrite your repo.
+**What it does:** Locates the workflow/pipeline files, correlates the failing step to the config across multiple and reusable workflows, classifies the failure via the taxonomy, and proposes the exact fix. May run a safe local reproduction of the failing lint/test/build command to confirm the cause. Read-only (no Write/Edit), it diagnoses, it doesn't rewrite your repo.
 
 ### postmortem-writer
 
@@ -128,7 +128,7 @@ CI & Incident Medic turns each of these into a fast, checklist-driven fix. It cl
 
 **Triggers when:** a Dockerfile should be smaller, safer, and faster ("harden my Dockerfile", "reduce image size", "container runs as root", "add multi-stage build").
 
-**What it does:** Rewrites the Dockerfile in place — multi-stage split, non-root numeric `USER`, pinned base digest, cache-optimal layer order, no secrets in layers, minimal packages, and a `HEALTHCHECK` where appropriate — and emits a matching `.dockerignore`. Explains each change and the win it produces.
+**What it does:** Rewrites the Dockerfile in place, multi-stage split, non-root numeric `USER`, pinned base digest, cache-optimal layer order, no secrets in layers, minimal packages, and a `HEALTHCHECK` where appropriate, and emits a matching `.dockerignore`. Explains each change and the win it produces.
 
 ## Skills
 
@@ -150,7 +150,7 @@ A blameless postmortem methodology, a SEV1-SEV4 severity model, and reliability-
 
 ## Hooks
 
-CI & Incident Medic ships a **PostToolUse(Bash)** hook that is **advisory and non-blocking**. When a CI/build/test/deploy command run in the shell appears to fail — for example `npm test`, `pytest`, `go test`, `docker build`, `kubectl apply`, `terraform plan`, or `gh run` — the hook injects a short note suggesting you run `/gha-triage` or reach for the ci-failure-triager agent.
+CI & Incident Medic ships a **PostToolUse(Bash)** hook that is **advisory and non-blocking**. When a CI/build/test/deploy command run in the shell appears to fail, for example `npm test`, `pytest`, `go test`, `docker build`, `kubectl apply`, `terraform plan`, or `gh run`: the hook injects a short note suggesting you run `/gha-triage` or reach for the ci-failure-triager agent.
 
 It only surfaces a suggestion. It never blocks the command, never changes its exit code, and never fails the session; it is fail-safe by design. Disable it any time via the `/hooks` menu or by removing the plugin.
 
@@ -216,4 +216,4 @@ MIT
 
 1.0.0
 
-Grounded in real evidence, blameless by default — get from red pipeline to shipped fix, fast.
+Grounded in real evidence, blameless by default, get from red pipeline to shipped fix, fast.

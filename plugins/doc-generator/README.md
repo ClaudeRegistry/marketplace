@@ -138,10 +138,10 @@ Audits documentation quality and fixes drift autonomously. Combines scanning for
 - You want to find and fix documentation issues
 
 **What it does:**
-1. **Discovery** — Scans codebase for all source files
-2. **Audit** — Checks for missing, incomplete, and outdated documentation
-3. **Report** — Presents findings by severity with coverage metrics
-4. **Fix** — Updates outdated docs, adds missing docs, fixes parameter mismatches
+1. **Discovery**: Scans codebase for all source files
+2. **Audit**: Checks for missing, incomplete, and outdated documentation
+3. **Report**: Presents findings by severity with coverage metrics
+4. **Fix**: Updates outdated docs, adds missing docs, fixes parameter mismatches
 
 ### code-explainer
 
@@ -164,7 +164,7 @@ Auto-activating knowledge that enhances all documentation work:
 
 ### documentation-standards
 
-Provides language-specific documentation format knowledge (JSDoc, Python docstrings, Javadoc, Go doc, Rustdoc, and more) plus quality standards. Activates automatically whenever documentation work is happening — during commands, agents, or general coding.
+Provides language-specific documentation format knowledge (JSDoc, Python docstrings, Javadoc, Go doc, Rustdoc, and more) plus quality standards. Activates automatically whenever documentation work is happening, during commands, agents, or general coding.
 
 ### mermaid-diagrams
 

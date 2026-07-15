@@ -1,6 +1,6 @@
-# C4 Model — Codebase Discovery Guide
+# C4 Model, Codebase Discovery Guide
 
-What to look for at each C4 level when analyzing a codebase. Focus on discovery heuristics — where to find architectural evidence in code.
+What to look for at each C4 level when analyzing a codebase. Focus on discovery heuristics, where to find architectural evidence in code.
 
 ## Level 1 (System Context): What to Discover
 

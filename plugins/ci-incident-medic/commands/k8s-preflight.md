@@ -11,7 +11,7 @@ Pre-flight Kubernetes manifests before they reach the cluster, catching the sile
 ### Step 1: Collect the manifests
 - Read the file or glob the directory in `$ARGUMENTS` for `*.yaml`/`*.yml`.
 - Split multi-document files on `---`. For each document, record `kind`, `metadata.name`, and `metadata.namespace`.
-- If Helm templates or `values.yaml` are present, note that values may inject the fields you are checking — flag unresolved `{{ ... }}` rather than treating them as literals.
+- If Helm templates or `values.yaml` are present, note that values may inject the fields you are checking, flag unresolved `{{ ... }}` rather than treating them as literals.
 
 ### Step 2: Validate against the checklist
 Apply the **k8s-manifest-validation** skill. Run each check and assign a gate result:
@@ -28,7 +28,7 @@ Apply the **k8s-manifest-validation** skill. Run each check and assign a gate re
 | Namespace | relies on implicit `default` | `manifest-checklist.md` |
 
 ### Step 3: Report as a gate
-Emit a **gated checklist** — one row per check per workload:
+Emit a **gated checklist**: one row per check per workload:
 
 | Check | Resource (`kind/name`) | Result | Detail (`file:line`) |
 |-------|------------------------|--------|----------------------|
@@ -37,6 +37,6 @@ Use `PASS` / `WARN` / `FAIL`. Then, for every `FAIL` and `WARN`, provide the **c
 
 ## Important Notes
 - Cite `file:line` (and the document's `kind/name`) for every result; quote the offending value.
-- The classic silent killer is a quoted `containerPort: "8080"` or a probe missing entirely — a Pod can be Running yet never Ready. Call these out explicitly.
+- The classic silent killer is a quoted `containerPort: "8080"` or a probe missing entirely, a Pod can be Running yet never Ready. Call these out explicitly.
 - Never fabricate cluster state; you are validating manifests statically, not querying a live cluster.
-- Respect Helm/Kustomize indirection: do not flag a value that is clearly templated — flag that it must be verified against the rendered output.
+- Respect Helm/Kustomize indirection: do not flag a value that is clearly templated, flag that it must be verified against the rendered output.

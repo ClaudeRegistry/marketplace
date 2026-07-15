@@ -125,7 +125,7 @@ Notes: the dummy-`main.rs` trick builds and caches dependencies before real sour
 - The built artifact (binary, jar, `dist/`, compiled wheels/venv).
 - Production dependencies only (no dev/test deps, no build cache).
 - Runtime config the app reads at startup (but never secrets).
-- Nothing else — no source tree, no `.git`, no toolchain.
+- Nothing else, no source tree, no `.git`, no toolchain.
 
 ## Cache-mount cheat sheet (BuildKit)
 | Ecosystem | Mount target |

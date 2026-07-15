@@ -4,7 +4,7 @@ argument-hint: [from-ref..to-ref]
 model: inherit
 ---
 
-Turn a range of git history into human-readable release notes grouped by Keep a Changelog categories, with breaking changes called out at the top and a suggested next version. Works even when the history does NOT use Conventional Commits — it infers change types from diffs and messages. `$ARGUMENTS` is an optional `from-ref..to-ref` range.
+Turn a range of git history into human-readable release notes grouped by Keep a Changelog categories, with breaking changes called out at the top and a suggested next version. Works even when the history does NOT use Conventional Commits, it infers change types from diffs and messages. `$ARGUMENTS` is an optional `from-ref..to-ref` range.
 
 ## Process
 
@@ -16,8 +16,8 @@ Turn a range of git history into human-readable release notes grouped by Keep a 
 Print the resolved range and the tag it starts from.
 
 ### Step 2: Gather the history
-- `git log --no-merges --pretty=format:'%H%x09%s%x09%an%x09%ad' --date=short <range>` — the commit list.
-- `git log --no-merges --pretty=format:'%H%n%B%n==END==' <range>` — full bodies, to mine footers and rationale.
+- `git log --no-merges --pretty=format:'%H%x09%s%x09%an%x09%ad' --date=short <range>`: the commit list.
+- `git log --no-merges --pretty=format:'%H%n%B%n==END==' <range>`: full bodies, to mine footers and rationale.
 - For commits whose message is uninformative ("wip", "fix", "update"), read `git show --stat <sha>` and, if needed, `git show <sha>` to infer the real change type from the diff.
 
 ### Step 3: Classify each commit
@@ -61,7 +61,7 @@ Output in Keep a Changelog format:
 Omit empty categories. Link `#NN` references found in messages. End with a suggested compare link line: `[X.Y.Z]: https://.../compare/<last-tag>...vX.Y.Z`.
 
 ## Important Notes
-- Base every entry on real commits — cite the SHA(s) behind each notable line.
-- Never fabricate a change, a PR number, or a category — if a commit's intent is unclear, read its diff before classifying, and mark genuinely ambiguous ones for human review.
-- Write for humans reading the release, not for machines — describe user-visible effects.
+- Base every entry on real commits, cite the SHA(s) behind each notable line.
+- Never fabricate a change, a PR number, or a category, if a commit's intent is unclear, read its diff before classifying, and mark genuinely ambiguous ones for human review.
+- Write for humans reading the release, not for machines, describe user-visible effects.
 - Uses the **changelog-assembly** skill for phrasing and grouping conventions.

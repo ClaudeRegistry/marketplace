@@ -6,7 +6,7 @@ description: This skill should be used when the user mentions "kubernetes manife
 # Kubernetes Manifest Validation
 
 ## Purpose
-A consistent pre-deploy checklist for the Kubernetes manifest mistakes that pass `kubectl apply` but never become Ready — silent failures. This is K8s-specific domain knowledge about how manifests fail quietly, not generic YAML linting.
+A consistent pre-deploy checklist for the Kubernetes manifest mistakes that pass `kubectl apply` but never become Ready, silent failures. This is K8s-specific domain knowledge about how manifests fail quietly, not generic YAML linting.
 
 ## The silent-failure principle
 `kubectl apply` validates schema, not intent. A manifest can apply cleanly and then: never pass readiness, get OOMKilled, run as root against policy, or route traffic to a dead Pod. Static pre-flight catches these before they reach the cluster.
@@ -29,8 +29,8 @@ A consistent pre-deploy checklist for the Kubernetes manifest mistakes that pass
 ## Type-quoting quick rules
 - `containerPort`, `port`, `targetPort` (numeric), `replicas` → **integers**, unquoted.
 - Boolean fields (`runAsNonRoot`, `readOnlyRootFilesystem`) → **bare** `true`/`false`, never `"true"`.
-- Env `value:` is **always a string** — wrap numbers/bools in quotes: `value: "5432"`.
-- YAML gotcha: unquoted `on`, `off`, `yes`, `no`, and `1.20` get coerced — quote version strings.
+- Env `value:` is **always a string**: wrap numbers/bools in quotes: `value: "5432"`.
+- YAML gotcha: unquoted `on`, `off`, `yes`, `no`, and `1.20` get coerced, quote version strings.
 
 ## Gate verdict
 Report per-check PASS/WARN/FAIL, then an overall line: `GATE: PASS` only with zero FAILs, else `GATE: FAIL`.
@@ -38,7 +38,7 @@ Report per-check PASS/WARN/FAIL, then an overall line: `GATE: PASS` only with ze
 ## Additional Resources
 ### Reference Files
 For per-kind mistakes and how each fails silently, consult:
-- **`references/manifest-checklist.md`** — Deployment, Service, Ingress, ConfigMap, Secret, and HPA common mistakes, each with the symptom, the silent failure, and the fix.
+- **`references/manifest-checklist.md`**: Deployment, Service, Ingress, ConfigMap, Secret, and HPA common mistakes, each with the symptom, the silent failure, and the fix.
 
 For probe and resource semantics in depth, consult:
-- **`references/probes-and-resources.md`** — liveness vs readiness vs startup probe semantics and tuning, requests/limits and the Guaranteed/Burstable/BestEffort QoS classes, and the securityContext hardening fields.
+- **`references/probes-and-resources.md`**: liveness vs readiness vs startup probe semantics and tuning, requests/limits and the Guaranteed/Burstable/BestEffort QoS classes, and the securityContext hardening fields.

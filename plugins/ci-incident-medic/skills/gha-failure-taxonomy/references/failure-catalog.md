@@ -104,7 +104,7 @@ Remember: `paths-ignore` and `paths` are mutually exclusive per event; a merge q
 
 **Symptom:** `Canceling since a higher priority waiting request for '<group>' exists`.
 
-**Root cause:** A `concurrency` group with `cancel-in-progress: true` correctly cancels a superseded run — usually intended, but surprising when the group key is too broad and cancels unrelated runs.
+**Root cause:** A `concurrency` group with `cancel-in-progress: true` correctly cancels a superseded run, usually intended, but surprising when the group key is too broad and cancels unrelated runs.
 
 **Fix:** Scope the group precisely (per-ref) so only true supersessions cancel.
 ```yaml
@@ -151,7 +151,7 @@ Then verify the IAM trust policy `token.actions.githubusercontent.com:sub` condi
 
 **Symptom:** Intermittent timeouts, `ECONNRESET`, `ETIMEDOUT`, DNS failures; a re-run passes.
 
-**Root cause:** External registry/service instability or rate limiting — not your config.
+**Root cause:** External registry/service instability or rate limiting, not your config.
 
 **Fix:** Add bounded retries and a job timeout so a hung run doesn't burn the 6-hour cap.
 ```yaml
@@ -163,4 +163,4 @@ steps:
       timeout_minutes: 10
       command: npm ci
 ```
-Do not paper over a deterministic failure with retries — confirm it is genuinely non-deterministic first.
+Do not paper over a deterministic failure with retries, confirm it is genuinely non-deterministic first.

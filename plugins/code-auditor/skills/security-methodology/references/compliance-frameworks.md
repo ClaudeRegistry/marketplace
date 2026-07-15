@@ -84,5 +84,5 @@
 |-----------|------------|--------|-----------------|-------------|
 | PCI DSS | 3.4 | FAIL | Card numbers found in logs | Mask PAN in logging |
 | GDPR | Art. 17 | PARTIAL | No bulk deletion API | Implement data erasure endpoint |
-| HIPAA | 164.312(e) | PASS | TLS enforced on all endpoints | — |
+| HIPAA | 164.312(e) | PASS | TLS enforced on all endpoints | |
 | SOC 2 | CC6.1 | FAIL | No access logging | Add audit trail middleware |

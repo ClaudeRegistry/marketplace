@@ -20,11 +20,11 @@ Report the detected stack to the user before proceeding.
 
 Launch ALL 5 agents in parallel using the Agent tool. Each agent works independently on its domain:
 
-1. **security-scanner** — Scans for vulnerabilities, hardcoded secrets, injection risks, dependency CVEs
-2. **code-quality-analyzer** — Measures code quality, smells, complexity, duplication, standards
-3. **architecture-analyzer** — Discovers architecture, maps dependencies, generates diagrams
-4. **performance-analyzer** — Identifies bottlenecks, memory leaks, optimization opportunities
-5. **test-coverage-analyzer** — Evaluates test coverage, quality, distribution, and gaps
+1. **security-scanner**: Scans for vulnerabilities, hardcoded secrets, injection risks, dependency CVEs
+2. **code-quality-analyzer**: Measures code quality, smells, complexity, duplication, standards
+3. **architecture-analyzer**: Discovers architecture, maps dependencies, generates diagrams
+4. **performance-analyzer**: Identifies bottlenecks, memory leaks, optimization opportunities
+5. **test-coverage-analyzer**: Evaluates test coverage, quality, distribution, and gaps
 
 Each agent should be given context about the detected tech stack.
 
@@ -47,14 +47,14 @@ Using the assessment-scoring methodology, calculate the weighted composite score
 | Security | X/10 | 20% | X.XX |
 | Maintainability | X/10 | 20% | X.XX |
 | Testing | X/10 | 10% | X.XX |
-| **Total** | — | 100% | **X.XX/10** |
+| **Total** | | 100% | **X.XX/10** |
 
 Score interpretation:
-- **0-2: Critical** — Immediate intervention required
-- **2-4: Poor** — Significant issues affecting development
-- **4-6: Fair** — Notable issues but manageable
-- **6-8: Good** — Minor issues, well-maintained
-- **8-10: Excellent** — Industry best practices
+- **0-2: Critical**: Immediate intervention required
+- **2-4: Poor**: Significant issues affecting development
+- **4-6: Fair**: Notable issues but manageable
+- **6-8: Good**: Minor issues, well-maintained
+- **8-10: Excellent**: Industry best practices
 
 ### Step 5: Provide Remediation Roadmap
 
@@ -81,7 +81,7 @@ After presenting results, inform the user they can run `/generate-report` to exp
 
 ## Important Notes
 
-- All analysis must be based on actual code findings — never fabricate metrics
+- All analysis must be based on actual code findings, never fabricate metrics
 - Report specific file paths, line numbers, and code snippets as evidence
 - If the codebase is very large, focus agents on the most critical areas first
-- The composite score should reflect the weighted methodology — do not round or adjust subjectively
+- The composite score should reflect the weighted methodology, do not round or adjust subjectively

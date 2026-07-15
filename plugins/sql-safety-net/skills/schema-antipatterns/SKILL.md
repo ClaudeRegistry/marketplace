@@ -6,7 +6,7 @@ description: This skill should be used when the user mentions "schema design", "
 # Schema Antipatterns
 
 ## Purpose
-Provide a standardized catalog of relational schema design anti-patterns and ORM query anti-patterns, so schema reviews and N+1 hunts are consistent and grounded — statically, from DDL and source, with no database connection. These are the recurring mistakes that a DBA would flag on sight and that a team without one re-introduces every sprint.
+Provide a standardized catalog of relational schema design anti-patterns and ORM query anti-patterns, so schema reviews and N+1 hunts are consistent and grounded, statically, from DDL and source, with no database connection. These are the recurring mistakes that a DBA would flag on sight and that a team without one re-introduces every sprint.
 
 ## Schema anti-pattern catalog
 
@@ -28,15 +28,15 @@ Provide a standardized catalog of relational schema design anti-patterns and ORM
 | Integrity | Soft-delete without partial unique | `UNIQUE(email)` blocks re-signup after delete | `UNIQUE ... WHERE deleted_at IS NULL` |
 
 ## Severity guidance
-- **Critical**: data-loss/integrity — money as float, missing PK, missing FK on a real relationship.
-- **High**: correctness/perf — unindexed FK, missing `NOT NULL`, wrong time type.
-- **Medium**: maintainability — `VARCHAR(255)`, duplicate index, enum-as-string.
-- **Low**: style/naming — inconsistent casing, non-standard plurals.
+- **Critical**: data-loss/integrity, money as float, missing PK, missing FK on a real relationship.
+- **High**: correctness/perf, unindexed FK, missing `NOT NULL`, wrong time type.
+- **Medium**: maintainability, `VARCHAR(255)`, duplicate index, enum-as-string.
+- **Low**: style/naming, inconsistent casing, non-standard plurals.
 
 ## ORM N+1 in one line
-An N+1 is: a query returns N rows, then code touches a **lazy** relation once per row → 1 + N queries. The fix is always to eager-load or batch the relation before the loop. The exact call differs per ORM — see the reference.
+An N+1 is: a query returns N rows, then code touches a **lazy** relation once per row → 1 + N queries. The fix is always to eager-load or batch the relation before the loop. The exact call differs per ORM, see the reference.
 
 ## Additional Resources
 ### Reference Files
-- **`references/schema-checklist.md`** — the full review checklist: types, keys, constraints, indexing FKs, normalization vs denormalization trade-offs, timestamps/time zones, soft-delete, and naming conventions.
-- **`references/orm-n1-patterns.md`** — per-ORM: the exact code shape that causes an N+1 and the exact eager-loading fix for Django, SQLAlchemy, ActiveRecord, Sequelize, Prisma, TypeORM, Hibernate/JPA, GORM, and Entity Framework.
+- **`references/schema-checklist.md`**: the full review checklist: types, keys, constraints, indexing FKs, normalization vs denormalization trade-offs, timestamps/time zones, soft-delete, and naming conventions.
+- **`references/orm-n1-patterns.md`**: per-ORM: the exact code shape that causes an N+1 and the exact eager-loading fix for Django, SQLAlchemy, ActiveRecord, Sequelize, Prisma, TypeORM, Hibernate/JPA, GORM, and Entity Framework.

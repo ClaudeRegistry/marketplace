@@ -4,7 +4,7 @@ argument-hint: [schema-or-migration-dir]
 model: inherit
 ---
 
-Review the DDL, schema files, or migration directory at `$ARGUMENTS` (default: the repo's schema/migration files) for relational design anti-patterns, and emit corrected DDL. This is a **static** review of the DDL text — no database connection required. Load the `schema-antipatterns` skill for the checklist.
+Review the DDL, schema files, or migration directory at `$ARGUMENTS` (default: the repo's schema/migration files) for relational design anti-patterns, and emit corrected DDL. This is a **static** review of the DDL text, no database connection required. Load the `schema-antipatterns` skill for the checklist.
 
 ## Process
 
@@ -28,11 +28,11 @@ Rank each finding: **Critical** (data-loss or integrity risk, e.g. money as floa
 
 ### Step 4: Report
 Emit:
-- `## Findings` — a table: `Severity | Table.Column | Anti-pattern | Why it matters | Fix`. Cite the file:line of each flagged DDL statement.
-- `## Corrected DDL` — the fixed `CREATE TABLE`/`ALTER TABLE` for the Critical and High findings. If a fix requires a data migration (e.g. changing a live column type), note that it must go through `/migration-safety` rather than a raw `ALTER`.
+- `## Findings`: a table: `Severity | Table.Column | Anti-pattern | Why it matters | Fix`. Cite the file:line of each flagged DDL statement.
+- `## Corrected DDL`: the fixed `CREATE TABLE`/`ALTER TABLE` for the Critical and High findings. If a fix requires a data migration (e.g. changing a live column type), note that it must go through `/migration-safety` rather than a raw `ALTER`.
 
 ## Important Notes
-- Ground every finding in a real line of DDL — quote the column and file:line.
+- Ground every finding in a real line of DDL, quote the column and file:line.
 - Never fabricate columns or constraints that are not in the source.
 - Recommend, don't rewrite in place: schema changes on a live table must be applied via a safe migration, not an ad-hoc `ALTER`.
 - Respect intentional denormalization; flag it only when there is no evident reason and it risks anomalies.

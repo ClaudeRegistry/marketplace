@@ -8,11 +8,11 @@ Turn the currently staged diff into one well-formed Conventional Commit message,
 ## Process
 
 ### Step 1: Confirm something is staged
-Run `git diff --cached --stat`. If it is empty, there is nothing to commit — run `git status --short` to show the user what is unstaged/untracked, remind them to `git add`, and STOP. Do not invent a message from unstaged work.
+Run `git diff --cached --stat`. If it is empty, there is nothing to commit, run `git status --short` to show the user what is unstaged/untracked, remind them to `git add`, and STOP. Do not invent a message from unstaged work.
 
 ### Step 2: Read the staged diff
-- `git diff --cached` — the full staged patch. Read it to understand what actually changed.
-- `git status --short` — to note anything left unstaged that arguably belongs in this commit (mention it, but only describe what IS staged).
+- `git diff --cached`: the full staged patch. Read it to understand what actually changed.
+- `git status --short`: to note anything left unstaged that arguably belongs in this commit (mention it, but only describe what IS staged).
 
 ### Step 3: Classify the change type
 Pick the single best type per the **changelog-assembly** skill's `references/conventional-commits.md`:
@@ -55,7 +55,7 @@ Closes #123
 Then give the ready-to-run command: `git commit -F -` piped, or a `git commit -m` form.
 
 ## Important Notes
-- NEVER run `git commit` yourself — output the message and the command only.
-- Base the type and subject on the actual staged diff — cite the files that drove the classification.
+- NEVER run `git commit` yourself, output the message and the command only.
+- Base the type and subject on the actual staged diff, cite the files that drove the classification.
 - Never fabricate an issue number or a `BREAKING CHANGE` that the diff does not support.
 - If the staged change mixes unrelated concerns, say so and suggest an unstage/re-stage split rather than forcing one message.

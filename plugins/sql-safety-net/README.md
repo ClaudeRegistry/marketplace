@@ -1,12 +1,12 @@
 # SQL Safety Net
 
-Static, no-database-connection guardrails for schema and query work — it runs on the migration and ORM files you are already editing, catching the mistakes that cause downtime and slow queries before they ship.
+Static, no-database-connection guardrails for schema and query work, it runs on the migration and ORM files you are already editing, catching the mistakes that cause downtime and slow queries before they ship.
 
 ## Purpose
 
-Database changes fail in predictable, expensive ways, and the people writing them usually have no DBA to catch the mistake. An `ADD COLUMN ... NOT NULL DEFAULT`, an `ALTER COLUMN TYPE`, or a non-`CONCURRENTLY` index takes a full-table `ACCESS EXCLUSIVE` lock and causes downtime — and developers without a DBA re-derive the safe version every single time. N+1 queries are the "silent performance killer," and nearly every detector on the market is runtime-only. Raw `EXPLAIN` output is expert-only to read.
+Database changes fail in predictable, expensive ways, and the people writing them usually have no DBA to catch the mistake. An `ADD COLUMN ... NOT NULL DEFAULT`, an `ALTER COLUMN TYPE`, or a non-`CONCURRENTLY` index takes a full-table `ACCESS EXCLUSIVE` lock and causes downtime, and developers without a DBA re-derive the safe version every single time. N+1 queries are the "silent performance killer," and nearly every detector on the market is runtime-only. Raw `EXPLAIN` output is expert-only to read.
 
-Unlike DB-connected tools (Postgres MCP servers, query optimizers that need `pg_stat_statements`/`hypopg`), everything here is STATIC and diff-aware — it runs on the migration and ORM files you are already editing, with no database connection required. Point it at a migration, an ORM directory, a pasted plan, or a schema file, and it grounds every finding in real `file:line` evidence.
+Unlike DB-connected tools (Postgres MCP servers, query optimizers that need `pg_stat_statements`/`hypopg`), everything here is STATIC and diff-aware, it runs on the migration and ORM files you are already editing, with no database connection required. Point it at a migration, an ORM directory, a pasted plan, or a schema file, and it grounds every finding in real `file:line` evidence.
 
 ## Features
 
@@ -14,7 +14,7 @@ Unlike DB-connected tools (Postgres MCP servers, query optimizers that need `pg_
 - Hunts ORM N+1 query patterns in your code across nine ORMs, with the idiomatic eager-loading fix for each.
 - Interprets pasted `EXPLAIN` / `EXPLAIN (ANALYZE, BUFFERS)` plans (Postgres and MySQL, text and JSON) into plain-language diagnoses.
 - Reviews DDL for relational anti-patterns and emits corrected DDL by severity.
-- Advises indexes from just a query and table DDL — correct composite column order, covering/partial indexes, and when NOT to add one.
+- Advises indexes from just a query and table DDL, correct composite column order, covering/partial indexes, and when NOT to add one.
 - Always produces a paired rollback and cites the lock avoided at every step.
 - No database connection, credentials, or extensions required.
 
@@ -113,7 +113,7 @@ Unlike DB-connected tools (Postgres MCP servers, query optimizers that need `pg_
 
 **Triggers when:** you mention "N+1", "too many queries", "why is this endpoint slow", "eager load", or "lazy loading", or when `/n1-scan` dispatches it.
 
-**What it does:** Statically scans ORM/data-access code across Django, SQLAlchemy, ActiveRecord, Sequelize, Prisma, TypeORM, Hibernate/JPA, GORM, and Entity Framework for the query-then-lazy-relation-in-a-loop signature. It is strictly read-only (`Read`, `Grep`, `Glob`) — it diagnoses and prescribes the eager-loading fix, citing `file:line` for both the query and the per-row access, and never edits code.
+**What it does:** Statically scans ORM/data-access code across Django, SQLAlchemy, ActiveRecord, Sequelize, Prisma, TypeORM, Hibernate/JPA, GORM, and Entity Framework for the query-then-lazy-relation-in-a-loop signature. It is strictly read-only (`Read`, `Grep`, `Glob`), it diagnoses and prescribes the eager-loading fix, citing `file:line` for both the query and the per-row access, and never edits code.
 
 ### migration-rewriter
 
@@ -123,30 +123,30 @@ Unlike DB-connected tools (Postgres MCP servers, query optimizers that need `pg_
 
 ## Skills
 
-Skills auto-activate from keywords and supply the deep methodology that the commands and agents consume — the commands orchestrate, the skills carry the catalogs.
+Skills auto-activate from keywords and supply the deep methodology that the commands and agents consume, the commands orchestrate, the skills carry the catalogs.
 
 ### safe-migrations
 
 The expand-contract (parallel-change) methodology plus a per-dialect catalog of which DDL operations take blocking locks. Reference files:
-- `references/postgres-locks.md` — Postgres DDL → lock level → safe alternative, `NOT VALID`/`VALIDATE`, `CONCURRENTLY`, and `lock_timeout` guidance.
-- `references/mysql-locks.md` — InnoDB online-DDL `ALGORITHM`/`LOCK` matrix and when to reach for gh-ost / pt-online-schema-change.
-- `references/expand-contract-patterns.md` — step-by-step multi-deploy recipes and batched backfills.
+- `references/postgres-locks.md`: Postgres DDL → lock level → safe alternative, `NOT VALID`/`VALIDATE`, `CONCURRENTLY`, and `lock_timeout` guidance.
+- `references/mysql-locks.md`: InnoDB online-DDL `ALGORITHM`/`LOCK` matrix and when to reach for gh-ost / pt-online-schema-change.
+- `references/expand-contract-patterns.md`: step-by-step multi-deploy recipes and batched backfills.
 
 ### explain-interpreter
 
 How to read a query plan and turn it into a fix. Reference files:
-- `references/postgres-explain-nodes.md` — node types, reading cost/rows/actual/loops/buffers, estimate-vs-actual skew, red flags → fixes.
-- `references/mysql-explain.md` — `EXPLAIN`/`ANALYZE`/`FORMAT=JSON` columns, the access-`type` ladder, `Extra` flags, and hints.
+- `references/postgres-explain-nodes.md`: node types, reading cost/rows/actual/loops/buffers, estimate-vs-actual skew, red flags → fixes.
+- `references/mysql-explain.md`: `EXPLAIN`/`ANALYZE`/`FORMAT=JSON` columns, the access-`type` ladder, `Extra` flags, and hints.
 
 ### schema-antipatterns
 
 A relational schema design anti-pattern catalog plus a per-ORM N+1 pattern library. Reference files:
-- `references/schema-checklist.md` — types, keys, constraints, FK indexing, normalization trade-offs, timestamps, soft-delete, naming.
-- `references/orm-n1-patterns.md` — the exact N+1 code shape and eager-loading fix for nine ORMs.
+- `references/schema-checklist.md`: types, keys, constraints, FK indexing, normalization trade-offs, timestamps, soft-delete, naming.
+- `references/orm-n1-patterns.md`: the exact N+1 code shape and eager-loading fix for nine ORMs.
 
 ## Hooks
 
-SQL Safety Net ships a **PostToolUse(Write|Edit)** hook that is **advisory and non-blocking**. When you edit a file that looks like a database migration — paths like `migrations/`, `db/migrate/`, `alembic/versions/`, `prisma/migrations/`, Flyway `V1__*.sql`, or `*.up.sql`/`*.down.sql` — it injects a short reminder to run `/migration-safety` before deploying, so you can check for table-locking or blocking operations and get a safe expand-contract rewrite.
+SQL Safety Net ships a **PostToolUse(Write|Edit)** hook that is **advisory and non-blocking**. When you edit a file that looks like a database migration, paths like `migrations/`, `db/migrate/`, `alembic/versions/`, `prisma/migrations/`, Flyway `V1__*.sql`, or `*.up.sql`/`*.down.sql`: it injects a short reminder to run `/migration-safety` before deploying, so you can check for table-locking or blocking operations and get a safe expand-contract rewrite.
 
 The hook only surfaces a suggestion. It is fail-safe: it never blocks the edit, never rejects a tool call, and never fails the session. Disable it any time via the `/hooks` menu or by removing the plugin.
 
@@ -197,7 +197,7 @@ sql-safety-net/
 ## Requirements
 
 - Claude Code CLI
-- No database connection, credentials, or extensions — all analysis is static and diff-aware.
+- No database connection, credentials, or extensions, all analysis is static and diff-aware.
 
 ## License
 

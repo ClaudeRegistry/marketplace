@@ -1,4 +1,4 @@
-# Security Vulnerability Patterns — Language Agnostic
+# Security Vulnerability Patterns, Language Agnostic
 
 ## Injection Patterns
 
@@ -48,7 +48,7 @@ private_key = "-----BEGIN RSA PRIVATE KEY-----"
 db_password: "root"
 ```
 
-**Detection:** Grep for variable names matching: password, secret, key, token, credential, api_key, apikey, auth_token, private_key, access_key — with string literal assignments.
+**Detection:** Grep for variable names matching: password, secret, key, token, credential, api_key, apikey, auth_token, private_key, access_key, with string literal assignments.
 
 ### Weak Session Management
 - Session tokens in URLs (GET parameters)

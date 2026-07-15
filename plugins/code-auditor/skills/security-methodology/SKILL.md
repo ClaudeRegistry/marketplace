@@ -7,7 +7,7 @@ description: This skill should be used when the user mentions "OWASP", "CWE", "C
 
 ## Purpose
 
-Provide standardized security assessment frameworks, vulnerability classification systems, and compliance evaluation methodology for use during security scanning and auditing. Tech-agnostic — applies to any language or framework.
+Provide standardized security assessment frameworks, vulnerability classification systems, and compliance evaluation methodology for use during security scanning and auditing. Tech-agnostic, applies to any language or framework.
 
 ## OWASP Risk Rating
 
@@ -27,10 +27,10 @@ Calculate risk using these factors:
 
 | Severity | Remediation Time per Issue | Priority |
 |----------|---------------------------|----------|
-| Critical | 4 hours | P0 — fix immediately |
-| High | 2 hours | P1 — fix this sprint |
-| Medium | 1 hour | P2 — fix this quarter |
-| Low | 30 minutes | P3 — fix when convenient |
+| Critical | 4 hours | P0, fix immediately |
+| High | 2 hours | P1, fix this sprint |
+| Medium | 1 hour | P2, fix this quarter |
+| Low | 30 minutes | P3, fix when convenient |
 
 **Total Security Debt** = Sum of (count × remediation time) per severity level.
 
@@ -65,7 +65,7 @@ Rate each dimension 0-10:
 ### Reference Files
 
 For detailed vulnerability patterns and compliance frameworks, consult:
-- **`references/owasp-top10.md`** — OWASP Top 10 categories with detection patterns
-- **`references/security-patterns.md`** — Language-agnostic vulnerability patterns to scan for
-- **`references/cwe-cve-reference.md`** — CWE categories and CVE analysis methodology
-- **`references/compliance-frameworks.md`** — PCI DSS, GDPR, HIPAA, SOC 2 gap analysis
+- **`references/owasp-top10.md`**: OWASP Top 10 categories with detection patterns
+- **`references/security-patterns.md`**: Language-agnostic vulnerability patterns to scan for
+- **`references/cwe-cve-reference.md`**: CWE categories and CVE analysis methodology
+- **`references/compliance-frameworks.md`**: PCI DSS, GDPR, HIPAA, SOC 2 gap analysis

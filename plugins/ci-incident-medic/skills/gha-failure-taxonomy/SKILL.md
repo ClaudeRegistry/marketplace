@@ -6,7 +6,7 @@ description: This skill should be used when the user mentions "github actions fa
 # GitHub Actions Failure Taxonomy
 
 ## Purpose
-A consistent way to classify a failing (or non-running) GitHub Actions workflow into one root-cause class, so triage goes straight from a log line to the exact YAML fix instead of trial-and-error re-runs. This is domain knowledge about how Actions actually breaks — not generic YAML advice.
+A consistent way to classify a failing (or non-running) GitHub Actions workflow into one root-cause class, so triage goes straight from a log line to the exact YAML fix instead of trial-and-error re-runs. This is domain knowledge about how Actions actually breaks, not generic YAML advice.
 
 ## First split: did it FAIL or never RUN?
 - **Never ran** (no run appears, or the job count is 0): almost always the `on:` trigger, `paths`/`paths-ignore`, `branches`/`tags` filter, or a `matrix` that expanded to nothing. Do not look for a step error.
@@ -29,7 +29,7 @@ A consistent way to classify a failing (or non-running) GitHub Actions workflow 
 
 ## Triage checklist
 1. Read the failing workflow file; find the failing job/step by name.
-2. Quote the exact error line — it is the classifier.
+2. Quote the exact error line, it is the classifier.
 3. Map to one primary class (secondary classes noted separately).
 4. Cite the offending `file:line`.
 5. Give the minimal corrected YAML with just the changed keys.
@@ -37,7 +37,7 @@ A consistent way to classify a failing (or non-running) GitHub Actions workflow 
 ## Additional Resources
 ### Reference Files
 For the full symptom → cause → fix catalog across every class, consult:
-- **`references/failure-catalog.md`** — each failure class expanded as log symptom → root cause → corrected YAML, covering permissions, secrets, matrix, caching, triggers, checkout depth, concurrency, runner/tool versions, and OIDC.
+- **`references/failure-catalog.md`**: each failure class expanded as log symptom → root cause → corrected YAML, covering permissions, secrets, matrix, caching, triggers, checkout depth, concurrency, runner/tool versions, and OIDC.
 
 For the token and secret model in depth, consult:
-- **`references/permissions-and-secrets.md`** — the `GITHUB_TOKEN` permission model, least-privilege `permissions:` blocks, OIDC vs long-lived secrets, environment protection rules, and how secrets get masked or leaked.
+- **`references/permissions-and-secrets.md`**: the `GITHUB_TOKEN` permission model, least-privilege `permissions:` blocks, OIDC vs long-lived secrets, environment protection rules, and how secrets get masked or leaked.

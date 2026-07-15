@@ -15,10 +15,10 @@ The C4 Model defines four levels of architecture abstraction:
 
 | Level | Name | Shows | When to Use |
 |-------|------|-------|-------------|
-| 1 | System Context | System + external actors | Always — the "big picture" |
+| 1 | System Context | System + external actors | Always, the "big picture" |
 | 2 | Container | Applications, data stores, services | When multiple deployable units exist |
 | 3 | Component | Internal modules within a container | When analyzing a specific service |
-| 4 | Code | Classes, interfaces | Rarely — only for critical components |
+| 4 | Code | Classes, interfaces | Rarely, only for critical components |
 
 ## Diagram Selection Guide
 
@@ -41,7 +41,7 @@ Choose diagrams based on what exists in the codebase:
 3. Map entry points, routes, and service communication
 4. Identify data stores and their relationships
 5. Select appropriate diagram types from the guide above
-6. Generate only diagrams relevant to findings — do not include generic templates
+6. Generate only diagrams relevant to findings, do not include generic templates
 7. Use proper Mermaid syntax with styling (subgraphs, colors, labels)
 
 ## Mermaid Styling Conventions
@@ -57,14 +57,14 @@ Choose diagrams based on what exists in the codebase:
 
 ## Key Principles
 
-- **Generate only what exists** — Never include components not found in the codebase
-- **Label with actual technology** — Use real framework/database names discovered
-- **Show actual relationships** — Trace real imports, API calls, and configurations
-- **Include risk assessment** — Flag high-risk dependencies and single points of failure
+- **Generate only what exists**: Never include components not found in the codebase
+- **Label with actual technology**: Use real framework/database names discovered
+- **Show actual relationships**: Trace real imports, API calls, and configurations
+- **Include risk assessment**: Flag high-risk dependencies and single points of failure
 
 ## Additional Resources
 
 ### Reference Files
 
 For codebase discovery heuristics at each C4 level, consult:
-- **`references/c4-model-guide.md`** — What to look for in code at each C4 level, container identification heuristics, and common architectural layer patterns
+- **`references/c4-model-guide.md`**: What to look for in code at each C4 level, container identification heuristics, and common architectural layer patterns

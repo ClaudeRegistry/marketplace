@@ -1,6 +1,6 @@
-# OWASP Top 10 — Detection Patterns
+# OWASP Top 10, Detection Patterns
 
-## A01:2021 — Broken Access Control
+## A01:2021, Broken Access Control
 
 **What to find:**
 - Missing authorization checks on endpoints/routes
@@ -16,7 +16,7 @@
 - File operations using user-controlled paths without sanitization
 - CORS configuration with `*` origin
 
-## A02:2021 — Cryptographic Failures
+## A02:2021, Cryptographic Failures
 
 **What to find:**
 - Sensitive data transmitted in plaintext
@@ -33,7 +33,7 @@
 - Hardcoded strings assigned to variables named *key*, *secret*, *iv*, *salt*
 - Non-cryptographic random generators used for security purposes
 
-## A03:2021 — Injection
+## A03:2021, Injection
 
 **What to find:**
 - SQL injection (string concatenation in queries)
@@ -49,7 +49,7 @@
 - Unsanitized input in ORM raw/native queries
 - XML parsers without external entity disabled
 
-## A04:2021 — Insecure Design
+## A04:2021, Insecure Design
 
 **What to find:**
 - Missing rate limiting on sensitive operations
@@ -58,7 +58,7 @@
 - Business logic flaws (price manipulation, quantity overflow)
 - Insufficient workflow validation
 
-## A05:2021 — Security Misconfiguration
+## A05:2021, Security Misconfiguration
 
 **What to find:**
 - Debug mode enabled in production configs
@@ -69,7 +69,7 @@
 - Directory listing enabled
 - Unnecessary HTTP methods enabled
 
-## A06:2021 — Vulnerable and Outdated Components
+## A06:2021, Vulnerable and Outdated Components
 
 **What to find:**
 - Dependencies with known CVEs
@@ -83,7 +83,7 @@
 - Cross-reference versions against known vulnerability databases
 - Check for lock file presence and consistency
 
-## A07:2021 — Identification and Authentication Failures
+## A07:2021, Identification and Authentication Failures
 
 **What to find:**
 - Weak password policies (no complexity, short minimum length)
@@ -93,7 +93,7 @@
 - Plaintext password storage
 - Weak password recovery mechanisms
 
-## A08:2021 — Software and Data Integrity Failures
+## A08:2021, Software and Data Integrity Failures
 
 **What to find:**
 - Unsafe deserialization of untrusted data
@@ -101,7 +101,7 @@
 - Insecure CI/CD pipeline (unsigned artifacts)
 - Auto-update without signature verification
 
-## A09:2021 — Security Logging and Monitoring Failures
+## A09:2021, Security Logging and Monitoring Failures
 
 **What to find:**
 - Insufficient logging of auth events (login, failed attempts, privilege changes)
@@ -110,7 +110,7 @@
 - No log integrity protection
 - Logs not monitored or alerting configured
 
-## A10:2021 — Server-Side Request Forgery (SSRF)
+## A10:2021, Server-Side Request Forgery (SSRF)
 
 **What to find:**
 - User-controlled URLs passed to HTTP clients without validation

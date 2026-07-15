@@ -1,6 +1,6 @@
 # ORM N+1 Pattern Library
 
-For each ORM: the exact code shape that produces an N+1, and the exact eager-load/batch fix. The signature is always the same — a collection query, then a per-row access of a **lazy** relation. The cure is always the same idea — load the relation up front. Only the syntax changes.
+For each ORM: the exact code shape that produces an N+1, and the exact eager-load/batch fix. The signature is always the same, a collection query, then a per-row access of a **lazy** relation. The cure is always the same idea, load the relation up front. Only the syntax changes.
 
 ## Django ORM (Python)
 ```python
@@ -14,7 +14,7 @@ for o in orders:
 orders = Order.objects.filter(status="open").select_related("customer")
 orders = Author.objects.prefetch_related("books")   # to-many
 ```
-Watch: DRF serializers with `SerializerMethodField` or nested serializers that walk relations — add the `select_related`/`prefetch_related` on the viewset's `get_queryset`. Use `Prefetch(...)` to filter/order the prefetched set.
+Watch: DRF serializers with `SerializerMethodField` or nested serializers that walk relations, add the `select_related`/`prefetch_related` on the viewset's `get_queryset`. Use `Prefetch(...)` to filter/order the prefetched set.
 
 ## SQLAlchemy (Python)
 ```python
@@ -130,6 +130,6 @@ Disable lazy-loading proxies in hot paths so a missing `Include` fails loudly in
 
 ## Cross-ORM detection heuristics (for static scanning)
 - A collection query (`.all()`, `findMany`, `findAll`, `.where`, `Find`, `.ToList()`) whose result is iterated, **and** inside the loop a relation/navigation property is read, **and** the query has no eager-load clause → suspected N+1.
-- Serializers / `as_json` / `to_representation` / GraphQL field resolvers walking relations are hidden loops — scan them too.
+- Serializers / `as_json` / `to_representation` / GraphQL field resolvers walking relations are hidden loops, scan them too.
 - A query already carrying `select_related`/`prefetch_related`/`joinedload`/`selectinload`/`includes`/`preload`/`eager_load`/`include`/`relations`/`Include`/`Preload`/`JOIN FETCH`/`@EntityGraph` for that relation is **not** an N+1.
 - To-one relations → JOIN-style eager load; to-many relations → batched `IN(...)`-style eager load to avoid row multiplication.

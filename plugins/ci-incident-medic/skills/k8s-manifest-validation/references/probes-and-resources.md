@@ -35,7 +35,7 @@ livenessProbe:     # cheap, local, forgiving enough to avoid flapping
   timeoutSeconds: 2
   failureThreshold: 3
 ```
-Guidance: `liveness` should test only the process itself (not the database). `readiness` may check dependencies. Sum of `failureThreshold * periodSeconds` is how long before action — size it above normal jitter.
+Guidance: `liveness` should test only the process itself (not the database). `readiness` may check dependencies. Sum of `failureThreshold * periodSeconds` is how long before action, size it above normal jitter.
 
 ## Resources and QoS classes
 
@@ -49,9 +49,9 @@ Kubernetes assigns a **QoS class** from requests/limits; it drives eviction orde
 
 ### Rules that prevent silent failures
 - **Always set memory requests AND limits.** Memory is non-compressible: exceeding the limit → **OOMKilled** (exit 137). A missing limit lets one Pod consume the node and evict neighbors.
-- **Set CPU requests; be careful with CPU limits.** CPU is compressible — over-limit is *throttled*, not killed. Aggressive CPU limits cause latency spikes (CFS throttling) even when the node has spare CPU. Many teams set CPU requests but omit CPU limits deliberately.
+- **Set CPU requests; be careful with CPU limits.** CPU is compressible, over-limit is *throttled*, not killed. Aggressive CPU limits cause latency spikes (CFS throttling) even when the node has spare CPU. Many teams set CPU requests but omit CPU limits deliberately.
 - **For latency-critical workloads, target Guaranteed** (requests == limits) so they're evicted last and get predictable scheduling.
-- **Right-size from real usage**, not guesses — over-requesting wastes cluster capacity; under-requesting causes evictions and noisy-neighbor issues.
+- **Right-size from real usage**, not guesses, over-requesting wastes cluster capacity; under-requesting causes evictions and noisy-neighbor issues.
 
 ```yaml
 resources:
@@ -60,7 +60,7 @@ resources:
 ```
 
 ### OOMKill signals
-`kubectl describe pod` shows `Last State: Terminated, Reason: OOMKilled, Exit Code: 137`. That's a memory limit set too low (or a leak) — not a scheduling bug.
+`kubectl describe pod` shows `Last State: Terminated, Reason: OOMKilled, Exit Code: 137`. That's a memory limit set too low (or a leak), not a scheduling bug.
 
 ## securityContext hardening
 
@@ -91,4 +91,4 @@ spec:
 | `seccompProfile: RuntimeDefault` | dangerous syscalls |
 | `privileged: false` (never `true`) | full host access |
 
-For `readOnlyRootFilesystem: true`, mount an `emptyDir` at the few writable paths (`/tmp`, cache dirs). Pod Security Admission "Restricted" requires most of the above — validating them pre-flight avoids a rejected apply on a hardened cluster.
+For `readOnlyRootFilesystem: true`, mount an `emptyDir` at the few writable paths (`/tmp`, cache dirs). Pod Security Admission "Restricted" requires most of the above, validating them pre-flight avoids a rejected apply on a hardened cluster.

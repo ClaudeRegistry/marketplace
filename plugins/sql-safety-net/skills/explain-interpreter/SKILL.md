@@ -6,7 +6,7 @@ description: This skill should be used when the user mentions "EXPLAIN", "explai
 # Explain Interpreter
 
 ## Purpose
-Provide a standardized way to read a query plan — Postgres or MySQL, text or JSON — and convert it into a plain-language diagnosis and a concrete fix, statically, from pasted output. A plan is a tree of nodes; the database executes the leaves first and passes rows up. The skill is knowing which node is actually eating the time and what that node's presence implies.
+Provide a standardized way to read a query plan, Postgres or MySQL, text or JSON, and convert it into a plain-language diagnosis and a concrete fix, statically, from pasted output. A plan is a tree of nodes; the database executes the leaves first and passes rows up. The skill is knowing which node is actually eating the time and what that node's presence implies.
 
 ## Reading methodology
 1. **Identify the format and whether it was analyzed.** `EXPLAIN` alone gives *estimates*; `EXPLAIN ANALYZE` (Postgres) / `EXPLAIN ANALYZE` (MySQL 8) gives *actual* rows, time, and loops. Only actuals prove a bad estimate.
@@ -40,5 +40,5 @@ Provide a standardized way to read a query plan — Postgres or MySQL, text or J
 
 ## Additional Resources
 ### Reference Files
-- **`references/postgres-explain-nodes.md`** — every common node type, how to read cost/rows/actual/loops/buffers, estimate-vs-actual skew, and per-node red flags and fixes.
-- **`references/mysql-explain.md`** — MySQL `EXPLAIN`/`EXPLAIN ANALYZE`/`FORMAT=JSON` columns, access `type` ladder, `Extra` flags, and optimizer hints.
+- **`references/postgres-explain-nodes.md`**: every common node type, how to read cost/rows/actual/loops/buffers, estimate-vs-actual skew, and per-node red flags and fixes.
+- **`references/mysql-explain.md`**: MySQL `EXPLAIN`/`EXPLAIN ANALYZE`/`FORMAT=JSON` columns, access `type` ladder, `Extra` flags, and optimizer hints.

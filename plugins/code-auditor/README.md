@@ -19,7 +19,7 @@ Run a full codebase audit:
 /full-audit
 ```
 
-This dispatches 5 analysis agents in parallel — security, code quality, architecture, performance, and test coverage — then compiles a unified report with a weighted composite score.
+This dispatches 5 analysis agents in parallel, security, code quality, architecture, performance, and test coverage, then compiles a unified report with a weighted composite score.
 
 ## Commands
 

@@ -33,13 +33,13 @@ Apply the **dockerfile-smells** skill. Flag each present:
 ### Step 4: Report
 Produce these sections:
 
-- **Before / After** — the original and hardened Dockerfile side by side (or as a diff).
-- **Generated `.dockerignore`** — the file contents.
-- **Per-change rationale** — a table of change → reason.
-- **Expected wins** — estimated image-size reduction and the concrete security posture change (e.g. "runs as UID 10001, root filesystem read-only, no build toolchain in final layer"). Frame size numbers as estimates unless the user provides a real `docker images` measurement.
+- **Before / After**: the original and hardened Dockerfile side by side (or as a diff).
+- **Generated `.dockerignore`**: the file contents.
+- **Per-change rationale**: a table of change → reason.
+- **Expected wins**: estimated image-size reduction and the concrete security posture change (e.g. "runs as UID 10001, root filesystem read-only, no build toolchain in final layer"). Frame size numbers as estimates unless the user provides a real `docker images` measurement.
 
 ## Important Notes
-- Base changes on the actual Dockerfile contents — cite line numbers for each smell.
+- Base changes on the actual Dockerfile contents, cite line numbers for each smell.
 - Never fabricate image sizes or scan results; label size deltas as estimates unless a real measurement is supplied.
 - Preserve the application's runtime contract: entrypoint, exposed port, and required runtime files must survive the multi-stage copy.
-- Do not pin a digest you cannot verify — instruct the user to resolve the digest with `docker buildx imagetools inspect <image:tag>` if it is unknown.
+- Do not pin a digest you cannot verify, instruct the user to resolve the digest with `docker buildx imagetools inspect <image:tag>` if it is unknown.

@@ -7,13 +7,13 @@ description: This skill should be used when the user mentions "changelog", "rele
 
 ## Purpose
 
-Provide a consistent, repeatable methodology for converting raw git history — whether or not it follows Conventional Commits — into release notes and changelog entries that a human reader actually benefits from. Covers classification, grouping, de-duplication, audience-appropriate phrasing, linking, and the Unreleased section. Tech-agnostic.
+Provide a consistent, repeatable methodology for converting raw git history, whether or not it follows Conventional Commits, into release notes and changelog entries that a human reader actually benefits from. Covers classification, grouping, de-duplication, audience-appropriate phrasing, linking, and the Unreleased section. Tech-agnostic.
 
 ## The assembly pipeline
 
 1. **Collect** the commit range (`<last-tag>..HEAD`, or an explicit range). Exclude merge commits from the entry list; mine them only for PR numbers.
 2. **Classify** each commit into a Keep a Changelog category. If the message is conventional, map the type; if not, infer from the diff.
-3. **De-duplicate & fold** — collapse "fix typo", "wip", and follow-up commits into the logical change they belong to.
+3. **De-duplicate & fold**: collapse "fix typo", "wip", and follow-up commits into the logical change they belong to.
 4. **Rephrase** each surviving item into user-facing language: describe the observable effect, not the code mechanics.
 5. **Order** by category (Added, Changed, Deprecated, Removed, Fixed, Security) and by impact within each.
 6. **Elevate** breaking changes into a prominent callout at the top.
@@ -46,7 +46,7 @@ When the message is uninformative, read the diff:
 
 ## Phrasing rules (write for humans)
 
-- Lead with the user-visible effect: "Dark mode now persists across sessions" — not "refactor theme store."
+- Lead with the user-visible effect: "Dark mode now persists across sessions", not "refactor theme store."
 - Present tense, imperative-adjacent: "Add", "Fix", "Remove".
 - One line per change; move detail to a nested bullet only when a migration step is needed.
 - Name the affected surface (command, endpoint, option) so readers can tell if it affects them.
@@ -59,5 +59,5 @@ Keep an `## [Unreleased]` section at the top of `CHANGELOG.md`, populated as cha
 ## Additional Resources
 
 ### Reference Files
-- **`references/conventional-commits.md`** — the full Conventional Commits 1.0.0 taxonomy: every type, scope, the `!` breaking marker, the `BREAKING CHANGE:` footer, good vs bad message examples, and how each type maps to a semver bump.
-- **`references/keep-a-changelog.md`** — the Keep a Changelog format: the six categories, Unreleased section, dated version headers, compare links, and good vs bad entry examples.
+- **`references/conventional-commits.md`**: the full Conventional Commits 1.0.0 taxonomy: every type, scope, the `!` breaking marker, the `BREAKING CHANGE:` footer, good vs bad message examples, and how each type maps to a semver bump.
+- **`references/keep-a-changelog.md`**: the Keep a Changelog format: the six categories, Unreleased section, dated version headers, compare links, and good vs bad entry examples.

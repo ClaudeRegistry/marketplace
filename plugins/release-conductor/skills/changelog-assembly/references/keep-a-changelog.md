@@ -1,4 +1,4 @@
-# Keep a Changelog — Reference
+# Keep a Changelog, Reference
 
 A changelog is a curated, chronologically ordered list of notable changes for each version, written **for humans**. It is not a `git log` dump. Based on the Keep a Changelog 1.1.0 conventions.
 
@@ -21,7 +21,7 @@ A changelog is a curated, chronologically ordered list of notable changes for ea
 | **Deprecated** | Soon-to-be-removed features (still present) |
 | **Removed** | Features removed in this release |
 | **Fixed** | Bug fixes |
-| **Security** | Vulnerability fixes — always call these out |
+| **Security** | Vulnerability fixes, always call these out |
 
 Omit any category with no entries for a given version. Never invent entries to fill a category.
 
@@ -68,7 +68,7 @@ The format is based on Keep a Changelog, and this project adheres to Semantic Ve
 
 ## Surfacing breaking changes
 
-Keep a Changelog has no "Breaking" category — breaks live under **Changed** or **Removed**. Make them impossible to miss:
+Keep a Changelog has no "Breaking" category, breaks live under **Changed** or **Removed**. Make them impossible to miss:
 
 - Put a short breaking-changes callout at the very top of the version entry, before the categories:
   ```markdown
@@ -95,10 +95,10 @@ Keep a Changelog has no "Breaking" category — breaks live under **Changed** or
 
 - Reference PRs/issues inline as `(#123)`; readers jump to the discussion.
 - Define compare links at the bottom so version headers stay clickable.
-- Keep entries concise — one line each; detail belongs in the linked PR, not the changelog.
+- Keep entries concise, one line each; detail belongs in the linked PR, not the changelog.
 
 ## De-duplication before writing
 
 - Fold `wip`, `fixup`, and follow-up commits into the feature/fix they complete.
 - Collapse a "add X" + "revert X" + "re-add X" churn into the single net change.
-- One changelog line can represent many commits — summarize the outcome, cite the primary PR.
+- One changelog line can represent many commits, summarize the outcome, cite the primary PR.

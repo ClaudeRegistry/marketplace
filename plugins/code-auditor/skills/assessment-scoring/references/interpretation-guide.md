@@ -6,36 +6,36 @@ The composite score is a weighted average across five dimensions. A score of 6.5
 
 ### Score Distribution Patterns
 
-**"Security Anchor"** — High quality code but critical security gaps:
+**"Security Anchor"**: High quality code but critical security gaps:
 ```
 Code Quality: 8/10 × 0.25 = 2.00
 Performance: 7/10 × 0.25 = 1.75
 Security: 2/10 × 0.20 = 0.40
 Maintainability: 7/10 × 0.20 = 1.40
 Testing: 6/10 × 0.10 = 0.60
-Total: 6.15/10 — looks "Fair" but has critical security risk
+Total: 6.15/10, looks "Fair" but has critical security risk
 ```
 **Recommendation:** Prioritize security remediation immediately despite overall acceptable score.
 
-**"Untested but Clean"** — Well-written code without test coverage:
+**"Untested but Clean"**: Well-written code without test coverage:
 ```
 Code Quality: 8/10 × 0.25 = 2.00
 Performance: 7/10 × 0.25 = 1.75
 Security: 7/10 × 0.20 = 1.40
 Maintainability: 8/10 × 0.20 = 1.60
 Testing: 1/10 × 0.10 = 0.10
-Total: 6.85/10 — looks "Good" but risky for changes
+Total: 6.85/10, looks "Good" but risky for changes
 ```
 **Recommendation:** Testing weight is only 10%, so the score doesn't reflect the regression risk. Flag testing as a priority despite good score.
 
-**"Tech Debt Mountain"** — Everything is mediocre:
+**"Tech Debt Mountain"**: Everything is mediocre:
 ```
 Code Quality: 4/10 × 0.25 = 1.00
 Performance: 4/10 × 0.25 = 1.00
 Security: 5/10 × 0.20 = 1.00
 Maintainability: 3/10 × 0.20 = 0.60
 Testing: 3/10 × 0.10 = 0.30
-Total: 3.90/10 — "Poor" across the board
+Total: 3.90/10, "Poor" across the board
 ```
 **Recommendation:** Systemic improvement needed. Start with maintainability to make other improvements easier.
 
@@ -79,7 +79,7 @@ Total: 3.90/10 — "Poor" across the board
 ## Key Metrics to Highlight
 
 Always include these metrics in the final assessment summary regardless of score:
-1. **Most critical issue** — The single biggest risk in the codebase
-2. **Biggest quick win** — The highest-impact improvement with lowest effort
-3. **Technical debt estimate** — Rough days/weeks to address all identified issues
-4. **Top 5 priority recommendations** — Ordered by impact
+1. **Most critical issue**: The single biggest risk in the codebase
+2. **Biggest quick win**: The highest-impact improvement with lowest effort
+3. **Technical debt estimate**: Rough days/weeks to address all identified issues
+4. **Top 5 priority recommendations**: Ordered by impact

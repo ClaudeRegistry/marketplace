@@ -109,9 +109,9 @@ This is an APPROVAL GATE. Wait for user confirmation. The user may modify prompt
 
 For each test case, define **2-4 objectively verifiable assertions**. Each assertion must be:
 
-- **Objectively gradable** — A reviewer can determine PASS/FAIL without subjective judgment
-- **Structurally verifiable** — Checks for specific elements, formats, or data points
-- **Discriminating** — Designed to differentiate skilled vs unskilled performance (avoid assertions that any Claude response would pass)
+- **Objectively gradable**: A reviewer can determine PASS/FAIL without subjective judgment
+- **Structurally verifiable**: Checks for specific elements, formats, or data points
+- **Discriminating**: Designed to differentiate skilled vs unskilled performance (avoid assertions that any Claude response would pass)
 
 Good assertion types:
 - **Structural completeness**: "Output includes a table with columns X, Y, Z"
@@ -154,7 +154,7 @@ This is an APPROVAL GATE. Wait for user confirmation. The user may adjust assert
 For each test case, spawn **two agents simultaneously** using the Agent tool:
 
 1. **With-skill agent**: Give it the full skill context (read SKILL.md and all references before executing the prompt)
-2. **Without-skill agent (baseline)**: Give it ONLY the test prompt with NO skill context — this tests Claude's native knowledge
+2. **Without-skill agent (baseline)**: Give it ONLY the test prompt with NO skill context, this tests Claude's native knowledge
 
 **CRITICAL: Launch ALL agents in a SINGLE message.** For 3 test cases, that means 6 agent calls in one message (3 with-skill + 3 without-skill).
 
@@ -209,10 +209,10 @@ Aggregate all results into the final benchmark report:
 ## Phase 1: Plugin Health
 
 ### Structural Validation
-[Summary from plugin-dev:plugin-validator — critical issues, warnings, pass/fail]
+[Summary from plugin-dev:plugin-validator, critical issues, warnings, pass/fail]
 
 ### Skill Quality Reviews
-[Summary per skill from plugin-dev:skill-reviewer — rating, key issues, positive findings]
+[Summary per skill from plugin-dev:skill-reviewer, rating, key issues, positive findings]
 
 ## Phase 2: Benchmark Results
 

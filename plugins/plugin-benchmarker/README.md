@@ -1,6 +1,6 @@
 # Plugin Benchmarker
 
-Benchmark Claude Code plugins by validating structure, reviewing skill quality, and comparing with-skill vs without-skill performance — then producing actionable per-file KEEP/TRIM/DELETE recommendations.
+Benchmark Claude Code plugins by validating structure, reviewing skill quality, and comparing with-skill vs without-skill performance, then producing actionable per-file KEEP/TRIM/DELETE recommendations.
 
 ## Why Plugin Benchmarker?
 
@@ -10,17 +10,17 @@ Every skill file loaded into context consumes tokens on every invocation. A skil
 
 Plugin Benchmarker combines all three tools into a single pipeline and adds a distinct value layer:
 
-- **Structural validation** via `plugin-dev:plugin-validator` — catch manifest, naming, and security issues before benchmarking
-- **Skill quality review** via `plugin-dev:skill-reviewer` — verify descriptions, progressive disclosure, and best practices
-- **Audit/classification** of every skill file — is it native knowledge (Claude already knows), a discovery heuristic (non-obvious, high value), domain-specific knowledge (essential), or template/boilerplate?
-- **With-skill vs without-skill benchmarking** — the without-skill baseline is the truth test. If Claude produces equivalent output without the skill, those references are pure overhead.
-- **Per-file KEEP/TRIM/DELETE recommendations** with section-level annotations — not just "this file is redundant" but "lines 46-80 are native knowledge, lines 81-120 are essential."
+- **Structural validation** via `plugin-dev:plugin-validator`: catch manifest, naming, and security issues before benchmarking
+- **Skill quality review** via `plugin-dev:skill-reviewer`: verify descriptions, progressive disclosure, and best practices
+- **Audit/classification** of every skill file, is it native knowledge (Claude already knows), a discovery heuristic (non-obvious, high value), domain-specific knowledge (essential), or template/boilerplate?
+- **With-skill vs without-skill benchmarking**: the without-skill baseline is the truth test. If Claude produces equivalent output without the skill, those references are pure overhead.
+- **Per-file KEEP/TRIM/DELETE recommendations** with section-level annotations, not just "this file is redundant" but "lines 46-80 are native knowledge, lines 81-120 are essential."
 
 ## Dependencies
 
 **Requires both:**
-- [plugin-dev](https://github.com/anthropics/claude-code-plugins) (Anthropic official) — for plugin-validator and skill-reviewer agents
-- [skill-creator](https://github.com/anthropics/claude-code-plugins) (Anthropic official) — for grading methodology and benchmark aggregation
+- [plugin-dev](https://github.com/anthropics/claude-code-plugins) (Anthropic official), for plugin-validator and skill-reviewer agents
+- [skill-creator](https://github.com/anthropics/claude-code-plugins) (Anthropic official), for grading methodology and benchmark aggregation
 
 Install them first:
 
@@ -57,22 +57,22 @@ Run a complete benchmark cycle on a plugin: validate structure, review skill qua
 
 #### Phase 1: Plugin Health (pre-benchmark validation)
 
-1. **Structural validation** — Dispatches `plugin-dev:plugin-validator` to check manifest, directory structure, component frontmatter, naming conventions, and security. Critical issues flagged before spending tokens on benchmarks.
-2. **Skill quality review** — Dispatches `plugin-dev:skill-reviewer` for each skill in the plugin (in parallel). Reviews description quality, trigger phrases, progressive disclosure, writing style, and best practices.
-3. **Approval gate** — You see the full plugin health picture and decide whether to proceed or fix issues first.
+1. **Structural validation**: Dispatches `plugin-dev:plugin-validator` to check manifest, directory structure, component frontmatter, naming conventions, and security. Critical issues flagged before spending tokens on benchmarks.
+2. **Skill quality review**: Dispatches `plugin-dev:skill-reviewer` for each skill in the plugin (in parallel). Reviews description quality, trigger phrases, progressive disclosure, writing style, and best practices.
+3. **Approval gate**: You see the full plugin health picture and decide whether to proceed or fix issues first.
 
 #### Phase 2: Skill Benchmarking (per skill)
 
-4. **Audit** — Reads SKILL.md and all references/assets/examples. Classifies each file as native knowledge, discovery heuristic, domain-specific, or template/boilerplate. Approval gate.
-5. **Design test cases** — Creates 3 realistic prompts exercising the skill's core functionality. Approval gate.
-6. **Define assertions** — 2-4 objectively verifiable checks per test case. Approval gate.
-7. **Run parallel benchmarks** — For each test case, spawns two agents simultaneously: one WITH the skill loaded, one WITHOUT (baseline). All 6 agents launch in a single message.
-8. **Grade** — Evaluates both configurations against assertions. Identifies discriminating assertions (skill-only wins) vs non-discriminating (both pass).
+4. **Audit**: Reads SKILL.md and all references/assets/examples. Classifies each file as native knowledge, discovery heuristic, domain-specific, or template/boilerplate. Approval gate.
+5. **Design test cases**: Creates 3 realistic prompts exercising the skill's core functionality. Approval gate.
+6. **Define assertions**: 2-4 objectively verifiable checks per test case. Approval gate.
+7. **Run parallel benchmarks**: For each test case, spawns two agents simultaneously: one WITH the skill loaded, one WITHOUT (baseline). All 6 agents launch in a single message.
+8. **Grade**: Evaluates both configurations against assertions. Identifies discriminating assertions (skill-only wins) vs non-discriminating (both pass).
 
 #### Phase 3: Report & Recommendations
 
-9. **Compile report** — Plugin health summary, comparison table with pass rates/token overhead/duration, and per-test-case assertion grading.
-10. **Recommend** — Per-file KEEP/TRIM/DELETE with section-level annotations and estimated token savings.
+9. **Compile report**: Plugin health summary, comparison table with pass rates/token overhead/duration, and per-test-case assertion grading.
+10. **Recommend**: Per-file KEEP/TRIM/DELETE with section-level annotations and estimated token savings.
 
 **Input formats:**
 ```
@@ -98,10 +98,10 @@ Reads every file in a skill directory and classifies each one by the type of val
 
 | Category | What it means | Value signal |
 |---|---|---|
-| Native knowledge | Claude already knows this from training | Low — potential overhead |
-| Discovery heuristic | Non-obvious "where to look" guidance | High — hard to derive from first principles |
-| Domain-specific | Specialized knowledge Claude lacks | Essential — genuine capability extension |
-| Template/boilerplate | Pre-built output structures | Conditional — only valuable if complex |
+| Native knowledge | Claude already knows this from training | Low, potential overhead |
+| Discovery heuristic | Non-obvious "where to look" guidance | High, hard to derive from first principles |
+| Domain-specific | Specialized knowledge Claude lacks | Essential, genuine capability extension |
+| Template/boilerplate | Pre-built output structures | Conditional, only valuable if complex |
 
 **Output:** File-level classification table with confidence ratings, section-level detail for mixed files, and overall value profile.
 
@@ -126,9 +126,9 @@ Combines audit classifications with benchmark results to produce actionable per-
 /benchmark-plugin ./plugins/my-plugin/
 ```
 
-1. **Phase 1** — Review structural validation and skill quality. Fix any critical issues.
-2. **Phase 2** — For each skill: review audit, approve test cases, approve assertions, wait for benchmarks.
-3. **Phase 3** — Review the report. Act on KEEP/TRIM/DELETE recommendations.
+1. **Phase 1**: Review structural validation and skill quality. Fix any critical issues.
+2. **Phase 2**: For each skill: review audit, approve test cases, approve assertions, wait for benchmarks.
+3. **Phase 3**: Review the report. Act on KEEP/TRIM/DELETE recommendations.
 
 ### Benchmarking a Marketplace Plugin:
 
@@ -146,7 +146,7 @@ Just trigger the skill-file-auditor agent directly:
 Audit the files in ./plugins/code-auditor/skills/security-methodology/
 ```
 
-This gives you the classification table without running benchmarks — useful for a quick sanity check.
+This gives you the classification table without running benchmarks, useful for a quick sanity check.
 
 ## Key Principles
 
@@ -216,7 +216,7 @@ Ensure both `plugin-dev` and `skill-creator` are installed. Plugin Benchmarker d
 Verify the path contains a `.claude-plugin/plugin.json` file. Use the full path or a plugin name that matches a marketplace plugin.
 
 ### No skills found in plugin:
-The plugin must contain at least one skill (in a `skills/` directory with a `SKILL.md` file) to benchmark. Commands-only plugins have no skills to benchmark — use `plugin-dev:plugin-validator` directly instead.
+The plugin must contain at least one skill (in a `skills/` directory with a `SKILL.md` file) to benchmark. Commands-only plugins have no skills to benchmark, use `plugin-dev:plugin-validator` directly instead.
 
 ### Benchmark agents timing out:
 Complex skills with large test prompts may take longer. Consider simplifying test case prompts.

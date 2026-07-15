@@ -35,7 +35,7 @@ Provide a standardized, weighted scoring system for evaluating codebases across 
 | Security | X/10 | 20% | X × 0.20 | X.XX |
 | Maintainability | X/10 | 20% | X × 0.20 | X.XX |
 | Testing | X/10 | 10% | X × 0.10 | X.XX |
-| **Total** | — | 100% | — | **X.XX/10** |
+| **Total** | | 100% | | **X.XX/10** |
 
 ## Score Interpretation
 
@@ -69,5 +69,5 @@ Provide a standardized, weighted scoring system for evaluating codebases across 
 ### Reference Files
 
 For detailed scoring criteria per category, consult:
-- **`references/scoring-rubrics.md`** — Detailed positive/negative scoring factors per category
-- **`references/interpretation-guide.md`** — In-depth interpretation guidance and recommendation templates
+- **`references/scoring-rubrics.md`**: Detailed positive/negative scoring factors per category
+- **`references/interpretation-guide.md`**: In-depth interpretation guidance and recommendation templates

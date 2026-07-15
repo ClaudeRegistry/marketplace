@@ -95,5 +95,5 @@ Check endpoints: a healthy Service should populate an EndpointSlice; zero endpoi
 ## Cross-cutting
 
 - **Namespace**: set `metadata.namespace` explicitly; relying on `default` risks wrong-place deploys and RBAC/quota surprises.
-- **Helm/Kustomize**: unresolved `{{ ... }}` or overlay patches mean the literal you see isn't the applied value — validate against the *rendered* output (`helm template` / `kustomize build`), and flag templated fields rather than treating them as literals.
-- **API version drift**: removed/renamed `apiVersion` (e.g. old `extensions/v1beta1`) applies on old clusters, fails on new — pin to the current stable group/version.
+- **Helm/Kustomize**: unresolved `{{ ... }}` or overlay patches mean the literal you see isn't the applied value, validate against the *rendered* output (`helm template` / `kustomize build`), and flag templated fields rather than treating them as literals.
+- **API version drift**: removed/renamed `apiVersion` (e.g. old `extensions/v1beta1`) applies on old clusters, fails on new, pin to the current stable group/version.

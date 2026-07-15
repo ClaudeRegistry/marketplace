@@ -1,26 +1,26 @@
 ---
 name: skill-file-auditor
-description: This agent audits a skill's files to classify each one by the type of value it provides — native knowledge Claude already has, discovery heuristics, domain-specific content, or template/boilerplate. It should be used when the user wants to understand what a skill actually adds, check for redundant or unnecessary skill content, review skill file quality, determine which parts of a skill are worth the token cost, or when dispatched by the /benchmark-plugin command. Examples:
+description: This agent audits a skill's files to classify each one by the type of value it provides, native knowledge Claude already has, discovery heuristics, domain-specific content, or template/boilerplate. It should be used when the user wants to understand what a skill actually adds, check for redundant or unnecessary skill content, review skill file quality, determine which parts of a skill are worth the token cost, or when dispatched by the /benchmark-plugin command. Examples:
 
 <example>
 Context: User wants to understand what value a skill provides
 user: "What does this skill actually add? Does Claude already know this stuff?"
 assistant: "I'll audit the skill's files and classify each one by the type of value it provides."
-<commentary>User questioning skill value — trigger skill-file-auditor to classify all files.</commentary>
+<commentary>User questioning skill value, trigger skill-file-auditor to classify all files.</commentary>
 </example>
 
 <example>
 Context: User wants to optimize a skill by removing redundant content
 user: "Audit the documentation-standards skill and tell me what's redundant"
 assistant: "I'll read through all the skill's files and classify each section as native knowledge, discovery heuristic, domain-specific, or template."
-<commentary>User wants to identify redundant skill content — trigger skill-file-auditor for classification.</commentary>
+<commentary>User wants to identify redundant skill content, trigger skill-file-auditor for classification.</commentary>
 </example>
 
 <example>
 Context: Dispatched by /benchmark-plugin command during audit phase
 user: "Audit all files in ./plugins/code-auditor/skills/assessment-scoring/ and classify each by value type"
 assistant: "I'll read every file in the skill directory and classify each as native knowledge, discovery heuristic, domain-specific, or template/boilerplate."
-<commentary>Programmatic dispatch from /benchmark-plugin command — trigger skill-file-auditor for classification.</commentary>
+<commentary>Programmatic dispatch from /benchmark-plugin command, trigger skill-file-auditor for classification.</commentary>
 </example>
 
 model: inherit
@@ -63,7 +63,7 @@ For each file:
 3. Assess confidence using this rubric:
    - **High**: Content clearly falls into one category with no ambiguity (e.g., a file that is entirely CSS property listings = native knowledge)
    - **Medium**: Content mostly fits one category but has some edge-case sections (e.g., mostly standard patterns but includes a few project-specific conventions)
-   - **Low**: Classification is uncertain — content could reasonably be classified multiple ways, or you lack domain expertise to judge
+   - **Low**: Classification is uncertain, content could reasonably be classified multiple ways, or you lack domain expertise to judge
 4. Write a one-line rationale
 5. If the file contains mixed content, note section-level classifications
 
@@ -98,15 +98,15 @@ Calculate the distribution:
 ### Section-Level Detail
 
 #### [filename] (Mixed)
-- Lines 1-45: **Discovery heuristic** — Project structure detection logic
-- Lines 46-80: **Native knowledge** — Standard code quality metrics
-- Lines 81-120: **Domain-specific** — Custom severity classification
+- Lines 1-45: **Discovery heuristic**: Project structure detection logic
+- Lines 46-80: **Native knowledge**: Standard code quality metrics
+- Lines 81-120: **Domain-specific**: Custom severity classification
 
 ### Value Profile
-- Native knowledge: X% (~Y tokens) — Potential overhead
-- Discovery heuristic: X% (~Y tokens) — High value
-- Domain-specific: X% (~Y tokens) — Essential
-- Template/boilerplate: X% (~Y tokens) — Conditional value
+- Native knowledge: X% (~Y tokens), Potential overhead
+- Discovery heuristic: X% (~Y tokens), High value
+- Domain-specific: X% (~Y tokens), Essential
+- Template/boilerplate: X% (~Y tokens), Conditional value
 
 Estimate tokens as approximately `word_count * 1.3` for each file or section.
 

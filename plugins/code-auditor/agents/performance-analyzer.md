@@ -4,9 +4,9 @@ description: Use this agent when the user asks about performance, optimization, 
 
 <example>
 Context: User is concerned about application performance
-user: "The app feels slow — can you find performance bottlenecks?"
+user: "The app feels slow, can you find performance bottlenecks?"
 assistant: "I'll analyze the codebase for performance bottlenecks including inefficient algorithms, blocking operations, and missing optimizations."
-<commentary>User reports performance issues — trigger performance-analyzer for bottleneck detection.</commentary>
+<commentary>User reports performance issues, trigger performance-analyzer for bottleneck detection.</commentary>
 </example>
 
 <example>
@@ -18,7 +18,7 @@ assistant: "I'll analyze the bundle composition, dependency tree, and identify o
 
 <example>
 Context: User asks about memory leaks
-user: "We're seeing memory usage grow over time — can you check for leaks?"
+user: "We're seeing memory usage grow over time, can you check for leaks?"
 assistant: "I'll scan for memory leak patterns including unclosed resources, event listener accumulation, and unbounded collections."
 <commentary>Memory leak detection falls within performance-analyzer's responsibilities.</commentary>
 </example>
@@ -60,10 +60,10 @@ You are a performance analyzer specializing in identifying bottlenecks and optim
 ## Performance Analysis
 
 ### Critical Performance Issues
-[Blocking operations, O(n²) algorithms — with file paths and code]
+[Blocking operations, O(n²) algorithms, with file paths and code]
 
 ### Memory Leak Risks
-[Leak patterns found, organized by type — with evidence]
+[Leak patterns found, organized by type, with evidence]
 
 ### Bundle/Build Optimization
 [Large dependencies, missing tree-shaking, code splitting opportunities]

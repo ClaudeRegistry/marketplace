@@ -7,7 +7,7 @@
 
 **Status:** Draft | In review | Final
 **Severity:** SEV<n>
-**Authors:** <role/team>          # not for blame — for follow-up ownership
+**Authors:** <role/team>          # not for blame, for follow-up ownership
 **Date of incident:** YYYY-MM-DD
 **Duration:** <detection → resolution>, <N> minutes
 
@@ -17,7 +17,7 @@
 ## Impact
 - **Users affected:** <count / % / segments>
 - **Duration:** <start UTC> → <end UTC> (<N> min)
-- **Severity:** SEV<n> — <one-line justification>
+- **Severity:** SEV<n>, <one-line justification>
 - **SLO / error budget:** <burn, e.g. "consumed 40% of monthly availability budget">
 - **Revenue / data impact:** <if any; "no data loss" is a valid, important statement>
 
@@ -28,7 +28,7 @@
 ... detection → mitigation → resolution ...
 
 ## Root Cause / Contributing Factors
-<System-level narrative. List multiple contributing factors — trigger, amplifiers,
+<System-level narrative. List multiple contributing factors, trigger, amplifiers,
 and the gaps that let it reach production and persist. Blameless: name the missing
 guardrail, not the person.>
 1. **Trigger:** <the change/event that started it>
@@ -72,7 +72,7 @@ lost; affected requests were retried by clients.
 ## Impact
 - **Users affected:** ~18% of checkout attempts (~4,300 requests) returned 500.
 - **Duration:** 14:02 → 14:41 UTC (39 min).
-- **Severity:** SEV2 — major feature (checkout) degraded, not fully down; workaround (retry) partially succeeded.
+- **Severity:** SEV2, major feature (checkout) degraded, not fully down; workaround (retry) partially succeeded.
 - **SLO / error budget:** consumed ~35% of the monthly checkout availability budget.
 - **Revenue / data impact:** no data loss; delayed (not lost) orders.
 
@@ -117,6 +117,6 @@ lost; affected requests were retried by clients.
 
 ## Authoring notes
 - Keep the timeline factual and source-cited; put interpretation in Root Cause.
-- Prefer three to five contributing factors over one "root cause" — real incidents are multi-causal.
-- If a fact is unknown, write `[unknown — needs follow-up]`; do not fabricate.
+- Prefer three to five contributing factors over one "root cause", real incidents are multi-causal.
+- If a fact is unknown, write `[unknown, needs follow-up]`; do not fabricate.
 - Never name an individual as the cause. Roles are fine for timeline attribution.

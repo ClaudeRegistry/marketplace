@@ -1,10 +1,10 @@
 ---
 name: dockerfile-hardener
-description: Use this agent when a Dockerfile should be made smaller, safer, and faster — multi-stage build, non-root user, pinned base, cache-friendly ordering, and a matching .dockerignore. Trigger on "harden my Dockerfile", "reduce image size", "container runs as root", "add multi-stage build", or a scanner flagging an image. Examples:
+description: Use this agent when a Dockerfile should be made smaller, safer, and faster, multi-stage build, non-root user, pinned base, cache-friendly ordering, and a matching .dockerignore. Trigger on "harden my Dockerfile", "reduce image size", "container runs as root", "add multi-stage build", or a scanner flagging an image. Examples:
 
 <example>
 Context: A 1.2 GB Node image is slow to pull and runs as root.
-user: "Our API image is huge and the security scanner says it runs as root — can you fix the Dockerfile?"
+user: "Our API image is huge and the security scanner says it runs as root, can you fix the Dockerfile?"
 assistant: "I'll launch the dockerfile-hardener agent to convert it to a multi-stage build, add a non-root USER, and emit a .dockerignore."
 <commentary>Size + root are the agent's core targets; it rewrites the Dockerfile in place and explains each win.</commentary>
 </example>
