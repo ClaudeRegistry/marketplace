@@ -12,7 +12,7 @@ Per-framework: how to detect it, where catalogs live, the call idiom to rewrite 
   - text: `const { t } = useTranslation('ns'); t('checkout.total_label')`
   - interpolation: `t('greeting', { name })` with catalog `"greeting": "Hello, {{name}}"` (i18next uses `{{ }}`; enable the ICU plugin for `{name}`/`plural`).
   - embedded markup: `<Trans i18nKey="terms">Accept the <a>terms</a></Trans>`.
-- **Find calls (grep):** `t\(\s*['"\`]` , `i18nKey=`, `useTranslation\(`.
+- **Find calls (grep):** `t\(\s*['"\`]`, `i18nKey=`, `useTranslation\(`.
 - **Plurals:** i18next-native uses `key_one`/`key_other` suffix keys; with the ICU plugin, use standard ICU inside the value. Be consistent per project.
 - **Gotcha:** namespaces, a bare `t('x')` resolves in the default namespace; a missing namespace looks like a missing key.
 
