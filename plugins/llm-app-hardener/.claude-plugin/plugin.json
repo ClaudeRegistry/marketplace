@@ -1,0 +1,10 @@
+{
+  "name": "llm-app-hardener",
+  "version": "1.0.0",
+  "description": "A repo-native toolchain for LLM apps: scaffolds eval suites, red-teams for prompt injection, hardens structured-output reliability, and audits token cost, riding promptfoo/DeepEval/Pydantic rather than replacing them.",
+  "author": {
+    "name": "Claude Registry LLM App Hardener",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/llm-app-hardener"
+  },
+  "license": "MIT"
+}

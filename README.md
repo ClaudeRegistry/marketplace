@@ -29,6 +29,10 @@ Install a plugin:
 | [release-conductor](https://clauderegistry.com/plugin/release-conductor) | Commits, semver, changelogs, conflicts, and git-history archaeology |
 | [ci-incident-medic](https://clauderegistry.com/plugin/ci-incident-medic) | CI failure triage, Dockerfile hardening, K8s pre-flight, and postmortems |
 | [sql-safety-net](https://clauderegistry.com/plugin/sql-safety-net) | Safe migrations, N+1 hunting, and EXPLAIN-plan interpretation |
+| [a11y-i18n-remediator](https://clauderegistry.com/plugin/a11y-i18n-remediator) | Fixes (not just flags) WCAG, ARIA, focus, ICU i18n, and RTL issues |
+| [api-contract-keeper](https://clauderegistry.com/plugin/api-contract-keeper) | OpenAPI/GraphQL drift, endpoint hardening, breaking-change and queue checks |
+| [llm-app-hardener](https://clauderegistry.com/plugin/llm-app-hardener) | Eval scaffolding, prompt-injection red-teaming, structured output, token cost |
+| [codebase-navigator](https://clauderegistry.com/plugin/codebase-navigator) | Local setup fixes, build-system decode, change localization, flow tracing |
 
 ## Contributing
 

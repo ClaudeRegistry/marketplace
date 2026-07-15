@@ -381,6 +381,173 @@
         "./skills/explain-interpreter/SKILL.md",
         "./skills/schema-antipatterns/SKILL.md"
       ]
+    },
+    {
+      "name": "a11y-i18n-remediator",
+      "description": "Goes past detecting accessibility and localization issues to fixing them: cross-element ARIA and keyboard-focus remediation, color-contrast rewrites, hardcoded-string extraction, ICU MessageFormat correctness, and RTL readiness",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "source": "./plugins/a11y-i18n-remediator",
+      "category": "accessibility",
+      "homepage": "https://clauderegistry.com/plugin/a11y-i18n-remediator",
+      "license": "MIT",
+      "keywords": [
+        "accessibility",
+        "a11y",
+        "wcag",
+        "aria",
+        "i18n",
+        "internationalization",
+        "localization",
+        "icu",
+        "rtl",
+        "keyboard-navigation",
+        "screen-reader",
+        "color-contrast"
+      ],
+      "strict": true,
+      "commands": [
+        "./commands/a11y-audit.md",
+        "./commands/a11y-fix-focus.md",
+        "./commands/i18n-extract.md",
+        "./commands/i18n-doctor.md",
+        "./commands/rtl-ready.md"
+      ],
+      "agents": [
+        "./agents/a11y-remediator.md",
+        "./agents/i18n-extractor.md"
+      ],
+      "skills": [
+        "./skills/wcag-remediation/SKILL.md",
+        "./skills/icu-messageformat/SKILL.md",
+        "./skills/catalog-hygiene/SKILL.md"
+      ]
+    },
+    {
+      "name": "api-contract-keeper",
+      "description": "Keeps your API and its spec in sync: detects and fixes OpenAPI/GraphQL spec-vs-code drift, hardens endpoints with request validation, RFC 9457 error envelopes and idempotency, guards against breaking changes, and audits job-queue reliability",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "source": "./plugins/api-contract-keeper",
+      "category": "api",
+      "homepage": "https://clauderegistry.com/plugin/api-contract-keeper",
+      "license": "MIT",
+      "keywords": [
+        "api",
+        "openapi",
+        "swagger",
+        "graphql",
+        "spec-drift",
+        "breaking-change",
+        "rfc-9457",
+        "idempotency",
+        "request-validation",
+        "rest",
+        "queue",
+        "dead-letter-queue"
+      ],
+      "strict": true,
+      "commands": [
+        "./commands/spec-sync.md",
+        "./commands/harden-endpoint.md",
+        "./commands/version-guard.md"
+      ],
+      "agents": [
+        "./agents/drift-reconciler.md",
+        "./agents/queue-doctor.md"
+      ],
+      "skills": [
+        "./skills/openapi-drift/SKILL.md",
+        "./skills/error-envelope/SKILL.md",
+        "./skills/idempotency-patterns/SKILL.md",
+        "./skills/job-reliability/SKILL.md"
+      ]
+    },
+    {
+      "name": "llm-app-hardener",
+      "description": "A repo-native toolchain for LLM apps: scaffolds eval suites, red-teams for prompt injection, hardens structured-output reliability, and audits token cost, riding promptfoo/DeepEval/Pydantic rather than replacing them",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "source": "./plugins/llm-app-hardener",
+      "category": "ai",
+      "homepage": "https://clauderegistry.com/plugin/llm-app-hardener",
+      "license": "MIT",
+      "keywords": [
+        "llm",
+        "ai",
+        "eval",
+        "promptfoo",
+        "prompt-injection",
+        "owasp-llm",
+        "structured-output",
+        "token-cost",
+        "rag",
+        "guardrails",
+        "prompt-engineering"
+      ],
+      "strict": true,
+      "commands": [
+        "./commands/eval-scaffold.md",
+        "./commands/structured-output-doctor.md",
+        "./commands/token-cost-audit.md",
+        "./commands/rag-tune.md"
+      ],
+      "agents": [
+        "./agents/prompt-injection-auditor.md",
+        "./agents/token-cost-optimizer.md"
+      ],
+      "skills": [
+        "./skills/eval-authoring/SKILL.md",
+        "./skills/owasp-llm-top10/SKILL.md",
+        "./skills/structured-output/SKILL.md",
+        "./skills/prompt-versioning-hygiene/SKILL.md"
+      ]
+    },
+    {
+      "name": "codebase-navigator",
+      "description": "Gets an unfamiliar repo running locally by diagnosing and fixing broken setup, decodes opaque build systems, and does task-scoped change localization and end-to-end flow tracing, so you're productive on day one",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "source": "./plugins/codebase-navigator",
+      "category": "onboarding",
+      "homepage": "https://clauderegistry.com/plugin/codebase-navigator",
+      "license": "MIT",
+      "keywords": [
+        "onboarding",
+        "codebase",
+        "dev-environment",
+        "build-system",
+        "monorepo",
+        "code-navigation",
+        "setup",
+        "orientation",
+        "flow-tracing",
+        "devcontainer"
+      ],
+      "strict": true,
+      "commands": [
+        "./commands/dev-env-bootstrap.md",
+        "./commands/build-explain.md",
+        "./commands/locate-change.md",
+        "./commands/trace-flow.md"
+      ],
+      "agents": [
+        "./agents/env-doctor.md",
+        "./agents/change-locator.md",
+        "./agents/flow-tracer.md"
+      ],
+      "skills": [
+        "./skills/build-system-decode/SKILL.md",
+        "./skills/setup-diagnosis/SKILL.md"
+      ]
     }
   ]
 }

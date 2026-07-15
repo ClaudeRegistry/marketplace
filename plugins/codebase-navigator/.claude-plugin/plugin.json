@@ -1,0 +1,10 @@
+{
+  "name": "codebase-navigator",
+  "version": "1.0.0",
+  "description": "Gets an unfamiliar repo running locally by diagnosing and fixing broken setup, decodes opaque build systems, and does task-scoped change localization and end-to-end flow tracing, so you're productive on day one.",
+  "author": {
+    "name": "Claude Registry Codebase Navigator",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/codebase-navigator"
+  },
+  "license": "MIT"
+}

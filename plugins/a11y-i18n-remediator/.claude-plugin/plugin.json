@@ -1,0 +1,10 @@
+{
+  "name": "a11y-i18n-remediator",
+  "version": "1.0.0",
+  "description": "Goes past detecting accessibility and localization issues to fixing them: cross-element ARIA and keyboard-focus remediation, color-contrast rewrites, hardcoded-string extraction, ICU MessageFormat correctness, and RTL readiness.",
+  "author": {
+    "name": "Claude Registry A11y & i18n Remediator",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/a11y-i18n-remediator"
+  },
+  "license": "MIT"
+}

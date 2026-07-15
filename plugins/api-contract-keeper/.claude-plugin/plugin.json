@@ -1,0 +1,10 @@
+{
+  "name": "api-contract-keeper",
+  "version": "1.0.0",
+  "description": "Keeps your API and its spec in sync: detects and fixes OpenAPI/GraphQL spec-vs-code drift, hardens endpoints with request validation, RFC 9457 error envelopes and idempotency, guards against breaking changes, and audits job-queue reliability.",
+  "author": {
+    "name": "Claude Registry API Contract Keeper",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/api-contract-keeper"
+  },
+  "license": "MIT"
+}
