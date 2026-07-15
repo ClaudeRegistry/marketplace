@@ -1,0 +1,21 @@
+{
+  "resourceType": "OperationOutcome",
+  "issue": [
+    {
+      "severity": "error",
+      "code": "required",
+      "diagnostics": "Observation.status: minimum required = 1, but only found 0",
+      "expression": [
+        "Observation.status"
+      ]
+    },
+    {
+      "severity": "error",
+      "code": "code-invalid",
+      "diagnostics": "Observation.category.coding[0].code is not in the required value set",
+      "expression": [
+        "Observation.category[0].coding[0].code"
+      ]
+    }
+  ]
+}

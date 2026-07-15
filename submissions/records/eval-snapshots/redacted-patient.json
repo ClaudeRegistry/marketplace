@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "resourceType": "Patient",
+  "resourceTypes": {
+    "Patient": 1
+  },
+  "identifierSystems": {
+    "https://hospital.example.test/mrn": 1
+  },
+  "identifierValuesRedacted": 1,
+  "idsRedacted": 1,
+  "privacyRiskLevel": "high"
+}

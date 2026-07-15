@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "projectType": "fsh-ig",
+  "sourceDirs": [
+    "input/fsh",
+    "input/resources"
+  ],
+  "generatedDirs": [
+    "fsh-generated/resources",
+    "fsh-generated"
+  ],
+  "workflowFiles": [
+    "sushi-config.yaml",
+    "ig.ini"
+  ],
+  "fhirVersions": [
+    "4.0.1"
+  ],
+  "resourceTypes": {
+    "Observation": 2
+  },
+  "metaProfiles": {
+    "https://example.org/fhir/records-mini/StructureDefinition/records-mini-observation": 1
+  },
+  "privacyRiskLevel": "medium"
+}

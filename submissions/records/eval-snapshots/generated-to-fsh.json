@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "generatedFile": "fsh-generated/resources/Observation-MiniObservationMissingCode.json",
+  "resourceType": "Observation",
+  "id": "MiniObservationMissingCode",
+  "topCandidate": "input/fsh/profiles.fsh",
+  "topCandidateReasons": [
+    "matches id: MiniObservationMissingCode",
+    "matches Instance declaration: MiniObservationMissingCode"
+  ]
+}

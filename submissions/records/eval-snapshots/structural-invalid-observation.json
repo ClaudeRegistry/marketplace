@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "mode": "structural-fallback",
+  "resourceType": "Observation",
+  "exitCode": 1,
+  "summary": {
+    "error": 2,
+    "warning": 0,
+    "information": 0
+  },
+  "issues": [
+    {
+      "severity": "error",
+      "code": "required",
+      "expression": "Observation.code"
+    },
+    {
+      "severity": "error",
+      "code": "value",
+      "expression": "Observation.status"
+    }
+  ]
+}

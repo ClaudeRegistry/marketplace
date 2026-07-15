@@ -1,0 +1,13 @@
+{
+  "resourceType": "Observation",
+  "id": "MiniObservationMissingCode",
+  "meta": {
+    "profile": [
+      "https://example.org/fhir/records-mini/StructureDefinition/records-mini-observation"
+    ]
+  },
+  "status": "final",
+  "subject": {
+    "reference": "Patient/example"
+  }
+}
