@@ -1,17 +1,22 @@
 name: Validate Plugin Submission
 
 on:
+  workflow_dispatch:
   pull_request:
     paths:
       - 'submissions/**'
       - 'plugins/**'
       - '.claude-plugin/**'
+      - '.github/scripts/**'
+      - '.github/workflows/validate-plugin.yml'
   push:
     branches:
       - main
     paths:
       - 'plugins/**'
       - '.claude-plugin/**'
+      - '.github/scripts/**'
+      - '.github/workflows/validate-plugin.yml'
 
 jobs:
   validate:
