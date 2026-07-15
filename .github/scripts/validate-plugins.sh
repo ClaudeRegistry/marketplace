@@ -190,32 +190,58 @@ validate_skills() {
         return 0  # Skills are optional
     fi
 
-    local skill_files=$(find "$skills_dir" -name "*.md" -type f)
-    if [ -z "$skill_files" ]; then
-        print_warning "skills/ directory exists but contains no .md files"
-        total_warnings=$((total_warnings + 1))
-        return 0
-    fi
-
+    # A skill is either a flat file (skills/<name>.md) or a directory holding a
+    # SKILL.md manifest (skills/<name>/SKILL.md), the current Claude Code
+    # convention. Validate the skill *name* (the flat basename, or the parent
+    # directory), never the required uppercase "SKILL.md" manifest filename, and
+    # do not name-check supporting files such as references/*.md.
     local skill_count=0
-    for skill_file in $skill_files; do
+
+    # Flat-file skills: skills/<name>.md
+    for skill_file in "$skills_dir"/*.md; do
+        [ -e "$skill_file" ] || continue
         skill_count=$((skill_count + 1))
         local skill_name=$(basename "$skill_file" .md)
 
-        # Check if file has content
         if [ ! -s "$skill_file" ]; then
             print_warning "Skill file '$skill_name.md' is empty"
             total_warnings=$((total_warnings + 1))
         fi
 
-        # Validate skill name format (lowercase, alphanumeric, hyphens)
         if ! echo "$skill_name" | grep -qE '^[a-z0-9-]+$'; then
             print_error "Skill file '$skill_name.md' has invalid name (use lowercase, alphanumeric, hyphens)"
             errors=$((errors + 1))
         fi
     done
 
-    print_success "Found $skill_count skill file(s)"
+    # Directory-style skills: skills/<name>/SKILL.md
+    for skill_subdir in "$skills_dir"/*/; do
+        [ -d "$skill_subdir" ] || continue
+        skill_count=$((skill_count + 1))
+        local skill_name=$(basename "$skill_subdir")
+        local manifest="${skill_subdir}SKILL.md"
+
+        if [ ! -f "$manifest" ]; then
+            print_error "Skill '$skill_name' is missing its SKILL.md manifest"
+            errors=$((errors + 1))
+        elif [ ! -s "$manifest" ]; then
+            print_warning "Skill '$skill_name' has an empty SKILL.md"
+            total_warnings=$((total_warnings + 1))
+        fi
+
+        if ! echo "$skill_name" | grep -qE '^[a-z0-9-]+$'; then
+            print_error "Skill directory '$skill_name' has invalid name (use lowercase, alphanumeric, hyphens)"
+            errors=$((errors + 1))
+        fi
+    done
+
+    if [ "$skill_count" -eq 0 ]; then
+        print_warning "skills/ directory exists but contains no skills"
+        total_warnings=$((total_warnings + 1))
+        return 0
+    fi
+
+    print_success "Found $skill_count skill(s)"
     return $errors
 }
 
@@ -355,13 +381,16 @@ validate_marketplace_json() {
     # Get all plugin names from marketplace.json
     local marketplace_plugins
     if [ "$USE_PYTHON_JSON" = true ]; then
-        marketplace_plugins=$(python3 -c "import json; data=json.load(open('$marketplace_json')); print('\n'.join([p['name'] for p in data.get('plugins', [])]))" 2>/dev/null)
+        marketplace_plugins=$(python3 -c "import sys, json; data=json.load(open('$marketplace_json')); sys.stdout.write('\n'.join([p['name'] for p in data.get('plugins', [])]))" 2>/dev/null)
     else
         marketplace_plugins=$(jq -r '.plugins[].name' "$marketplace_json" 2>/dev/null)
     fi
+    # Strip any carriage returns so Windows-authored JSON / CRLF output can't
+    # leave a trailing \r on names (which would make every dir look missing).
+    marketplace_plugins=$(printf '%s' "$marketplace_plugins" | tr -d '\r')
 
     # Get all actual plugin directories
-    local actual_plugins=$(find plugins -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | sort)
+    local actual_plugins=$(find plugins -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | tr -d '\r' | sort)
 
     # Check if all plugins in marketplace.json exist in plugins/
     echo ""
@@ -408,9 +437,11 @@ main() {
     print_header "Claude Code Marketplace Plugin Validator"
     print_info "Validating plugins in: $target_dir"
 
-    # Validate marketplace.json if we're validating the plugins directory
+    # Validate marketplace.json if we're validating the plugins directory.
+    # Don't let its non-zero return (under `set -e`) abort the run before the
+    # per-plugin checks and summary; its errors are already tallied in total_errors.
     if [ "$target_dir" = "plugins" ] || [ "$validate_registry" = "true" ]; then
-        validate_marketplace_json
+        validate_marketplace_json || true
     fi
 
     # Check if target directory exists
