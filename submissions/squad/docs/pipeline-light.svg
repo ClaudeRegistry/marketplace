@@ -1,0 +1,100 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 520" fill="none">
+  <style>
+    .t  { font: 600 16px ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; fill:#1f2328; }
+    .m  { font: 600 15.5px ui-monospace,'SF Mono',Menlo,Consolas,monospace; fill:#b8542e; }
+    .mt { font: 500 14.5px ui-monospace,'SF Mono',Menlo,Consolas,monospace; fill:#1f2328; }
+    .s  { font: 400 12.5px ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; fill:#59636e; }
+    .lbl{ font: italic 400 11.5px ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; fill:#59636e; }
+    .phase{ font: 600 11.5px ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; letter-spacing:.18em; fill:#59636e; }
+    .pa { fill:#b8542e; }
+    .chip{ font: 600 10.5px ui-sans-serif,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif; fill:#b8542e; }
+    .card{ fill:#ffffff; stroke:#d0d7de; stroke-width:1.2; }
+    .acc { stroke:#b8542e; }
+    .art { stroke:#b8542e; stroke-dasharray:5 4; }
+    .tint{ fill:#fdf5f1; }
+    .chipbg{ fill:#f7e6dd; }
+    .ln  { stroke:#8c959f; stroke-width:1.5; fill:none; }
+    .dash{ stroke-dasharray:5 5; }
+  </style>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8c959f"/>
+    </marker>
+    <filter id="sh" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="1.5" stdDeviation="2.5" flood-color="#8c959f" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <text class="phase" x="40" y="48"><tspan class="pa">01</tspan> · DEFINE</text>
+  <text class="phase" x="40" y="262"><tspan class="pa">02</tspan> · DELIVER</text>
+
+  <!-- row 1 -->
+  <rect x="40" y="88" width="84" height="40" rx="20" class="card" stroke-dasharray="4 4"/>
+  <text class="s" x="82" y="113" text-anchor="middle">idea</text>
+
+  <line x1="124" y1="108" x2="155" y2="108" class="ln" marker-end="url(#a)"/>
+
+  <rect x="160" y="70" width="210" height="76" rx="12" class="card acc" filter="url(#sh)"/>
+  <text class="m" x="176" y="102">/squad:define</text>
+  <text class="s" x="176" y="126">interview, round by round</text>
+
+  <line x1="370" y1="108" x2="401" y2="108" class="ln" marker-end="url(#a)"/>
+
+  <rect x="406" y="70" width="210" height="76" rx="12" class="card art" filter="url(#sh)"/>
+  <rect x="550" y="80" width="56" height="18" rx="9" class="chipbg"/>
+  <text class="chip" x="578" y="93" text-anchor="middle">ready</text>
+  <text class="mt" x="422" y="110">specs/feature.md</text>
+  <text class="s" x="422" y="131">the contract for the build</text>
+
+  <line x1="616" y1="108" x2="647" y2="108" class="ln" marker-end="url(#a)"/>
+
+  <rect x="652" y="70" width="190" height="76" rx="12" class="card acc" filter="url(#sh)"/>
+  <text class="m" x="668" y="102">/squad:build</text>
+  <text class="s" x="668" y="126">validates, then delivers</text>
+
+  <!-- trunk down to row 2 -->
+  <path d="M747 146 L747 182 Q747 190 739 190 L123 190 Q115 190 115 198 L115 336" class="ln" marker-end="url(#a)"/>
+  <path d="M262 190 L262 336" class="ln dash" marker-end="url(#a)"/>
+  <text class="lbl" x="252" y="265" text-anchor="end">not user-facing</text>
+
+  <!-- row 2 -->
+  <rect x="40" y="342" width="150" height="76" rx="12" class="card" filter="url(#sh)"/>
+  <text class="t" x="56" y="374">ux</text>
+  <text class="s" x="56" y="398">flows &amp; states</text>
+
+  <line x1="194" y1="380" x2="217" y2="380" class="ln" marker-end="url(#a)"/>
+
+  <rect x="222" y="342" width="160" height="76" rx="12" class="card" filter="url(#sh)"/>
+  <text class="t" x="238" y="374">developer</text>
+  <text class="s" x="238" y="398">implementation</text>
+
+  <path d="M382 368 C405 368 411 318 431 318" class="ln" marker-end="url(#a)"/>
+  <path d="M382 392 C405 392 411 444 431 444" class="ln" marker-end="url(#a)"/>
+
+  <rect x="436" y="286" width="168" height="64" rx="12" class="card" filter="url(#sh)"/>
+  <text class="t" x="452" y="314">tester</text>
+  <text class="s" x="452" y="336">criteria, one by one</text>
+
+  <rect x="436" y="412" width="168" height="64" rx="12" class="card" filter="url(#sh)"/>
+  <text class="t" x="452" y="440">auditor</text>
+  <text class="s" x="452" y="462">read-only review</text>
+
+  <path d="M604 318 C630 318 634 368 653 368" class="ln" marker-end="url(#a)"/>
+  <path d="M604 444 C630 444 634 392 653 392" class="ln" marker-end="url(#a)"/>
+
+  <!-- findings loop -->
+  <path d="M520 286 C478 228 386 238 344 336" class="ln dash" marker-end="url(#a)"/>
+  <text class="lbl" x="430" y="243" text-anchor="middle">findings · max 2 cycles</text>
+
+  <rect x="658" y="342" width="166" height="76" rx="12" class="card" filter="url(#sh)"/>
+  <text class="t" x="674" y="374">documentator</text>
+  <text class="s" x="674" y="398">maps &amp; docs</text>
+
+  <line x1="824" y1="380" x2="853" y2="380" class="ln" marker-end="url(#a)"/>
+
+  <rect x="858" y="342" width="214" height="76" rx="12" class="card acc tint" filter="url(#sh)"/>
+  <rect x="974" y="350" width="88" height="18" rx="9" class="chipbg"/>
+  <text class="chip" x="1018" y="363" text-anchor="middle">your sign-off</text>
+  <text class="t" x="874" y="378">delivery report</text>
+  <text class="s" x="874" y="400">criteria pass / fail</text>
+</svg>
