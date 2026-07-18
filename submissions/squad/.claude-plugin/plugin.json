@@ -1,0 +1,22 @@
+{
+  "name": "squad",
+  "description": "Five-role engineering team (UX, Developer, Tester, Auditor, Documentator) for Claude Code — bounded subagents plus a conversational spec mode, a security hook, and orchestrated pipelines: define, build, fix, refactor, review.",
+  "version": "2.0.0",
+  "author": {
+    "name": "Marc Sturlese",
+    "url": "https://github.com/sturlese"
+  },
+  "homepage": "https://github.com/sturlese/claude-squad",
+  "repository": "https://github.com/sturlese/claude-squad",
+  "license": "MIT",
+  "keywords": [
+    "subagents",
+    "orchestration",
+    "code-review",
+    "testing",
+    "qa",
+    "security",
+    "architecture",
+    "pipeline"
+  ]
+}
