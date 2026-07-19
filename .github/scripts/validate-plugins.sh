@@ -397,6 +397,17 @@ validate_marketplace_json() {
     print_info "Checking plugin registry consistency..."
     local registry_errors=0
 
+    # Duplicate names make installation resolution ambiguous even when every
+    # referenced directory exists.
+    local duplicate_plugins
+    duplicate_plugins=$(printf '%s\n' "$marketplace_plugins" | sed '/^$/d' | sort | uniq -d)
+    while IFS= read -r plugin_name; do
+        if [ -n "$plugin_name" ]; then
+            print_error "Plugin '$plugin_name' is listed more than once in marketplace.json"
+            registry_errors=$((registry_errors + 1))
+        fi
+    done <<< "$duplicate_plugins"
+
     while IFS= read -r plugin_name; do
         if [ -n "$plugin_name" ]; then
             if [ ! -d "plugins/$plugin_name" ]; then
