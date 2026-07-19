@@ -83,6 +83,31 @@ check_json_field_exists() {
     fi
 }
 
+get_marketplace_source() {
+    local marketplace_json=$1
+    local plugin_name=$2
+    if [ "$USE_PYTHON_JSON" = true ]; then
+        python3 - "$marketplace_json" "$plugin_name" <<'PY'
+import json
+import sys
+
+with open(sys.argv[1], encoding="utf-8") as marketplace_file:
+    plugins = json.load(marketplace_file).get("plugins", [])
+
+plugin = next((item for item in plugins if item.get("name") == sys.argv[2]), {})
+source = plugin.get("source", "")
+if isinstance(source, dict):
+    print(source.get("url", ""))
+else:
+    print(source)
+PY
+    else
+        jq -r --arg name "$plugin_name" \
+            '.plugins[] | select(.name == $name) | if (.source | type) == "object" then .source.url // empty else .source // empty end' \
+            "$marketplace_json" 2>/dev/null
+    fi
+}
+
 # Function to validate plugin.json structure
 validate_plugin_json() {
     local plugin_json=$1
@@ -392,15 +417,21 @@ validate_marketplace_json() {
     # Get all actual plugin directories
     local actual_plugins=$(find plugins -mindepth 1 -maxdepth 1 -type d -exec basename {} \; | tr -d '\r' | sort)
 
-    # Check if all plugins in marketplace.json exist in plugins/
+    # Local entries must exist in plugins/. External entries use an HTTPS URL.
     echo ""
     print_info "Checking plugin registry consistency..."
     local registry_errors=0
 
     while IFS= read -r plugin_name; do
         if [ -n "$plugin_name" ]; then
-            if [ ! -d "plugins/$plugin_name" ]; then
-                print_error "Plugin '$plugin_name' listed in marketplace.json but not found in plugins/"
+            local plugin_source=$(get_marketplace_source "$marketplace_json" "$plugin_name")
+            if [[ "$plugin_source" == ./plugins/* ]]; then
+                if [ ! -d "$plugin_source" ]; then
+                    print_error "Plugin '$plugin_name' points to missing directory '$plugin_source'"
+                    registry_errors=$((registry_errors + 1))
+                fi
+            elif [[ ! "$plugin_source" =~ ^https:// ]]; then
+                print_error "Plugin '$plugin_name' must use a local ./plugins path or HTTPS source URL"
                 registry_errors=$((registry_errors + 1))
             fi
         fi

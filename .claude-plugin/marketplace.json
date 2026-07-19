@@ -548,6 +548,31 @@
         "./skills/build-system-decode/SKILL.md",
         "./skills/setup-diagnosis/SKILL.md"
       ]
+    },
+    {
+      "name": "hermes-tweet",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Xquik-dev/hermes-tweet.git"
+      },
+      "description": "Hermes Agent plugin for X/Twitter research, profile and tweet lookup, and opt-in posting workflows.",
+      "version": "0.1.8",
+      "author": {
+        "name": "Xquik",
+        "url": "https://github.com/Xquik-dev"
+      },
+      "repository": "https://github.com/Xquik-dev/hermes-tweet",
+      "homepage": "https://github.com/Xquik-dev/hermes-tweet",
+      "license": "MIT",
+      "keywords": [
+        "hermes-agent",
+        "x",
+        "twitter",
+        "social-media",
+        "automation"
+      ],
+      "category": "productivity",
+      "strict": false
     }
   ]
 }
