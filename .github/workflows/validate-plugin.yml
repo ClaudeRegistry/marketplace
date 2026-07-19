@@ -35,7 +35,7 @@ jobs:
       - name: Validate submissions
         run: |
           chmod +x .github/scripts/validate-plugins.sh
-          .github/scripts/validate-plugins.sh submissions
+          .github/scripts/validate-plugins.sh submissions true
 
       - name: Validate existing plugins (on push to main)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
