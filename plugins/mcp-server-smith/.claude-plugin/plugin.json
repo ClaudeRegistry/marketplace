@@ -1,0 +1,10 @@
+{
+  "name": "mcp-server-smith",
+  "version": "1.0.0",
+  "description": "Scaffold, audit, and harden Model Context Protocol servers for the MCP 2026-07-28 spec: stateless Streamable HTTP core, OAuth 2.1 / OIDC authorization, versioned extensions, well-designed tools, and a security review that catches confused-deputy, token-passthrough, and prompt-injection risks.",
+  "author": {
+    "name": "Claude Registry MCP Server Smith",
+    "url": "https://github.com/ClaudeRegistry/marketplace/tree/main/plugins/mcp-server-smith"
+  },
+  "license": "MIT"
+}

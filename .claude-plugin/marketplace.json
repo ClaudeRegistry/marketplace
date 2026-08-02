@@ -548,6 +548,46 @@
         "./skills/build-system-decode/SKILL.md",
         "./skills/setup-diagnosis/SKILL.md"
       ]
+    },
+    {
+      "name": "mcp-server-smith",
+      "description": "Scaffold, audit, and harden MCP servers for the MCP 2026-07-28 spec: stateless Streamable HTTP core, OAuth 2.1 / OIDC authorization, versioned extensions, tool design, and a security review that catches confused-deputy, token-passthrough, and prompt-injection risks.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Claude Registry"
+      },
+      "source": "./plugins/mcp-server-smith",
+      "category": "mcp",
+      "homepage": "https://clauderegistry.com/plugin/mcp-server-smith",
+      "license": "MIT",
+      "keywords": [
+        "mcp",
+        "model-context-protocol",
+        "mcp-2026-07-28",
+        "streamable-http",
+        "stateless",
+        "oauth",
+        "oidc",
+        "mcp-server",
+        "tool-design",
+        "security"
+      ],
+      "strict": true,
+      "commands": [
+        "./commands/mcp-audit.md",
+        "./commands/mcp-scaffold.md",
+        "./commands/mcp-migrate.md"
+      ],
+      "agents": [
+        "./agents/spec-compliance-auditor.md",
+        "./agents/mcp-migrator.md"
+      ],
+      "skills": [
+        "./skills/mcp-2026-07-28/SKILL.md",
+        "./skills/mcp-authorization/SKILL.md",
+        "./skills/mcp-tool-design/SKILL.md",
+        "./skills/mcp-server-security/SKILL.md"
+      ]
     }
   ]
 }
