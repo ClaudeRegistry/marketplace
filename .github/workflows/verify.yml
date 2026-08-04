@@ -1,0 +1,35 @@
+name: Verify Plugins
+
+# Runs the ClaudeRegistry verification methodology (scripts/verify-plugins.mjs)
+# against every hosted plugin. Fails the build if any plugin fails a check or
+# if the committed .claude-plugin/verified.json (the source of truth for the
+# clauderegistry.com/badge/<id>.svg badges) is stale.
+# Methodology: https://clauderegistry.com/verification
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'plugins/**'
+      - '.claude-plugin/**'
+      - 'scripts/verify-plugins.mjs'
+      - '.github/workflows/verify.yml'
+  push:
+    branches:
+      - main
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    name: Verification methodology
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Run verification (CI mode)
+        run: node scripts/verify-plugins.mjs --ci

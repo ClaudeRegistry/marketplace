@@ -4,6 +4,27 @@ Thank you for your interest in contributing to Claude Registry! We're excited to
 
 ## How to Submit a Plugin
 
+### Listed vs. Verified
+
+The registry has two tiers:
+
+- **Listed**: your plugin stays in your own repository and `marketplace.json` points at it (the Git-URL flow below). It gets structural validation and human review, and users install it directly from your repo. Listed plugins do not carry the verification badge, because the registry cannot vouch for code it does not host: you could change it at any time after review.
+- **Verified**: your plugin is vendored into this repository under `plugins/<your-plugin-name>/` via PR. It must pass the seven-check [verification methodology](https://clauderegistry.com/verification) (manifest integrity, hook safety, agent tool scopes, command hygiene, skill structure, no secrets, documentation) plus a human review of hook and agent code. CI re-verifies on every change, and the plugin earns the badge:
+
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/verified.svg)](https://clauderegistry.com/verification)
+
+To go for **Verified**, follow the same steps below, but include your full plugin under `plugins/<your-plugin-name>/` with `"source": "./plugins/your-plugin-name"` in your `marketplace.json` entry, and run the verifier before opening the PR:
+
+```bash
+# Self-check your plugin (the exact checks CI will run):
+node scripts/verify-plugins.mjs path/to/your-plugin
+
+# Then regenerate the registry verification state and commit it with your PR:
+node scripts/verify-plugins.mjs
+```
+
+CI (`.github/workflows/verify.yml`) fails any PR where a plugin fails a check or where `.claude-plugin/verified.json` is stale, so the badge can never drift from the code.
+
 ### 1. Prepare Your Plugin
 
 Your plugin must follow the Claude Code plugin structure:
@@ -178,10 +199,11 @@ git push origin add-your-plugin-name
 
 After submission:
 
-1. **Automated Checks** - Our GitHub Action will validate your:
+1. **Automated Checks** - Our GitHub Actions will validate your:
    - Plugin repository accessibility
    - Plugin structure and metadata
    - marketplace.json syntax
+   - For vendored (Verified-tier) submissions: the full seven-check verification methodology, including a stale-`verified.json` gate
 2. **Manual Review** - We'll review your plugin for:
    - Code quality and security
    - Functionality and usefulness
