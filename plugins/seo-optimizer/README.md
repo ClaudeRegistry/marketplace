@@ -9,11 +9,11 @@ The SEO Optimizer plugin helps developers and content creators implement SEO bes
 ## Installation
 
 ```bash
-# Install from the Claude Registry marketplace
-claude mcp add clauderegistry -- npx -y clauderegistry
+/plugin marketplace add clauderegistry/marketplace
+```
 
-# Or install just this plugin
-claude mcp add seo-optimizer -- npx -y clauderegistry/seo-optimizer
+```bash
+/plugin install seo-optimizer@clauderegistry
 ```
 
 ## Usage
