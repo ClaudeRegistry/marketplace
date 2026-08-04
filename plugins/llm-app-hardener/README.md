@@ -1,5 +1,7 @@
 # LLM App Hardener
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/llm-app-hardener.svg)](https://clauderegistry.com/plugin/llm-app-hardener)
+
 A repo-native toolchain that hardens LLM apps where they actually live, in your prompts, schemas, and call sites, by scaffolding evals, red-teaming for prompt injection, fixing structured-output reliability, and auditing token cost.
 
 ## Purpose

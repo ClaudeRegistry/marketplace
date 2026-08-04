@@ -1,5 +1,7 @@
 # API Contract Keeper
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/api-contract-keeper.svg)](https://clauderegistry.com/plugin/api-contract-keeper)
+
 Keeps your API and its spec in sync, it detects and fixes OpenAPI/GraphQL drift between the spec and the handler code, hardens endpoints with the boilerplate teams get wrong, guards against breaking changes, and audits background jobs for at-least-once reliability, all statically from the files you are already editing.
 
 ## Purpose

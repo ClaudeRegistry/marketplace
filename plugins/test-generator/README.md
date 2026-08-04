@@ -1,5 +1,7 @@
 # Test Generator
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/test-generator.svg)](https://clauderegistry.com/plugin/test-generator)
+
 Comprehensive test generation and analysis plugin for Claude Code that automates test creation, identifies coverage gaps, and improves test quality across your entire codebase.
 
 ## Purpose

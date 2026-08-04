@@ -1,5 +1,7 @@
 # SEO Optimizer
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/seo-optimizer.svg)](https://clauderegistry.com/plugin/seo-optimizer)
+
 Comprehensive SEO optimization plugin for Claude Code. Audit, optimize, and review website content for improved search engine performance.
 
 ## Purpose
@@ -219,7 +221,7 @@ claude plugins enable seo-optimizer
 
 ### Uninstall
 ```bash
-claude mcp remove seo-optimizer
+/plugin uninstall seo-optimizer@clauderegistry
 ```
 
 ## Contributing

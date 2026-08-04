@@ -1,5 +1,7 @@
 # Data Converter
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/data-converter.svg)](https://clauderegistry.com/plugin/data-converter)
+
 Advanced data transformation and processing plugin for Claude Code that provides powerful querying, filtering, validation, and conversion capabilities for JSON, CSV, XML, YAML, and other data formats.
 
 ## Purpose

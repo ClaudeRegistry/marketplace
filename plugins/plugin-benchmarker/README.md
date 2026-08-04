@@ -1,5 +1,7 @@
 # Plugin Benchmarker
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/plugin-benchmarker.svg)](https://clauderegistry.com/plugin/plugin-benchmarker)
+
 Benchmark Claude Code plugins by validating structure, reviewing skill quality, and comparing with-skill vs without-skill performance, then producing actionable per-file KEEP/TRIM/DELETE recommendations.
 
 ## Why Plugin Benchmarker?

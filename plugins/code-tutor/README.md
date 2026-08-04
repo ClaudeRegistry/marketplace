@@ -1,5 +1,7 @@
 # Code Tutor
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/code-tutor.svg)](https://clauderegistry.com/plugin/code-tutor)
+
 AI-powered code learning and mentoring system for Claude Code that helps developers learn through interactive teaching, guided practice, and constructive feedback.
 
 ## Purpose

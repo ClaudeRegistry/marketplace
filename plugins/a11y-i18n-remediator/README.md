@@ -1,5 +1,7 @@
 # A11y & i18n Remediator
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/a11y-i18n-remediator.svg)](https://clauderegistry.com/plugin/a11y-i18n-remediator)
+
 Goes past detecting accessibility and localization problems to actually fixing them, in your editor, as reviewable diffs, grounded in real `file:line` evidence.
 
 ## Purpose

@@ -1,5 +1,7 @@
 # Code Auditor Plugin
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/code-auditor.svg)](https://clauderegistry.com/plugin/code-auditor)
+
 Comprehensive code auditing and assessment plugin for Claude Code with parallel analysis agents, reusable assessment skills, and professional report generation.
 
 ## Installation

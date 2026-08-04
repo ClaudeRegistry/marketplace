@@ -1,5 +1,7 @@
 # Doc Generator
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/doc-generator.svg)](https://clauderegistry.com/plugin/doc-generator)
+
 Intelligent documentation automation plugin for Claude Code with commands for generating docs, agents for autonomous documentation review, and skills for documentation standards knowledge.
 
 ## Purpose

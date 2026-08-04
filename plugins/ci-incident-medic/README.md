@@ -1,5 +1,7 @@
 # CI & Incident Medic
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/ci-incident-medic.svg)](https://clauderegistry.com/plugin/ci-incident-medic)
+
 Fast, checklist-driven triage and hardening for the parts of the delivery pipeline that break most: failing GitHub Actions runs, bloated and root-running Dockerfiles, silently-broken Kubernetes manifests, and the hours lost stitching together a postmortem.
 
 ## Purpose

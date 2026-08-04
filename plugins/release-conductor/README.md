@@ -1,5 +1,7 @@
 # Release Conductor
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/release-conductor.svg)](https://clauderegistry.com/plugin/release-conductor)
+
 The release-chore co-pilot for Claude Code: it owns everything clustered around the diff, commit messages, PR descriptions, version bumps, changelogs, merge conflicts, rebase planning, and git-history archaeology.
 
 ## Purpose

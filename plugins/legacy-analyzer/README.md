@@ -1,5 +1,7 @@
 # Legacy Analyzer
 
+[![Verified by ClaudeRegistry](https://clauderegistry.com/badge/legacy-analyzer.svg)](https://clauderegistry.com/plugin/legacy-analyzer)
+
 Extract and understand business logic from legacy codebases without documentation or handover. Perfect for inherited projects, legacy systems, or undocumented code.
 
 ## Purpose
