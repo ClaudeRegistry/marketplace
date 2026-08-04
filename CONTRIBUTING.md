@@ -6,10 +6,11 @@ Thank you for your interest in contributing to Claude Registry! We're excited to
 
 ### Listed vs. Verified
 
-The registry has two tiers:
+The registry has three tiers:
 
-- **Listed**: your plugin stays in your own repository and `marketplace.json` points at it (the Git-URL flow below). It gets structural validation and human review, and users install it directly from your repo. Listed plugins do not carry the verification badge, because the registry cannot vouch for code it does not host: you could change it at any time after review.
-- **Verified**: your plugin is vendored into this repository under `plugins/<your-plugin-name>/` via PR. It must pass the seven-check [verification methodology](https://clauderegistry.com/verification) (manifest integrity, hook safety, agent tool scopes, command hygiene, skill structure, no secrets, documentation) plus a human review of hook and agent code. CI re-verifies on every change, and the plugin earns the badge:
+- **Listed**: your plugin stays in your own repository and `marketplace.json` points at it (the Git-URL flow below), with no commit pin. It gets structural validation and human review, and users install it directly from your repo. Listed plugins do not carry the verification badge, because nothing pins what the code is: you could change it at any time after review.
+- **Verified at commit** (externally hosted): your plugin stays in your repository, and you also add a commit pin (repo + SHA + path) to `.claude-plugin/external-pins.json`. The verifier clones exactly that commit and runs the full methodology against it. Your badge reads `verified @<short-sha>`, a claim that stays true forever, and a daily drift watchdog flips it to `outdated` the moment your repo HEAD moves past the pin. Re-verify a new version by bumping the pin in a PR.
+- **Verified** (strongest): your plugin is vendored into this repository under `plugins/<your-plugin-name>/` via PR. It must pass the seven-check [verification methodology](https://clauderegistry.com/verification) (manifest integrity, hook safety, agent tool scopes, command hygiene, skill structure, no secrets, documentation) plus a human review of hook and agent code. CI re-verifies on every change, so the badge always describes exactly what users install:
 
 [![Verified by ClaudeRegistry](https://clauderegistry.com/badge/verified.svg)](https://clauderegistry.com/verification)
 

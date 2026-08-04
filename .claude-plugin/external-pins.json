@@ -1,0 +1,4 @@
+{
+  "$comment": "Commit pins for externally-hosted verified plugins. A marketplace.json entry with an object source (github/url) is only VERIFIED if it has a pin here; the verifier clones the repo at exactly this commit and runs the methodology against it. 'path' is the plugin directory inside the repo ('.' for repo root). Bump 'commit' via PR to re-verify a new version. No pin = the plugin is listed, not verified.",
+  "plugins": {}
+}

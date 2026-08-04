@@ -1,0 +1,43 @@
+name: External Drift Watch
+
+# Daily check that externally-hosted verified plugins have not moved past
+# their verified commit pin. If a repo's HEAD has drifted, verified.json is
+# updated (status -> stale) and committed, which downgrades the plugin's
+# badge to "outdated" on the next site deploy.
+# Methodology: https://clauderegistry.com/verification
+
+on:
+  schedule:
+    - cron: '17 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    name: Check pinned commits against repo HEADs
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check drift
+        run: node scripts/check-external-drift.mjs
+
+      - name: Commit drift status
+        run: |
+          if ! git diff --quiet; then
+            git config user.name "clauderegistry-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add .claude-plugin/verified.json
+            git commit -m "Drift watch: mark externally-hosted plugins stale"
+            git push
+          else
+            echo "No changes to commit."
+          fi

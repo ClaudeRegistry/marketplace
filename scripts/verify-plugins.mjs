@@ -13,7 +13,9 @@
  * Exit code 0 always (the report is the output); CI can gate on the JSON.
  */
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
+import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -81,17 +83,22 @@ function checkManifestIntegrity(pluginDir, entry) {
       if (!exists(path.join(pluginDir, rel))) problems.push(`${kind} entry not on disk: ${rel}`);
     }
   }
-  // Reverse: files on disk the manifest forgot (drift the other way).
-  const listed = new Set(
-    ['commands', 'agents', 'skills'].flatMap((k) => (entry[k] ?? []).map((r) => r.replace(/^\.\//, '')))
-  );
-  const onDisk = [
-    ...walk(path.join(pluginDir, 'commands')).map((f) => `commands/${f}`),
-    ...walk(path.join(pluginDir, 'agents')).map((f) => `agents/${f}`),
-    ...walk(path.join(pluginDir, 'skills')).filter((f) => f.endsWith('SKILL.md')).map((f) => `skills/${f}`),
-  ];
-  for (const f of onDisk) {
-    if (f.endsWith('.md') && !listed.has(f)) problems.push(`on disk but not in marketplace entry: ${f}`);
+  // Reverse: files on disk the manifest forgot (drift the other way). Only
+  // enforceable when the entry declares the arrays at all; external entries
+  // may list none, and then auto-discovery is the contract.
+  const declaresArrays = ['commands', 'agents', 'skills'].some((k) => entry[k]);
+  if (declaresArrays) {
+    const listed = new Set(
+      ['commands', 'agents', 'skills'].flatMap((k) => (entry[k] ?? []).map((r) => r.replace(/^\.\//, '')))
+    );
+    const onDisk = [
+      ...walk(path.join(pluginDir, 'commands')).map((f) => `commands/${f}`),
+      ...walk(path.join(pluginDir, 'agents')).map((f) => `agents/${f}`),
+      ...walk(path.join(pluginDir, 'skills')).filter((f) => f.endsWith('SKILL.md')).map((f) => `skills/${f}`),
+    ];
+    for (const f of onDisk) {
+      if (f.endsWith('.md') && !listed.has(f)) problems.push(`on disk but not in marketplace entry: ${f}`);
+    }
   }
   return problems.length
     ? { status: 'fail', detail: problems.join('; ') }
@@ -310,6 +317,46 @@ function runChecks(pluginDir, entry) {
   return { ok, checks };
 }
 
+// ---------------------------------------------------------------------------
+// Externally-hosted plugins, verified at a pinned commit.
+// The pin (repo + commit + path) lives in .claude-plugin/external-pins.json;
+// we clone exactly that commit and run the same checks. The resulting badge
+// vouches for THAT commit; the drift watchdog flags when the repo moves past it.
+// ---------------------------------------------------------------------------
+
+const git = (cmd, opts = {}) =>
+  execSync(`git ${cmd}`, { stdio: ['ignore', 'pipe', 'pipe'], encoding: 'utf8', timeout: 120000, ...opts }).trim();
+
+function validatePin(name, pin) {
+  if (!/^[\w.-]+\/[\w.-]+$/.test(pin.repo ?? '')) return `${name}: pin.repo must be "owner/repo"`;
+  if (!/^[0-9a-f]{7,40}$/i.test(pin.commit ?? '')) return `${name}: pin.commit must be a git SHA`;
+  const p = pin.path ?? '.';
+  if (p.includes('..') || path.isAbsolute(p)) return `${name}: pin.path must be a relative path inside the repo`;
+  return null;
+}
+
+function verifyExternal(entry, pin) {
+  const repoUrl = `https://github.com/${pin.repo}.git`;
+  let headCommit = null;
+  try {
+    headCommit = git(`ls-remote ${repoUrl} HEAD`).split(/\s+/)[0] || null;
+  } catch {
+    /* offline / repo gone: current-ness unknown */
+  }
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'cr-verify-'));
+  try {
+    git('init -q', { cwd: tmp });
+    git(`remote add origin ${repoUrl}`, { cwd: tmp });
+    git(`fetch -q --depth 1 origin ${pin.commit}`, { cwd: tmp });
+    git('checkout -q FETCH_HEAD', { cwd: tmp });
+    const dir = path.join(tmp, pin.path ?? '.');
+    const { ok, checks } = runChecks(dir, entry);
+    return { ok, checks, headCommit, current: headCommit ? headCommit === pin.commit : null };
+  } finally {
+    fs.rmSync(tmp, { recursive: true, force: true });
+  }
+}
+
 const args = process.argv.slice(2);
 const ciMode = args.includes('--ci');
 const target = args.find((a) => !a.startsWith('--'));
@@ -351,27 +398,80 @@ const result = {
   plugins: {},
 };
 
+const pinsPath = path.join(ROOT, '.claude-plugin', 'external-pins.json');
+const pins = exists(pinsPath) ? JSON.parse(read(pinsPath)).plugins ?? {} : {};
+
 let failures = 0;
 for (const entry of marketplace.plugins) {
-  // Externally-hosted listings (object source: git URL / github repo) cannot be
-  // verified: we do not control that code. They are "listed", never "verified".
+  const date = result.generated.slice(0, 10);
+
+  // Externally-hosted listings (object source: git URL / github repo).
+  // With a commit pin: clone that exact commit and verify it, "verified at
+  // commit". Without a pin: "listed", never verified, we cannot vouch for
+  // code we neither host nor pin.
   if (typeof entry.source !== 'string') {
-    result.plugins[entry.name] = {
-      status: 'listed',
-      version: entry.version,
-      date: result.generated.slice(0, 10),
-      checks: [],
-      note: 'Hosted externally; listed but not verified. Verification requires the plugin to be vendored into this repository.',
-    };
-    console.log(`LISTED    ${entry.name} (external source, not verified)`);
+    const pin = pins[entry.name];
+    if (!pin) {
+      result.plugins[entry.name] = {
+        status: 'listed',
+        hosting: 'external',
+        version: entry.version,
+        date,
+        checks: [],
+        note: 'Hosted externally with no commit pin; listed but not verified.',
+      };
+      console.log(`LISTED    ${entry.name} (external, no pin)`);
+      continue;
+    }
+    const pinErr = validatePin(entry.name, pin);
+    if (pinErr) {
+      result.plugins[entry.name] = { status: 'failed', hosting: 'external', version: entry.version, date, checks: [], note: pinErr };
+      failures++;
+      console.log(`FAILED    ${entry.name}\n          - invalid pin: ${pinErr}`);
+      continue;
+    }
+    try {
+      const { ok, checks, headCommit, current } = verifyExternal(entry, pin);
+      const status = !ok ? 'failed' : current === false ? 'stale' : 'verified';
+      result.plugins[entry.name] = {
+        status,
+        hosting: 'external',
+        repo: pin.repo,
+        commit: pin.commit,
+        path: pin.path ?? '.',
+        headCommit,
+        version: entry.version,
+        date,
+        checks,
+      };
+      if (!ok) failures++;
+      const tag = status === 'verified' ? 'VERIFIED' : status === 'stale' ? 'STALE   ' : 'FAILED  ';
+      console.log(`${tag}  ${entry.name} (external @${pin.commit.slice(0, 7)}${current === false ? ', repo HEAD has moved on' : ''})`);
+      for (const c of checks.filter((c) => c.status === 'fail')) console.log(`          - ${c.title}: ${c.detail}`);
+    } catch (e) {
+      result.plugins[entry.name] = {
+        status: 'failed',
+        hosting: 'external',
+        repo: pin.repo,
+        commit: pin.commit,
+        version: entry.version,
+        date,
+        checks: [],
+        note: `could not fetch pinned commit: ${String(e.message ?? e).slice(0, 200)}`,
+      };
+      failures++;
+      console.log(`FAILED    ${entry.name} (external: could not fetch pinned commit)`);
+    }
     continue;
   }
+
   const pluginDir = path.join(ROOT, entry.source.replace(/^\.\//, ''));
   const { ok, checks } = runChecks(pluginDir, entry);
   result.plugins[entry.name] = {
     status: ok ? 'verified' : 'failed',
+    hosting: 'registry',
     version: entry.version,
-    date: result.generated.slice(0, 10),
+    date,
     checks,
   };
   if (!ok) failures++;
@@ -386,7 +486,8 @@ if (ciMode) {
   const stale = [];
   if (exists(verifiedPath)) {
     const committed = JSON.parse(read(verifiedPath));
-    const shape = (p) => JSON.stringify([p.status, p.version, (p.checks ?? []).map((c) => [c.id, c.status])]);
+    const shape = (p) =>
+      JSON.stringify([p.status, p.version, p.commit ?? null, (p.checks ?? []).map((c) => [c.id, c.status])]);
     for (const [name, fresh] of Object.entries(result.plugins)) {
       const old = committed.plugins?.[name];
       if (!old || shape(old) !== shape(fresh)) stale.push(name);
