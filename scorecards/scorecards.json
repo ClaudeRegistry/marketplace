@@ -40,7 +40,7 @@
           "id": "tool-design",
           "title": "Tool design",
           "status": "pass",
-          "evidence": "Complete zod input/output schemas with per-field descriptions; honest annotations (catalog tools readOnlyHint, verify_plugin openWorldHint for its GitHub fetch); structured isError results; search output capped at 15 rows."
+          "evidence": "Complete zod input/output schemas with per-field descriptions; honest annotations (all four tools readOnlyHint, none open-world: verify_plugin returns static instructions); structured isError results; search output capped at 15 rows."
         },
         {
           "id": "security-hygiene",
