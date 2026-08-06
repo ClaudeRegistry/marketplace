@@ -588,6 +588,34 @@
         "./skills/mcp-tool-design/SKILL.md",
         "./skills/mcp-server-security/SKILL.md"
       ]
+    },
+    {
+      "name": "search-visibility-kit",
+      "description": "Connect Claude to Google Search Console, GA4 and IndexNow with live data: guided credential setup, evidence-based SEO audits, sitemap health checks, and delta URL submissions — one service account, unlimited sites",
+      "version": "0.2.0",
+      "author": {
+        "name": "Ezequiel Scholz",
+        "url": "https://github.com/PapiScholz"
+      },
+      "source": {
+        "source": "url",
+        "url": "https://github.com/PapiScholz/search-visibility-kit.git"
+      },
+      "category": "seo",
+      "homepage": "https://github.com/PapiScholz/search-visibility-kit",
+      "repository": "https://github.com/PapiScholz/search-visibility-kit",
+      "license": "MIT",
+      "keywords": [
+        "seo",
+        "google-search-console",
+        "google-analytics",
+        "ga4",
+        "indexnow",
+        "sitemap",
+        "mcp",
+        "analytics"
+      ],
+      "strict": false
     }
   ]
 }
