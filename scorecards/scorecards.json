@@ -1,0 +1,59 @@
+{
+  "$comment": "MCP server scorecards, graded per scorecards/RUBRIC.md. Each entry describes the pinned commit only. Do not edit by hand without a grading pass.",
+  "rubricVersion": "1.0",
+  "rubricUrl": "https://github.com/ClaudeRegistry/marketplace/blob/main/scorecards/RUBRIC.md",
+  "servers": {
+    "clauderegistry-catalog": {
+      "name": "ClaudeRegistry Plugin Catalog",
+      "endpoint": "https://clauderegistry.com/mcp",
+      "repo": "ClaudeRegistry/mcp-server",
+      "commit": "243ae47de772908f99352581b5160822b9d35cf7",
+      "date": "2026-08-06",
+      "grade": "A",
+      "selfAssessment": true,
+      "axes": [
+        {
+          "id": "transport",
+          "title": "Transport",
+          "status": "pass",
+          "evidence": "Single Streamable HTTP endpoint (src/index.js: StreamableHTTPServerTransport, sessionIdGenerator undefined); no HTTP+SSE surface."
+        },
+        {
+          "id": "stateless-core",
+          "title": "Stateless core",
+          "status": "pass",
+          "evidence": "A fresh McpServer per request; no session map. Module-level caches hold only shared public data (marketplace.json, verified.json) with last-good fallback."
+        },
+        {
+          "id": "lifecycle",
+          "title": "Lifecycle and protocol version",
+          "status": "pass",
+          "evidence": "@modelcontextprotocol/sdk 1.29.x handles initialize/negotiation; the only declared capability (tools) is fully implemented (4 tools, all handlers live)."
+        },
+        {
+          "id": "authorization",
+          "title": "Authorization",
+          "status": "pass",
+          "evidence": "Authless by design over read-only public catalog data, which the rubric permits only with abuse controls; those controls exist (per-IP rate limits, size caps, timeouts). No downstream token handling of any kind."
+        },
+        {
+          "id": "tool-design",
+          "title": "Tool design",
+          "status": "pass",
+          "evidence": "Complete zod input/output schemas with per-field descriptions; honest annotations (catalog tools readOnlyHint, verify_plugin openWorldHint for its GitHub fetch); structured isError results; search output capped at 15 rows."
+        },
+        {
+          "id": "security-hygiene",
+          "title": "Security hygiene",
+          "status": "pass",
+          "evidence": "Argument validation via zod plus regex allowlists (repo, ref, path); subprocess via execFileSync arg-arrays only (no shell); path-traversal rejection on inline files; 600KB body limit; 60s clone timeout and 25MB clone size guard; per-IP rate limits (30/h files, 10/h repo); no secrets in the repository; permissive CORS is appropriate for an authless read-only server."
+        }
+      ],
+      "notes": [
+        "Rate-limit buckets are in-memory and therefore per-instance; adequate for the current single-instance deployment, but horizontal scaling would need a shared store.",
+        "No structured abuse logging or alerting yet; failures are visible only in pm2 logs.",
+        "History: v1.2.0 and earlier shipped no rate controls. That was tolerable while every tool served cached public JSON, but the verify_plugin tool (v1.3.0) makes the server do real work per call, and this grading pass forced the hardening before the tool launched."
+      ]
+    }
+  }
+}
