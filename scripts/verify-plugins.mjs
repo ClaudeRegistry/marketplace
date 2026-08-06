@@ -401,6 +401,13 @@ const result = {
 const pinsPath = path.join(ROOT, '.claude-plugin', 'external-pins.json');
 const pins = exists(pinsPath) ? JSON.parse(read(pinsPath)).plugins ?? {} : {};
 
+// Carry forward firstSeen (the date a plugin first entered the registry) from
+// the committed verified.json; new plugins get today. Backfilled once from git
+// history when the field was introduced.
+const prevVerifiedPath = path.join(ROOT, '.claude-plugin', 'verified.json');
+const prevPlugins = exists(prevVerifiedPath) ? JSON.parse(read(prevVerifiedPath)).plugins ?? {} : {};
+const firstSeenOf = (name) => prevPlugins[name]?.firstSeen ?? result.generated.slice(0, 10);
+
 let failures = 0;
 for (const entry of marketplace.plugins) {
   const date = result.generated.slice(0, 10);
@@ -417,6 +424,7 @@ for (const entry of marketplace.plugins) {
         hosting: 'external',
         version: entry.version,
         date,
+        firstSeen: firstSeenOf(entry.name),
         checks: [],
         note: 'Hosted externally with no commit pin; listed but not verified.',
       };
@@ -425,7 +433,7 @@ for (const entry of marketplace.plugins) {
     }
     const pinErr = validatePin(entry.name, pin);
     if (pinErr) {
-      result.plugins[entry.name] = { status: 'failed', hosting: 'external', version: entry.version, date, checks: [], note: pinErr };
+      result.plugins[entry.name] = { status: 'failed', hosting: 'external', version: entry.version, date, firstSeen: firstSeenOf(entry.name), checks: [], note: pinErr };
       failures++;
       console.log(`FAILED    ${entry.name}\n          - invalid pin: ${pinErr}`);
       continue;
@@ -442,6 +450,7 @@ for (const entry of marketplace.plugins) {
         headCommit,
         version: entry.version,
         date,
+        firstSeen: firstSeenOf(entry.name),
         checks,
       };
       if (!ok) failures++;
@@ -456,6 +465,7 @@ for (const entry of marketplace.plugins) {
         commit: pin.commit,
         version: entry.version,
         date,
+        firstSeen: firstSeenOf(entry.name),
         checks: [],
         note: `could not fetch pinned commit: ${String(e.message ?? e).slice(0, 200)}`,
       };
@@ -472,6 +482,7 @@ for (const entry of marketplace.plugins) {
     hosting: 'registry',
     version: entry.version,
     date,
+    firstSeen: firstSeenOf(entry.name),
     checks,
   };
   if (!ok) failures++;
