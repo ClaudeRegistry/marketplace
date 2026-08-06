@@ -7,7 +7,7 @@
       "name": "ClaudeRegistry Plugin Catalog",
       "endpoint": "https://clauderegistry.com/mcp",
       "repo": "ClaudeRegistry/mcp-server",
-      "commit": "243ae47de772908f99352581b5160822b9d35cf7",
+      "commit": "0f582454819af8587d02d635c881d2666ad12c92",
       "date": "2026-08-06",
       "grade": "A",
       "selfAssessment": true,
@@ -22,7 +22,7 @@
           "id": "stateless-core",
           "title": "Stateless core",
           "status": "pass",
-          "evidence": "A fresh McpServer per request; no session map. Module-level caches hold only shared public data (marketplace.json, verified.json) with last-good fallback."
+          "evidence": "A fresh McpServer per request; no session map and no per-IP state. Module-level caches hold only shared public data (marketplace.json, verified.json) with last-good fallback."
         },
         {
           "id": "lifecycle",
@@ -34,7 +34,7 @@
           "id": "authorization",
           "title": "Authorization",
           "status": "pass",
-          "evidence": "Authless by design over read-only public catalog data, which the rubric permits only with abuse controls; those controls exist (per-IP rate limits, size caps, timeouts). No downstream token handling of any kind."
+          "evidence": "Authless by design over read-only public catalog data, which the rubric permits with proportionate abuse controls; every tool now serves cached or static data, so there is no expensive surface to abuse. No downstream token handling of any kind."
         },
         {
           "id": "tool-design",
@@ -46,13 +46,13 @@
           "id": "security-hygiene",
           "title": "Security hygiene",
           "status": "pass",
-          "evidence": "Argument validation via zod plus regex allowlists (repo, ref, path); subprocess via execFileSync arg-arrays only (no shell); path-traversal rejection on inline files; 600KB body limit; 60s clone timeout and 25MB clone size guard; per-IP rate limits (30/h files, 10/h repo); no secrets in the repository; permissive CORS is appropriate for an authless read-only server."
+          "evidence": "No subprocess execution anywhere, no filesystem writes, no repository cloning, no user file ingestion; zod validation on all tool arguments; no secrets in the repository; permissive CORS is appropriate for an authless read-only server."
         }
       ],
       "notes": [
-        "Rate-limit buckets are in-memory and therefore per-instance; adequate for the current single-instance deployment, but horizontal scaling would need a shared store.",
+        "Verification is local-by-design: verify_plugin returns the recipe to run the open-source verifier on the user machine. The server never receives plugin files and never clones repositories (operator policy).",
         "No structured abuse logging or alerting yet; failures are visible only in pm2 logs.",
-        "History: v1.2.0 and earlier shipped no rate controls. That was tolerable while every tool served cached public JSON, but the verify_plugin tool (v1.3.0) makes the server do real work per call, and this grading pass forced the hardening before the tool launched."
+        "History: v1.3.0 briefly shipped server-side clone-based verification behind rate caps; it was replaced the same day by the local-only design, deleting that entire attack surface rather than defending it."
       ]
     }
   }
