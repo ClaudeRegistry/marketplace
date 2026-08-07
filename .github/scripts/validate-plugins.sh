@@ -378,12 +378,14 @@ validate_marketplace_json() {
         print_success "Field 'plugins' present"
     fi
 
-    # Get all plugin names from marketplace.json
+    # Get all VENDORED plugin names from marketplace.json. Entries with an
+    # object source (github/url) are hosted externally and have no plugins/
+    # directory here by design; the verify.yml methodology covers them.
     local marketplace_plugins
     if [ "$USE_PYTHON_JSON" = true ]; then
-        marketplace_plugins=$(python3 -c "import sys, json; data=json.load(open('$marketplace_json')); sys.stdout.write('\n'.join([p['name'] for p in data.get('plugins', [])]))" 2>/dev/null)
+        marketplace_plugins=$(python3 -c "import sys, json; data=json.load(open('$marketplace_json')); sys.stdout.write('\n'.join([p['name'] for p in data.get('plugins', []) if isinstance(p.get('source'), str)]))" 2>/dev/null)
     else
-        marketplace_plugins=$(jq -r '.plugins[].name' "$marketplace_json" 2>/dev/null)
+        marketplace_plugins=$(jq -r '.plugins[] | select(.source | type == "string") | .name' "$marketplace_json" 2>/dev/null)
     fi
     # Strip any carriage returns so Windows-authored JSON / CRLF output can't
     # leave a trailing \r on names (which would make every dir look missing).
