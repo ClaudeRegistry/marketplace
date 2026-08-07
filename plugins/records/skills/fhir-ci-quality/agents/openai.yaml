@@ -1,0 +1,9 @@
+interface:
+  display_name: "Records — FHIR CI and quality"
+  short_description: "Create FHIR validator CI and reviewed quality gates"
+  icon_small: "./assets/records-app-icon.svg"
+  icon_large: "./assets/records-app-icon.svg"
+  brand_color: "#0055FE"
+  default_prompt: "Use $fhir-ci-quality to add a pinned FHIR validation gate and reviewed quality checks to CI."
+policy:
+  allow_implicit_invocation: true

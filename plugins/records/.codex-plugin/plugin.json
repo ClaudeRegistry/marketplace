@@ -1,0 +1,66 @@
+{
+  "name": "records",
+  "version": "0.8.2",
+  "description": "FHIR validator, Implementation Guide diagnostics, and CI quality workflows for Codex.",
+  "author": {
+    "name": "MedVertical",
+    "email": "hello@medvertical.com",
+    "url": "https://medvertical.com/"
+  },
+  "homepage": "https://github.com/medvertical/records-agent-tools",
+  "repository": "https://github.com/medvertical/records-agent-tools",
+  "license": "MIT",
+  "keywords": [
+    "fhir",
+    "fhir validation",
+    "fhir validator",
+    "hl7",
+    "hl7 fhir",
+    "fhir r4",
+    "healthcare interoperability",
+    "health data",
+    "data quality",
+    "fhir conformance",
+    "fhir profiles",
+    "structuredefinition",
+    "operationoutcome",
+    "implementation guide",
+    "ig authoring",
+    "ig publisher",
+    "sushi",
+    "terminology",
+    "github actions",
+    "ci/cd",
+    "records"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Records",
+    "shortDescription": "Validate FHIR resources and build quality gates",
+    "longDescription": "Validate HL7 FHIR R4 resources, explain OperationOutcome and profile issues, diagnose FHIR Implementation Guide and SUSHI projects, and generate reviewed CI quality gates. Local-first with explicit privacy and capability boundaries.",
+    "developerName": "MedVertical",
+    "category": "Coding",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://medvertical.com/records",
+    "privacyPolicyURL": "https://github.com/medvertical/records-agent-tools/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/medvertical/records-agent-tools/blob/main/LICENSE",
+    "defaultPrompt": [
+      "Validate this project's FHIR R4 resources and explain every issue",
+      "Diagnose this FHIR implementation guide, packages, and validator setup",
+      "Add a pinned FHIR validation gate to this project's CI"
+    ],
+    "brandColor": "#0055FE",
+    "composerIcon": "./assets/records-app-icon.svg",
+    "logo": "./assets/records-app-icon.svg",
+    "logoDark": "./assets/records-app-icon.svg",
+    "screenshots": [
+      "./assets/screenshot-validation.png",
+      "./assets/screenshot-doctor.png",
+      "./assets/screenshot-ci.png"
+    ]
+  }
+}

@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Records Marketplace screens</title>
+  <style>
+    :root {
+      --blue: #0055fe;
+      --ink: #1a1a1a;
+      --graphite: #6b6b6b;
+      --white: #ffffff;
+      --surface: #f6f7f9;
+      --surface-darker: #eaecf0;
+      --border: rgba(0, 0, 0, 0.06);
+      --pass: #16a34a;
+      --pass-bg: #dcfce7;
+      --warn: #d97706;
+      --warn-bg: #fef3c7;
+      --fail: #dc2626;
+      --fail-bg: #fee2e2;
+      color-scheme: light;
+      font-synthesis: none;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 1600px;
+      height: 1000px;
+      margin: 0;
+      overflow: hidden;
+      background: var(--surface);
+      color: var(--ink);
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      position: relative;
+    }
+
+    .screen {
+      display: none;
+      width: 1600px;
+      height: 1000px;
+      padding: 56px 88px 46px;
+    }
+
+    .screen.is-active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brandbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand img {
+      display: block;
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+    }
+
+    .brand-name {
+      font-size: 24px;
+      font-weight: 720;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+
+    .brand-byline {
+      margin-top: 7px;
+      color: var(--graphite);
+      font-size: 15px;
+      font-weight: 520;
+      line-height: 1;
+    }
+
+    .platform {
+      color: var(--graphite);
+      font-size: 13px;
+      font-weight: 740;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .hero {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      min-height: 205px;
+      padding: 38px 0 30px;
+    }
+
+    .eyebrow {
+      margin-bottom: 15px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 760;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 1000px;
+      margin: 0;
+      font-size: 57px;
+      font-weight: 720;
+      letter-spacing: -0.044em;
+      line-height: 1.03;
+    }
+
+    .hero-note {
+      max-width: 320px;
+      margin: 0 0 5px;
+      color: var(--graphite);
+      font-size: 18px;
+      font-weight: 460;
+      line-height: 1.45;
+    }
+
+    .workspace {
+      flex: 1;
+      min-height: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: var(--white);
+    }
+
+    .request {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 102px;
+      padding: 24px 30px 24px 34px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .request-copy {
+      max-width: 970px;
+      padding-left: 20px;
+      border-left: 3px solid var(--blue);
+      font-size: 21px;
+      font-weight: 580;
+      line-height: 1.42;
+    }
+
+    .request-copy small {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--graphite);
+      font-size: 11px;
+      font-weight: 760;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .context {
+      text-align: right;
+    }
+
+    .context-label {
+      color: var(--graphite);
+      font-size: 11px;
+      font-weight: 730;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .context-value {
+      margin-top: 8px;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 14px;
+      font-weight: 560;
+    }
+
+    .content {
+      height: calc(100% - 102px);
+      padding: 30px 34px;
+    }
+
+    .mono {
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 780;
+      letter-spacing: 0.07em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .badge.fail {
+      color: var(--fail);
+      background: var(--fail-bg);
+    }
+
+    .badge.pass {
+      color: var(--pass);
+      background: var(--pass-bg);
+    }
+
+    .badge.warn {
+      color: var(--warn);
+      background: var(--warn-bg);
+    }
+
+    .badge.neutral {
+      color: var(--ink);
+      background: var(--surface-darker);
+    }
+
+    .section-label {
+      color: var(--graphite);
+      font-size: 11px;
+      font-weight: 760;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      height: 52px;
+      padding-top: 20px;
+      color: var(--graphite);
+      font-size: 13px;
+      font-weight: 520;
+    }
+
+    /* Validation */
+    .validation-summary {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      align-items: center;
+      gap: 40px;
+      min-height: 66px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .file-name {
+      margin-top: 8px;
+      overflow: hidden;
+      font-size: 16px;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .metric {
+      min-width: 92px;
+      text-align: right;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 31px;
+      font-weight: 720;
+      letter-spacing: -0.035em;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      margin-top: 8px;
+      color: var(--graphite);
+      font-size: 12px;
+      font-weight: 620;
+    }
+
+    .issue-list {
+      display: grid;
+      gap: 12px;
+      padding-top: 22px;
+    }
+
+    .issue {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr) 160px;
+      align-items: center;
+      min-height: 72px;
+      gap: 22px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--surface);
+    }
+
+    .issue-title {
+      font-size: 16px;
+      font-weight: 650;
+      line-height: 1.3;
+    }
+
+    .issue-detail {
+      margin-top: 6px;
+      color: var(--graphite);
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .pointer {
+      color: var(--graphite);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .boundary {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 18px;
+      color: var(--graphite);
+      font-size: 14px;
+      font-weight: 540;
+    }
+
+    .boundary-mark {
+      display: grid;
+      width: 26px;
+      height: 26px;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--pass);
+      background: var(--pass-bg);
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    /* Doctor */
+    .doctor-grid,
+    .ci-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(350px, 0.82fr);
+      height: 100%;
+      gap: 30px;
+    }
+
+    .panel {
+      min-width: 0;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--surface);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 55px;
+      padding: 0 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .facts {
+      padding: 2px 20px;
+    }
+
+    .fact {
+      display: grid;
+      grid-template-columns: 154px minmax(0, 1fr) auto;
+      align-items: center;
+      min-height: 64px;
+      gap: 18px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fact:last-child {
+      border-bottom: 0;
+    }
+
+    .fact-key {
+      color: var(--graphite);
+      font-size: 12px;
+      font-weight: 680;
+    }
+
+    .fact-value {
+      overflow: hidden;
+      font-size: 14px;
+      font-weight: 600;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .callout {
+      flex: 1;
+      padding: 22px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+    }
+
+    .callout h2 {
+      margin: 13px 0 9px;
+      font-size: 20px;
+      font-weight: 690;
+      letter-spacing: -0.022em;
+      line-height: 1.18;
+    }
+
+    .callout p {
+      margin: 0;
+      color: var(--graphite);
+      font-size: 14px;
+      line-height: 1.52;
+    }
+
+    .callout.action {
+      background: var(--surface);
+    }
+
+    .action-text {
+      margin-top: 16px;
+      color: var(--ink);
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 13px;
+      font-weight: 560;
+      line-height: 1.55;
+    }
+
+    /* CI */
+    .code-panel {
+      display: flex;
+      min-width: 0;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    .code-panel .panel-header {
+      border-bottom-color: rgba(255, 255, 255, 0.11);
+    }
+
+    .code-panel .section-label {
+      color: #b7b7b7;
+    }
+
+    pre {
+      flex: 1;
+      margin: 0;
+      padding: 18px 24px;
+      overflow: hidden;
+      font-family: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+      font-size: 13px;
+      font-weight: 450;
+      line-height: 1.42;
+      white-space: pre-wrap;
+    }
+
+    .yaml-key {
+      color: #9fc1ff;
+    }
+
+    .yaml-value {
+      color: #ffffff;
+    }
+
+    .yaml-string {
+      color: #b9f4c8;
+    }
+
+    .checks {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .check {
+      padding: 18px 20px;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      background: var(--surface);
+    }
+
+    .check-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .check-title {
+      font-size: 15px;
+      font-weight: 660;
+    }
+
+    .check p {
+      margin: 11px 0 0;
+      color: var(--graphite);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .ci-note {
+      margin-top: auto;
+      padding: 20px;
+      border-left: 3px solid var(--blue);
+      color: var(--graphite);
+      font-size: 14px;
+      line-height: 1.48;
+    }
+  </style>
+</head>
+<body>
+  <section class="screen" data-screen="validation">
+    <header class="brandbar">
+      <div class="brand">
+        <img src="../records-app-icon.svg" alt="">
+        <div>
+          <div class="brand-name">Records</div>
+          <div class="brand-byline">by MedVertical</div>
+        </div>
+      </div>
+      <div class="platform">For Codex + Claude Code</div>
+    </header>
+
+    <div class="hero">
+      <div>
+        <div class="eyebrow">FHIR validation</div>
+        <h1>Validate FHIR before release.</h1>
+      </div>
+      <p class="hero-note">Concrete issues, honest capability labels, and fixes that preserve clinical meaning.</p>
+    </div>
+
+    <div class="workspace">
+      <div class="request">
+        <div class="request-copy">
+          <small>User request</small>
+          Validate this project’s FHIR R4 resources and explain every issue.
+        </div>
+        <div class="context">
+          <div class="context-label">Selected workflow</div>
+          <div class="context-value">$fhir-validation</div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="validation-summary">
+          <div>
+            <div class="section-label">Validated resource</div>
+            <div class="file-name mono">fixtures/invalid-observation.json</div>
+          </div>
+          <div class="metric">
+            <strong style="color: var(--fail)">2</strong>
+            <span>Errors</span>
+          </div>
+          <div class="metric">
+            <strong>0</strong>
+            <span>Warnings</span>
+          </div>
+        </div>
+
+        <div class="issue-list">
+          <div class="issue">
+            <div><span class="badge fail">Error</span></div>
+            <div>
+              <div class="issue-title">Observation.code is required</div>
+              <div class="issue-detail">Required element missing from this FHIR R4 resource.</div>
+            </div>
+            <div class="pointer mono">/code</div>
+          </div>
+          <div class="issue">
+            <div><span class="badge fail">Error</span></div>
+            <div>
+              <div class="issue-title">Observation.status must be a string</div>
+              <div class="issue-detail">Found a number where the FHIR primitive expects a code string.</div>
+            </div>
+            <div class="pointer mono">/status</div>
+          </div>
+        </div>
+
+        <div class="boundary">
+          <span class="boundary-mark">✓</span>
+          Structural FHIR R4 validation · Local filesystem only · No clinical code or status invented
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>Records agent tools · v0.8.1</span>
+      <span>FHIR validation for Codex and Claude Code</span>
+    </footer>
+  </section>
+
+  <section class="screen" data-screen="doctor">
+    <header class="brandbar">
+      <div class="brand">
+        <img src="../records-app-icon.svg" alt="">
+        <div>
+          <div class="brand-name">Records</div>
+          <div class="brand-byline">by MedVertical</div>
+        </div>
+      </div>
+      <div class="platform">For Codex + Claude Code</div>
+    </header>
+
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Project diagnostics</div>
+        <h1>Know the project before validation.</h1>
+      </div>
+      <p class="hero-note">Detect the FHIR workflow, package state, and safest available runtime first.</p>
+    </div>
+
+    <div class="workspace">
+      <div class="request">
+        <div class="request-copy">
+          <small>User request</small>
+          Diagnose this FHIR implementation guide, packages, and validator setup.
+        </div>
+        <div class="context">
+          <div class="context-label">Selected workflow</div>
+          <div class="context-value">$fhir-project-doctor</div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="doctor-grid">
+          <div class="panel">
+            <div class="panel-header">
+              <span class="section-label">Project diagnosis</span>
+              <span class="badge pass">Ready to inspect</span>
+            </div>
+            <div class="facts">
+              <div class="fact">
+                <div class="fact-key">Project type</div>
+                <div class="fact-value">FSH implementation guide</div>
+                <span class="badge neutral">Detected</span>
+              </div>
+              <div class="fact">
+                <div class="fact-key">FHIR version</div>
+                <div class="fact-value mono">4.0.1</div>
+                <span class="badge pass">R4</span>
+              </div>
+              <div class="fact">
+                <div class="fact-key">Packages</div>
+                <div class="fact-value">1 of 1 declared packages resolved</div>
+                <span class="badge pass">Resolved</span>
+              </div>
+              <div class="fact">
+                <div class="fact-key">Selected runtime</div>
+                <div class="fact-value">Structural fallback</div>
+                <span class="badge warn">Limited</span>
+              </div>
+              <div class="fact">
+                <div class="fact-key">Privacy boundary</div>
+                <div class="fact-value">Local filesystem only</div>
+                <span class="badge pass">Local</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="stack">
+            <div class="callout">
+              <span class="badge warn">Capability boundary</span>
+              <h2>Profile-aware validation needs setup.</h2>
+              <p>The available fallback checks FHIR R4 structure. It does not claim IG profile or terminology coverage.</p>
+            </div>
+            <div class="callout action">
+              <div class="section-label">Next safe action</div>
+              <div class="action-text">Inspect input/fsh, then run a configured profile-aware validator.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>Records agent tools · v0.8.1</span>
+      <span>FHIR project diagnostics for Codex and Claude Code</span>
+    </footer>
+  </section>
+
+  <section class="screen" data-screen="ci">
+    <header class="brandbar">
+      <div class="brand">
+        <img src="../records-app-icon.svg" alt="">
+        <div>
+          <div class="brand-name">Records</div>
+          <div class="brand-byline">by MedVertical</div>
+        </div>
+      </div>
+      <div class="platform">For Codex + Claude Code</div>
+    </header>
+
+    <div class="hero">
+      <div>
+        <div class="eyebrow">CI quality gates</div>
+        <h1>Turn FHIR validation into a release gate.</h1>
+      </div>
+      <p class="hero-note">Pinned tools, least privilege, and reviewable healthcare data-quality policy.</p>
+    </div>
+
+    <div class="workspace">
+      <div class="request">
+        <div class="request-copy">
+          <small>User request</small>
+          Add a pinned FHIR validation gate to this project’s CI.
+        </div>
+        <div class="context">
+          <div class="context-label">Selected workflow</div>
+          <div class="context-value">$fhir-ci-quality</div>
+        </div>
+      </div>
+      <div class="content">
+        <div class="ci-grid">
+          <div class="code-panel">
+            <div class="panel-header">
+              <span class="section-label">.github/workflows/fhir-validation.yml</span>
+              <span class="badge pass">Generated</span>
+            </div>
+            <pre><span class="yaml-key">name:</span> <span class="yaml-value">FHIR Validation</span>
+
+<span class="yaml-key">permissions:</span>
+  <span class="yaml-key">contents:</span> <span class="yaml-value">read</span>
+
+<span class="yaml-key">steps:</span>
+  - <span class="yaml-key">uses:</span> <span class="yaml-string">actions/checkout@v5</span>
+  - <span class="yaml-key">uses:</span> <span class="yaml-string">actions/setup-node@v5</span>
+    <span class="yaml-key">with:</span>
+      <span class="yaml-key">node-version:</span> <span class="yaml-value">24</span>
+  - <span class="yaml-key">name:</span> <span class="yaml-value">Install Records CLI</span>
+    <span class="yaml-key">run:</span> <span class="yaml-string">npm install --global @records-fhir/cli@0.1.1</span>
+  - <span class="yaml-key">name:</span> <span class="yaml-value">Validate FHIR resources</span>
+    <span class="yaml-key">run:</span> <span class="yaml-string">records validate-file "$FHIR_RESOURCE_DIR" --format junit</span></pre>
+          </div>
+
+          <div class="checks">
+            <div class="check">
+              <div class="check-top">
+                <div class="check-title">Least-privilege permissions</div>
+                <span class="badge pass">Pass</span>
+              </div>
+              <p>Repository contents are read-only for the validation job.</p>
+            </div>
+            <div class="check">
+              <div class="check-top">
+                <div class="check-title">Pinned validator install</div>
+                <span class="badge pass">Pass</span>
+              </div>
+              <p>The Records CLI version is explicit and reproducible.</p>
+            </div>
+            <div class="check">
+              <div class="check-top">
+                <div class="check-title">Derived quality policy</div>
+                <span class="badge warn">Review</span>
+              </div>
+              <p>Project-specific clinical rules remain proposals until a human approves them.</p>
+            </div>
+            <div class="ci-note">
+              Existing workflows are inspected before writing. API credentials are added only when remote validation is explicitly requested.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <span>Records agent tools · v0.8.1</span>
+      <span>FHIR CI quality gates for Codex and Claude Code</span>
+    </footer>
+  </section>
+
+  <script>
+    const requested = new URLSearchParams(window.location.search).get("screen") || "validation";
+    const active = document.querySelector(`[data-screen="${CSS.escape(requested)}"]`)
+      || document.querySelector('[data-screen="validation"]');
+    active.classList.add("is-active");
+    document.title = `Records · ${active.dataset.screen}`;
+  </script>
+</body>
+</html>

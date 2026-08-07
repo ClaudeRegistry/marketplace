@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "licenseNote": "Public synthetic examples redistributed from the named FHIR packages; upstream package terms and FHIR/HL7 trademarks remain applicable.",
+  "cases": [
+    {
+      "file": "mii-procedure-2025.json",
+      "package": "de.medizininformatikinitiative.kerndatensatz.prozedur",
+      "version": "2025.0.0",
+      "packageRegistry": "https://packages.fhir.org/packages/de.medizininformatikinitiative.kerndatensatz.prozedur/2025.0.0",
+      "upstreamPath": "package/examples/Procedure-mii-exa-prozedur-procedure.json",
+      "resourceType": "Procedure",
+      "profile": "https://www.medizininformatik-initiative.de/fhir/core/modul-prozedur/StructureDefinition/Procedure|2025.0.0",
+      "sha256": "e26104e85452064d0f9654cc73a63c8ffd59a4f810e55b27a59d2dbed79d8537"
+    },
+    {
+      "file": "isik-respiratory-rate-5.1.0.json",
+      "package": "de.gematik.isik",
+      "version": "5.1.0",
+      "packageRegistry": "https://packages.fhir.org/packages/de.gematik.isik/5.1.0",
+      "upstreamPath": "package/examples/Observation-ISiKAtemfrequenzExample.json",
+      "resourceType": "Observation",
+      "profile": "https://gematik.de/fhir/isik/StructureDefinition/ISiKAtemfrequenz",
+      "sha256": "8329f2f1201d4566581c84fab07f7673d23235b61d25196548f704e5798a6dd4"
+    },
+    {
+      "file": "eu-core-procedure-2.0.0.json",
+      "package": "hl7.fhir.eu.base",
+      "version": "2.0.0",
+      "packageRegistry": "https://packages.fhir.org/packages/hl7.fhir.eu.base/2.0.0",
+      "upstreamPath": "package/example/Procedure-procedure-eu-core-example.json",
+      "resourceType": "Procedure",
+      "profile": "http://hl7.eu/fhir/base/StructureDefinition/procedure-eu-core",
+      "sha256": "1e5b0514be0382e8f19e50514e0d84d0a8754ddd6bf3a3fab2be4382d27f3749"
+    }
+  ]
+}

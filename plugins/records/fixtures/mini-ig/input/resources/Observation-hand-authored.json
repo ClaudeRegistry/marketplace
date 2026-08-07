@@ -1,0 +1,11 @@
+{
+  "resourceType": "Observation",
+  "id": "hand-authored",
+  "status": "final",
+  "code": {
+    "text": "Hand authored fixture"
+  },
+  "subject": {
+    "reference": "Patient/example"
+  }
+}

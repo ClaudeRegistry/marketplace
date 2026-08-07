@@ -1,0 +1,35 @@
+{
+  "name": "records",
+  "displayName": "Records",
+  "description": "Validate FHIR R4 resources, diagnose Implementation Guide projects, explain conformance issues, and generate reviewed CI quality gates.",
+  "version": "0.8.2",
+  "author": {
+    "name": "MedVertical"
+  },
+  "homepage": "https://github.com/medvertical/records-agent-tools",
+  "repository": "https://github.com/medvertical/records-agent-tools",
+  "license": "MIT",
+  "keywords": [
+    "fhir",
+    "fhir validation",
+    "fhir validator",
+    "hl7",
+    "hl7 fhir",
+    "fhir r4",
+    "healthcare interoperability",
+    "health data",
+    "data quality",
+    "fhir conformance",
+    "fhir profiles",
+    "structuredefinition",
+    "operationoutcome",
+    "implementation guide",
+    "ig authoring",
+    "ig publisher",
+    "sushi",
+    "terminology",
+    "github actions",
+    "ci/cd",
+    "records"
+  ]
+}
