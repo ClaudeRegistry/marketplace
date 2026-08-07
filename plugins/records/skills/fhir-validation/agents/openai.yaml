@@ -1,0 +1,10 @@
+interface:
+  display_name: "Records — FHIR validation"
+  short_description: "Validate FHIR R4 resources and explain conformance issues"
+  icon_small: "./assets/records-app-icon.svg"
+  icon_large: "./assets/records-app-icon.svg"
+  brand_color: "#0055FE"
+  default_prompt: "Use $fhir-validation to validate FHIR R4 resources, explain OperationOutcome issues, and guide safe fixes."
+
+policy:
+  allow_implicit_invocation: true

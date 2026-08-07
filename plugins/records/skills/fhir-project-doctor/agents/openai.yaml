@@ -1,0 +1,9 @@
+interface:
+  display_name: "Records — FHIR project doctor"
+  short_description: "Inspect FHIR IG runtimes, packages, and SUSHI setup"
+  icon_small: "./assets/records-app-icon.svg"
+  icon_large: "./assets/records-app-icon.svg"
+  brand_color: "#0055FE"
+  default_prompt: "Use $fhir-project-doctor to inspect this FHIR implementation guide, validator setup, and package blockers."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,11 @@
+id: medvertical.records.mini
+canonical: https://example.org/fhir/records-mini
+name: RecordsMiniIG
+title: Records Mini IG
+status: draft
+version: 0.1.0
+fhirVersion: 4.0.1
+copyrightYear: 2026+
+releaseLabel: ci-fixture
+dependencies:
+  hl7.fhir.r4.core: 4.0.1

@@ -1,0 +1,13 @@
+{
+  "resourceType": "Condition",
+  "id": "condition-missing-subject",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "code": "active"
+      }
+    ]
+  },
+  "recordedDate": "2026-13-02"
+}
