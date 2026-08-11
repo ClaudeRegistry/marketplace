@@ -821,12 +821,12 @@
       ]
     },
     "search-visibility-kit": {
-      "status": "verified",
+      "status": "stale",
       "hosting": "external",
       "repo": "PapiScholz/search-visibility-kit",
       "commit": "df395cd8e2a6aed6e7ec0686c1f2171b9217d129",
       "path": ".",
-      "headCommit": "df395cd8e2a6aed6e7ec0686c1f2171b9217d129",
+      "headCommit": "050933b08a42806dd2d2206a8286252e8e057132",
       "version": "0.3.1",
       "date": "2026-08-09",
       "firstSeen": "2026-07-28",
