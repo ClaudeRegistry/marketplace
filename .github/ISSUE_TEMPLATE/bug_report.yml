@@ -1,0 +1,40 @@
+name: Bug report
+description: Something in the registry is broken — a plugin fails to install, metadata is wrong, a badge is stale.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: area
+    attributes:
+      label: What is affected?
+      options:
+        - A plugin (install, commands, agents, skills, hooks)
+        - marketplace.json metadata
+        - Verification badge / verified.json
+        - Registry scripts or CI
+        - clauderegistry.com website
+        - MCP server (clauderegistry.com/mcp)
+    validations:
+      required: true
+  - type: input
+    id: plugin
+    attributes:
+      label: Plugin name (if plugin-related)
+      placeholder: e.g. code-auditor
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+      placeholder: |
+        1. Ran `/plugin install ...`
+        2. Expected ...
+        3. Got ...
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Claude Code version, OS, anything else relevant.
+      placeholder: Claude Code x.y.z on macOS 15

@@ -1,0 +1,44 @@
+name: Report a listed plugin
+description: A listed plugin is misleading, unsafe, abandoned, or its behavior doesn't match its description.
+title: "[plugin-report] "
+labels: ["plugin-report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for **non-sensitive** concerns about a listed plugin.
+        If the issue is exploitable (credential theft, malicious hooks, prompt injection),
+        report it privately instead: [Report a vulnerability](https://github.com/ClaudeRegistry/marketplace/security/advisories/new).
+  - type: input
+    id: plugin
+    attributes:
+      label: Plugin name
+      placeholder: e.g. hermes-tweet
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit inspected
+      placeholder: e.g. 0.1.11, or a commit SHA
+  - type: dropdown
+    id: concern
+    attributes:
+      label: Type of concern
+      options:
+        - Behavior doesn't match the description
+        - Doesn't work in Claude Code (broken or targets another runtime)
+        - Excessive permissions (agent tool scopes, hooks)
+        - Misleading or spammy listing
+        - Abandoned / repository gone
+        - License problem
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: What did you find?
+      description: Point at specific files or behavior. The more concrete, the faster we can act.
+    validations:
+      required: true

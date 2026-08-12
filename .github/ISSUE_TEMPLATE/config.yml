@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Browse the registry
+    url: https://clauderegistry.com/plugins
+    about: The full plugin catalog with verification status.
+  - name: Verification methodology
+    url: https://clauderegistry.com/verification
+    about: What the Verified badge means and how the seven checks work.
+  - name: Report a security vulnerability (private)
+    url: https://github.com/ClaudeRegistry/marketplace/security/advisories/new
+    about: For exploitable issues, use private reporting instead of a public issue. See SECURITY.md.
