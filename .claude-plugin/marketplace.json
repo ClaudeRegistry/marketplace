@@ -618,6 +618,33 @@
       "strict": false
     },
     {
+      "name": "x-twitter-scraper",
+      "description": "Search public X/Twitter data, inspect profiles and trends, monitor sources, and prepare confirmation-gated account actions through Xquik REST and MCP interfaces.",
+      "version": "2.6.5",
+      "author": {
+        "name": "Xquik",
+        "url": "https://github.com/Xquik-dev"
+      },
+      "source": {
+        "source": "url",
+        "url": "https://github.com/Xquik-dev/x-twitter-scraper.git"
+      },
+      "category": "api",
+      "homepage": "https://docs.xquik.com",
+      "repository": "https://github.com/Xquik-dev/x-twitter-scraper",
+      "license": "MIT",
+      "keywords": [
+        "twitter",
+        "x",
+        "tweet-search",
+        "social-listening",
+        "monitoring",
+        "mcp",
+        "api"
+      ],
+      "strict": false
+    },
+    {
       "name": "records",
       "description": "Validate FHIR R4 resources, diagnose Implementation Guide projects, explain conformance issues, and generate reviewed CI quality gates.",
       "version": "0.8.2",
