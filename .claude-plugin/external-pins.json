@@ -5,6 +5,11 @@
       "repo": "PapiScholz/search-visibility-kit",
       "commit": "050933b08a42806dd2d2206a8286252e8e057132",
       "path": "."
+    },
+    "insane-research": {
+      "repo": "fivetaku/insane-research",
+      "commit": "68f7e59168a9c9b0a586bd4122cb7a229e119d9c",
+      "path": "."
     }
   }
 }
