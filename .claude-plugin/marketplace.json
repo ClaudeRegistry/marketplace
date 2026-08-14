@@ -653,6 +653,32 @@
         "records"
       ],
       "strict": true
+    },
+    {
+      "name": "flowforge-skill",
+      "description": "Generate professional draw.io diagrams from natural language: flowcharts, architecture diagrams, comparisons, and more.",
+      "version": "1.2.0",
+      "author": {
+        "name": "winstonyoyo",
+        "url": "https://github.com/wentong2022-arch"
+      },
+      "source": {
+        "source": "url",
+        "url": "https://github.com/wentong2022-arch/flowforge-skill.git"
+      },
+      "category": "documentation",
+      "homepage": "https://github.com/wentong2022-arch/flowforge-skill",
+      "repository": "https://github.com/wentong2022-arch/flowforge-skill",
+      "license": "MIT",
+      "keywords": [
+        "drawio",
+        "diagram",
+        "flowchart",
+        "architecture-diagram",
+        "visualization",
+        "claude-skill"
+      ],
+      "strict": false
     }
   ]
 }

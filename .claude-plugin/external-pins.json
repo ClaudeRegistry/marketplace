@@ -5,6 +5,11 @@
       "repo": "PapiScholz/search-visibility-kit",
       "commit": "050933b08a42806dd2d2206a8286252e8e057132",
       "path": "."
+    },
+    "flowforge-skill": {
+      "repo": "wentong2022-arch/flowforge-skill",
+      "commit": "7a210ccb6f3724f91e15d614726de0be25f9e1a6",
+      "path": "."
     }
   }
 }
