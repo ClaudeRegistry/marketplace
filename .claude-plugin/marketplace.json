@@ -653,6 +653,34 @@
         "records"
       ],
       "strict": true
+    },
+    {
+      "name": "bkt",
+      "description": "Bitbucket CLI: manage repos, PRs, branches, issues, webhooks, and pipelines for both Data Center and Cloud.",
+      "version": "0.31.0",
+      "author": {
+        "name": "Aviv Sinai",
+        "url": "https://github.com/avivsinai"
+      },
+      "source": {
+        "source": "url",
+        "url": "https://github.com/avivsinai/bitbucket-cli.git"
+      },
+      "category": "git",
+      "homepage": "https://github.com/avivsinai/bitbucket-cli",
+      "repository": "https://github.com/avivsinai/bitbucket-cli",
+      "license": "MIT",
+      "keywords": [
+        "bitbucket",
+        "git",
+        "pr",
+        "pull-request",
+        "ci",
+        "pipeline",
+        "devops",
+        "cli"
+      ],
+      "strict": false
     }
   ]
 }

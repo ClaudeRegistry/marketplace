@@ -5,6 +5,11 @@
       "repo": "PapiScholz/search-visibility-kit",
       "commit": "050933b08a42806dd2d2206a8286252e8e057132",
       "path": "."
+    },
+    "bkt": {
+      "repo": "avivsinai/bitbucket-cli",
+      "commit": "0d8c3121b7d218d0acfdf73e18a6609db7de617d",
+      "path": "."
     }
   }
 }
