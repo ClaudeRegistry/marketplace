@@ -653,6 +653,33 @@
         "records"
       ],
       "strict": true
+    },
+    {
+      "name": "ballast",
+      "description": "Builds up to a goal in a field you have no expertise in: splits it into the foundations that goal actually needs, mobilizes what you already hold, learns what is missing, and leaves every solved path behind for the next goal. Nothing is called done until a check passes.",
+      "version": "0.6.0",
+      "author": {
+        "name": "svy04",
+        "url": "https://github.com/svy04"
+      },
+      "source": {
+        "source": "url",
+        "url": "https://github.com/svy04/ballast.git"
+      },
+      "category": "development",
+      "homepage": "https://github.com/svy04/ballast",
+      "repository": "https://github.com/svy04/ballast",
+      "license": "MIT",
+      "keywords": [
+        "claude-code",
+        "hooks",
+        "skills",
+        "memory",
+        "verification",
+        "decision-ledger",
+        "workflow"
+      ],
+      "strict": false
     }
   ]
 }
