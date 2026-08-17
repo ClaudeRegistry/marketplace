@@ -36,7 +36,7 @@ Records helps FHIR developers, Implementation Guide authors, and AI agents valid
 
 The `fhir-validation` skill is local-first and privacy-oriented. It uses Records MCP tools when available, a user-configured Records API when explicitly configured, the local `records validate-file` CLI when available, configured IG/SUSHI/Firely/HAPI validators for profile-aware workflows, or a clearly labeled structural fallback when no Records runtime is available.
 
-Version 0.8.2 narrows the read-only `fhir-validation-reviewer` agent to an explicit least-privilege tool allow-list and documents the in-session `/plugin install` commands. Version 0.8.1 improved marketplace discovery for high-intent FHIR validator, conformance, Implementation Guide, SUSHI, and CI searches; aligned icons and screenshots with the MedVertical brand system; and moved generated GitHub Actions workflows to Node 24 and `actions/*@v5`.
+Version 0.8.3 documents the ClaudeRegistry listing, where Records is published as a Verified-tier plugin audited against the registry's public verification methodology. Version 0.8.2 narrowed the read-only `fhir-validation-reviewer` agent to an explicit least-privilege tool allow-list and documented the in-session `/plugin install` commands. Version 0.8.1 improved marketplace discovery for high-intent FHIR validator, conformance, Implementation Guide, SUSHI, and CI searches; aligned icons and screenshots with the MedVertical brand system; and moved generated GitHub Actions workflows to Node 24 and `actions/*@v5`.
 
 Unlike validator-specific runbooks, Records positions Claude around a data-quality workflow: validate, explain, patch safe mechanical issues, revalidate, and escalate domain-dependent clinical values instead of inventing placeholders.
 
