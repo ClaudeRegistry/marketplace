@@ -64,6 +64,11 @@ function checkManifestIntegrity(pluginDir, entry) {
       if (!parsed.version) problems.push('plugin.json missing version');
       if (!parsed.license) problems.push('plugin.json missing license');
       if (!parsed.description) problems.push('plugin.json missing description');
+      // Ported from the retired validate-plugins.sh structural validator.
+      if (parsed.name && !/^[a-z0-9-]+$/.test(parsed.name))
+        problems.push(`plugin name "${parsed.name}" must be lowercase alphanumeric with hyphens`);
+      if (parsed.version && !/^\d+\.\d+\.\d+(-[A-Za-z0-9.-]+)?(\+[A-Za-z0-9.-]+)?$/.test(parsed.version))
+        problems.push(`version "${parsed.version}" does not follow semantic versioning`);
     } catch {
       problems.push('plugin.json is not valid JSON');
     }
@@ -108,7 +113,9 @@ function checkManifestIntegrity(pluginDir, entry) {
 const HOOK_FORBIDDEN = [
   [/\bfetch\s*\(|\bXMLHttpRequest\b|\bhttps?\.request\b|\bnet\.connect\b|\bWebSocket\b/, 'network call'],
   [/\bwriteFileSync?\s*\(|\bappendFileSync?\s*\(|\bcreateWriteStream\b|\bunlinkSync?\s*\(|\brmSync\s*\(/, 'filesystem write'],
-  [/\.env\b|\bid_rsa\b|\.aws\b|credentials/i, 'credential/env access'],
+  // ".env" must not match reading the process environment (process.env,
+  // import.meta.env) — only .env *files* and other credential stores.
+  [/(?<!process)(?<!import\.meta)\.env\b|\bid_rsa\b|\.aws\b|credentials/i, 'credential/env access'],
   [/\beval\s*\(|\bFunction\s*\(/, 'dynamic code evaluation'],
 ];
 
@@ -166,7 +173,10 @@ function checkHookSafety(pluginDir) {
       if (re.test(src)) problems.push(`${rel}: ${label}`);
     }
     problems.push(...analyzeSubprocess(src, rel).problems);
-    if (!/process\.exit\(0\)/.test(src)) problems.push(`${rel}: no unconditional exit(0) fail-safe`);
+    // Accept exit(0) literally or exit(<var>) where a variable defaults to 0
+    // (the `let code = 0; try {...} catch {...} process.exit(code)` pattern).
+    if (!/process\.exit\(\s*(?:0|[A-Za-z_$][\w$]*)\s*\)/.test(src))
+      problems.push(`${rel}: no unconditional exit(0) fail-safe`);
     if (!/catch/.test(src)) problems.push(`${rel}: no try/catch fail-safe`);
   }
   return problems.length
@@ -489,6 +499,26 @@ for (const entry of marketplace.plugins) {
   const badge = ok ? 'VERIFIED' : 'FAILED  ';
   console.log(`${badge}  ${entry.name}`);
   for (const c of checks.filter((c) => c.status === 'fail')) console.log(`          - ${c.title}: ${c.detail}`);
+}
+
+// Registry consistency (ported from the retired validate-plugins.sh): every
+// vendored plugins/<dir> must be listed in marketplace.json. The reverse
+// direction — listed but missing on disk — already fails manifest-integrity.
+const listedDirs = new Set(
+  marketplace.plugins
+    .filter((e) => typeof e.source === 'string')
+    .map((e) => e.source.replace(/^\.\//, '').replace(/^plugins\//, ''))
+);
+const pluginsRoot = path.join(ROOT, 'plugins');
+const orphanDirs = exists(pluginsRoot)
+  ? fs
+      .readdirSync(pluginsRoot, { withFileTypes: true })
+      .filter((d) => d.isDirectory() && !listedDirs.has(d.name))
+      .map((d) => d.name)
+  : [];
+for (const name of orphanDirs) {
+  failures++;
+  console.log(`FAILED    ${name} (vendored under plugins/ but not listed in marketplace.json)`);
 }
 
 const verifiedPath = path.join(ROOT, '.claude-plugin', 'verified.json');
